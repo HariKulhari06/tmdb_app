@@ -1,0 +1,22 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: rootProject.file('gradle/android.gradle')
+
+dependencies {
+    implementation Dep.Kotlin.stdlibJvm
+
+    api (Dep.Tmdb.tmdbJava)
+
+    implementation Dep.OkHttp.loggingInterceptor
+    implementation Dep.OkHttp.client
+
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+}

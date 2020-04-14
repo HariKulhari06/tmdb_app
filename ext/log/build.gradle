@@ -1,0 +1,13 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: rootProject.file('gradle/android.gradle')
+
+dependencies {
+    implementation Dep.Kotlin.stdlibJvm
+    implementation Dep.Timber.timber
+}

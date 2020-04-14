@@ -1,0 +1,40 @@
+import dependencies.Versions
+
+android {
+    compileSdkVersion Versions.androidCompileSdkVersion
+    defaultConfig {
+        minSdkVersion Versions.androidMinSdkVersion
+        targetSdkVersion Versions.androidTargetSdkVersion
+    }
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure {
+            enabled = false
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        def lintFile = file("${project.projectDir}/lint.xml")
+        if (lintFile.exists()) {
+            lintConfig lintFile
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+kotlin.sourceSets.all {
+    languageSettings {
+        progressiveMode = true
+    }
+}

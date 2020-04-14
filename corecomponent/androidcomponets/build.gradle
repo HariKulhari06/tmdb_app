@@ -1,0 +1,42 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+
+apply from: rootProject.file('gradle/android.gradle')
+android.dataBinding.enabled = true
+
+
+dependencies {
+    api(project(":data:model"))
+    api(project(":ext:log"))
+    implementation Dep.AndroidX.constraint
+    implementation Dep.AndroidX.design
+    implementation Dep.AndroidX.legacy
+    implementation Dep.Kotlin.stdlibJvm
+
+    api Dep.Insetter.insetter
+
+
+    api Dep.AndroidX.Navigation.runtimeKtx
+    api Dep.AndroidX.Navigation.fragmentKtx
+    api Dep.AndroidX.Navigation.uiKtx
+
+    api Dep.AndroidX.coreKtx
+    api Dep.AndroidX.liveDataKtx
+    api Dep.AndroidX.liveDataCoreKtx
+
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+
+    implementation Dep.Groupie.groupie
+
+    implementation Dep.Coil.coil
+
+    api Dep.Retrofit.retrofit
+    api Dep.OkHttp.loggingInterceptor
+}

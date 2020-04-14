@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_list_item">
+        <item>@string/favorite_movies</item>
+        <item>@string/favorite_tv_shows</item>
+        <item>@string/discussions</item>
+        <item>@string/custom_lists</item>
+        <item>@string/rated_movies</item>
+        <item>@string/rated_tv_shows</item>
+        <item>@string/watchlist</item>
+        <item>@string/logout</item>
+    </string-array>
+</resources>

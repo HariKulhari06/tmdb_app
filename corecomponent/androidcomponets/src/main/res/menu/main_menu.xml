@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/ic_movie_24dp"
+        android:title="@string/movies" />
+
+    <item
+        android:icon="@drawable/ic_tv_24px"
+        android:title="@string/tv_show" />
+
+    <item
+        android:icon="@drawable/ic_watchlist_24px"
+        android:title="@string/watchlist" />
+
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/ic_profile_24px"
+        android:title="@string/profile" />
+</menu>

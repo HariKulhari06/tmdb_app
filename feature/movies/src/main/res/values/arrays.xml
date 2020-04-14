@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="movie_main_tabs">
+        <item>@string/discover</item>
+        <item>@string/popular</item>
+        <item>@string/now_playing</item>
+        <item>@string/upcoming</item>
+        <item>@string/top_rated</item>
+    </string-array>
+</resources>

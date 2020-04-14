@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="favorite_tv_shows">Favorite TV Shows</string>
+    <string name="discussions">Discussions</string>
+    <string name="custom_lists">Custom Lists</string>
+    <string name="rated_movies">Rated Movies</string>
+    <string name="rated_tv_shows">Rated TV Shows</string>
+    <string name="watchlist">WatchList</string>
+    <string name="logout">Logout</string>
+</resources>

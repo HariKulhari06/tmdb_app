@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isCollapsed"
+            type="Boolean" />
+
+        <variable
+            name="isFiltered"
+            type="Boolean" />
+
+        <variable
+            name="isEmptyFavoritePage"
+            type="Boolean" />
+
+        <variable
+            name="isEventPage"
+            type="Boolean" />
+    </data>
+
+    <com.hari.tmdb.movie.widget.BottomSheetMotionLayout
+        android:id="@+id/session_motion_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:layoutDescription="@xml/fragment_bottom_sheet_sessions_scene">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <TextView
+            android:id="@+id/filtered_session_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:icon="@drawable/ic_filter_list_black_24dp"
+            app:isInvisible="@{!isFiltered}"
+            app:layout_constraintBottom_toBottomOf="@id/start_filter"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Applicable session: 12" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_filter"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{isFiltered ? @string/filter_now : @string/start_filter}"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:icon="@drawable/ic_filter_list_black_24dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/expand_less"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            android:src="@drawable/ic_expand_less_12dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/start_filter"
+            app:layout_constraintEnd_toEndOf="@id/start_filter"
+            app:layout_constraintTop_toTopOf="@id/start_filter"
+            app:tint="?attr/colorPrimary"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/black_alpha_12"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/start_filter" />
+
+        <View
+            android:id="@+id/divider_shadow"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@drawable/shape_drop_down_shadow"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movie_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:splitMotionEvents="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_shadow"
+            tools:listitem="@layout/movie_item" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/empty_session"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:isInvisible="@{isCollapsed || !isEmptyFavoritePage || isFiltered}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/empty_icon"
+                android:layout_width="56dp"
+                android:layout_height="72dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:tint="?colorSecondary"
+                app:layout_constraintBottom_toTopOf="@id/empty_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+
+            <TextView
+                android:id="@+id/empty_message"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/empty_favorite_session"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/empty_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.hari.tmdb.movie.widget.BottomSheetMotionLayout>
+</layout>

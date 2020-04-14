@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Tmdb.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+    </style>
+
+    <style name="Widget.Tmdb.TabLayout" parent="Widget.MaterialComponents.TabLayout.Colored">
+        <item name="tabIndicatorColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Widget.Tmdb.Movie.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearance">@null</item>
+    </style>
+
+    <style name="Widget.Tmdb.FilterChip" parent="">
+        <item name="android:textSize">14sp</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="horizontalPadding">10dp</item>
+        <item name="verticalPadding">6dp</item>
+        <item name="clearIcon">@drawable/ic_cancel</item>
+        <item name="foreground">?selectableItemBackground</item>
+        <item name="showIcons">true</item>
+        <item name="dotSize">10dp</item>
+        <item name="dotPadding">7dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:color">?colorSecondary</item>
+        <item name="clearIconTint">@color/filter_chip_clear_icon_selector</item>
+        <item name="selectedTextColor">?attr/colorSurface</item>
+        <item name="backgroundColor">@color/indigo_400</item>
+    </style>
+</resources>

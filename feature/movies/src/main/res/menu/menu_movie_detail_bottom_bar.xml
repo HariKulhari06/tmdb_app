@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share_outline_black_24dp"
+        android:title="@string/movie_share"
+        app:iconTint="?attr/colorOnPrimarySurface"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/movie_watchlist"
+        android:icon="@drawable/ic_watchlist_24px"
+        android:title="@string/movie_watchlist"
+        app:iconTint="?attr/colorOnPrimarySurface"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/movie_rating"
+        android:icon="@drawable/star_white"
+        android:title="@string/movie_rating"
+        app:iconTint="?attr/colorOnPrimarySurface"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/movie_custom_list"
+        android:icon="@drawable/list_white"
+        android:title="@string/movie_custom_list"
+        app:iconTint="?attr/colorOnPrimarySurface"
+        app:showAsAction="ifRoom" />
+</menu>

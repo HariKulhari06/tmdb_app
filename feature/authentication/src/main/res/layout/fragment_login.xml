@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".07" />
+
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/app_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline_top"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/label_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:gravity="center"
+            android:text="@string/millions_of_movies_tv_shows_and_people_to_discover"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/logo_image" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            app:layout_constraintBottom_toTopOf="@+id/password_input_layout"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/label_tag"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_between_view"
+            app:layout_constraintBottom_toTopOf="@+id/login_button"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/username_input_layout"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_button"
+            style="@style/Widget.Tmdb.Login.Button"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/screen_space"
+            android:elevation="5dp"
+            android:text="@string/login"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/create_button"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toBottomOf="@+id/password_input_layout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/guest_login_button"
+            style="@style/Widget.Tmdb.Login.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:text="@string/guest_login"
+            android:visibility="gone"
+            app:layout_constraintBaseline_toBaselineOf="@+id/login_button"
+            app:layout_constraintEnd_toStartOf="@+id/login_button"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+
+        <TextView
+            android:id="@+id/accountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:text="@string/don_t_have_an_account"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBaseline_toBaselineOf="@+id/create_button"
+            app:layout_constraintEnd_toStartOf="@+id/create_button"
+            app:layout_constraintHorizontal_chainStyle="spread_inside" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/create_button"
+            style="@style/Widget.Tmdb.Login.Button"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/screen_space"
+            android:backgroundTint="?attr/colorSecondary"
+            android:elevation="5dp"
+            android:text="@string/guest_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

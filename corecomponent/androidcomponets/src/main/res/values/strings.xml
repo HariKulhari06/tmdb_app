@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movies">Movies</string>
+    <string name="tv_show">TV Show</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="profile">Profile</string>
+
+    <!-- Widgets -->
+    <string name="description_filter_applied">%1$s filter applied</string>
+    <string name="description_filter_not_applied">%1$s filter not applied</string>
+
+
+    <string name="error_network" translatable="false">A network error has occurred.Please try again.</string>
+    <string name="error_server" translatable="false">A server error has occurred.Please try again.</string>
+    <string name="error_unknown" translatable="false">An unknown error has occurred.Please try again.</string>
+</resources>

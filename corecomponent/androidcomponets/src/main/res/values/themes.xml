@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Tmdb" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Text appearances -->
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Tmdb.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Tmdb.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Tmdb.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Tmdb.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Tmdb.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Tmdb.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Tmdb.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Tmdb.Button</item>
+
+        <!-- Widget styles -->
+        <item name="filterChipStyle">@style/Widget.Tmdb.FilterChip</item>
+    </style>
+
+    <style name="Theme.Tmdb" parent="Base.Theme.Tmdb">
+        <!-- Colors -->
+        <item name="colorPrimary">@color/indigo_900</item>
+        <item name="colorPrimaryVariant">@color/indigo_900</item>
+        <item name="colorSecondary">@color/light_blue_300</item>
+        <item name="colorSecondaryVariant">@color/light_blue_300</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnBackground">@color/black_alpha_87</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <item name="android:statusBarColor">@color/indigo_900</item>
+    </style>
+
+    <style name="Theme.Tmdb.DayNight" parent="Theme.Tmdb" />
+
+    <style name="Theme.Tmdb.ActionBar" parent="Theme.Tmdb">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/gray</item>
+    </style>
+</resources>

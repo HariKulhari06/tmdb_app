@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_elevation">1dp</dimen>
+    <dimen name="movie_poster_height">250dp</dimen>
+    <dimen name="movie_poster_card_radius">5dp</dimen>
+    <dimen name="movie_filter_chip_vertical_margin">8dp</dimen>
+    <dimen name="movie_filter_view_padding_bottom">24dp</dimen>
+</resources>

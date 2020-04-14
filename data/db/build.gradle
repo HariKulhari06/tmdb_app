@@ -1,0 +1,24 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: rootProject.file('gradle/android.gradle')
+
+dependencies {
+    implementation(project(":data:model"))
+    implementation Dep.Kotlin.stdlibJvm
+    implementation Dep.Kotlin.coroutines
+    implementation Dep.AndroidX.lifecycleLiveData
+
+    kapt Dep.AndroidX.Room.compiler
+    implementation Dep.AndroidX.Room.runtime
+    implementation Dep.AndroidX.Room.coroutine
+
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+}
