@@ -13,7 +13,6 @@ import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
 import com.hari.tmdb.groupie.CarouselItemDecoration
-import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MovieDetailFragmentBinding
 import com.hari.tmdb.movie.item.*
@@ -88,21 +87,7 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
 
         binding.movieDetailRecycler.transitionName = "movie"
 
-        adapter.add(
-            movieDetailTitleItemFactory.create(
-                Movie(
-                    1
-                )
-            )
-        )
 
-        adapter.add(
-            movieDetailAboutItemFactory.create(
-                Movie(
-                    1
-                )
-            )
-        )
 
         val carouselDecoration = CarouselItemDecoration(
             ContextCompat.getColor(
@@ -127,30 +112,14 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
 
     private fun castingGroup(carouselDecoration: CarouselItemDecoration): CarouselGroup {
         val relatedMoviesAdapter = GroupAdapter<GroupieViewHolder<*>>()
-        for (i in 0..9) {
-            relatedMoviesAdapter.add(
-                movieDetailCastingFactory.create(
-                    Movie(
-                        i
-                    )
-                )
-            )
-        }
+
         return CarouselGroup(carouselDecoration, relatedMoviesAdapter)
     }
 
 
     private fun relatedMoviesGroup(carouselDecoration: CarouselItemDecoration): CarouselGroup {
         val relatedMoviesAdapter = GroupAdapter<GroupieViewHolder<*>>()
-        for (i in 0..9) {
-            relatedMoviesAdapter.add(
-                movieDetailRelatedItemFactory.create(
-                    Movie(
-                        i
-                    )
-                )
-            )
-        }
+
         return CarouselGroup(carouselDecoration, relatedMoviesAdapter)
     }
 

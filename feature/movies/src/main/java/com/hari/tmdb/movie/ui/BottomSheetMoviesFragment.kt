@@ -16,7 +16,6 @@ import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.awaitNextLayout
 import com.hari.tmdb.model.ExpandFilterState.COLLAPSED
-import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.BottomSheetMoviesFragmentBinding
 import com.hari.tmdb.movie.item.MovieItem
@@ -55,8 +54,6 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = BottomSheetMoviesFragmentBinding.bind(view)
-
-        movieItemFactory.create(Movie(1))
 
         binding.isEmptyFavoritePage = false
         val groupAdapter = GroupAdapter<GroupieViewHolder<*>>()
