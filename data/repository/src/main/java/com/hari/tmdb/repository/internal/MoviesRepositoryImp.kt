@@ -1,7 +1,6 @@
 package com.hari.tmdb.repository.internal
 
 import com.hari.tmdb.db.internal.MoviesDataBase
-import com.hari.tmdb.db.internal.mapper.toGenre
 import com.hari.tmdb.ext.executeWithRetry
 import com.hari.tmdb.ext.toResult
 import com.hari.tmdb.log.Timber
@@ -9,6 +8,8 @@ import com.hari.tmdb.model.*
 import com.hari.tmdb.model.mapper.toLambda
 import com.hari.tmdb.model.repository.MoviesRepository
 import com.hari.tmdb.repository.internal.mapper.TmdbApiGenreResultsToTmdbGenre
+import com.hari.tmdb.repository.internal.mapper.toGenre
+import com.hari.tmdb.repository.internal.mapper.toMovies
 import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
 import com.uwetrottmann.tmdb2.entities.MovieResultsPage
 import com.uwetrottmann.tmdb2.services.GenresService
@@ -76,10 +77,10 @@ class MoviesRepositoryImp @Inject constructor(
 
             when (result) {
                 is Success -> {
-
+                    moviesDataBase.savePopularMovies(result.data.toMovies())
                 }
                 is ErrorResult -> {
-
+                    Timber.error(result.throwable)
                 }
             }
 
@@ -94,5 +95,6 @@ class MoviesRepositoryImp @Inject constructor(
 
 
 }
+
 
 

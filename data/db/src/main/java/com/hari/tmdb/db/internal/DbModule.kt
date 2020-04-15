@@ -3,6 +3,7 @@ package com.hari.tmdb.db.internal
 import android.content.Context
 import androidx.room.Room
 import com.hari.tmdb.db.internal.daos.GenreDao
+import com.hari.tmdb.db.internal.daos.PopularMovieDao
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,11 @@ internal abstract class DbModule {
         @Provides
         fun genreDao(database: CacheDatabase): GenreDao {
             return database.genreDao()
+        }
+
+        @Provides
+        fun popularMovieDao(database: CacheDatabase): PopularMovieDao {
+            return database.popularMovieDao()
         }
     }
 }

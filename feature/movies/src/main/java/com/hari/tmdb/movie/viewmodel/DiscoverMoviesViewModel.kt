@@ -44,6 +44,7 @@ class DiscoverMoviesViewModel @Inject constructor(
         try {
             viewModelScope.launch(Dispatchers.IO) {
                 moviesRepository.refresh()
+                moviesRepository.refreshPopularContents()
             }
         } catch (e: Exception) {
             // We can show sessions with cache
