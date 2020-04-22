@@ -2,11 +2,15 @@ package com.hari.tmdb.binding
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.view.View
+import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.hari.tmdb.util.AndroidRInteger
+import java.text.NumberFormat
+import java.util.*
 
 @BindingAdapter("isVisible")
 fun View.showGone(show: Boolean) {
@@ -46,4 +50,18 @@ fun View.showHideWithAnimation(show: Boolean) {
                 visibility = endVisible
             }
         })
+}
+
+@BindingAdapter("currency")
+fun TextView.currency(currency: Long) {
+    text = NumberFormat.getCurrencyInstance(Locale.US).format(currency)
+}
+
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("runtime")
+fun TextView.runtime(runtime: Int) {
+    val hours: Int = runtime / 60 //since both are ints, you get an int
+    val minutes: Int = runtime % 60
+    text = "$hours" + "h " + minutes + "m"
 }

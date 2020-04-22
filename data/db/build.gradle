@@ -9,6 +9,7 @@ apply from: rootProject.file('gradle/android.gradle')
 
 dependencies {
     implementation(project(":data:model"))
+    implementation(project(":data:api"))
     implementation Dep.Kotlin.stdlibJvm
     implementation Dep.Kotlin.coroutines
     implementation Dep.AndroidX.lifecycleLiveData

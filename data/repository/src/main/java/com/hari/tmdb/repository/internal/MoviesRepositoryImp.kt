@@ -5,31 +5,27 @@ import com.hari.tmdb.ext.executeWithRetry
 import com.hari.tmdb.ext.toResult
 import com.hari.tmdb.log.Timber
 import com.hari.tmdb.model.*
-import com.hari.tmdb.model.mapper.toLambda
 import com.hari.tmdb.model.repository.MoviesRepository
-import com.hari.tmdb.repository.internal.mapper.TmdbApiGenreResultsToTmdbGenre
-import com.hari.tmdb.repository.internal.mapper.toGenre
-import com.hari.tmdb.repository.internal.mapper.toMovies
-import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
-import com.uwetrottmann.tmdb2.entities.MovieResultsPage
+import com.uwetrottmann.tmdb2.entities.AppendToResponse
+import com.uwetrottmann.tmdb2.enumerations.AppendToResponseItem
 import com.uwetrottmann.tmdb2.services.GenresService
 import com.uwetrottmann.tmdb2.services.MoviesService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class MoviesRepositoryImp @Inject constructor(
     private val moviesDataBase: MoviesDataBase,
     private val genresService: GenresService,
-    private val moviesService: MoviesService,
-    private val discoverMovieBuilder: DiscoverMovieBuilder,
-    private val mapper: TmdbApiGenreResultsToTmdbGenre
+    private val moviesService: MoviesService
 ) : MoviesRepository {
-    override suspend fun refresh() {
+
+    override suspend fun refreshFilters() {
         try {
             val result = genresService.movie(null)
                 .executeWithRetry()
-                .toResult(mapper.toLambda())
+                .toResult()
 
             when (result) {
                 is Success -> {
@@ -44,20 +40,16 @@ class MoviesRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun getMovieGenres(): Flow<List<Genre>> = flow {
-        moviesDataBase.moviesGenre().collect { genreEntities ->
-            emit(genreEntities.map { it.toGenre() })
-        }
+    override suspend fun getMovieGenres(): Flow<List<Genre>> {
+        return moviesDataBase.moviesGenre()
     }
 
-    @ExperimentalCoroutinesApi
     override suspend fun getMovieFilters(): Flow<Filters> {
         val genreFlow = moviesDataBase.moviesGenre()
         val adultFlow = flowOf(listOf(true, false))
 
-        return combine(genreFlow, adultFlow) { genreEntities, adults ->
-            val genres = genreEntities
-                .map { it.toGenre() }
+        return combine(genreFlow, adultFlow) { genre, adults ->
+            val genres = genre
                 .sortedBy { it.name }
                 .toSet()
 
@@ -69,15 +61,43 @@ class MoviesRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun movieContents(id: Int): Flow<Movie> {
+        return moviesDataBase.movie(id)
+    }
+
+    override suspend fun refreshMovieDetails(id: Int) {
+        val result: Result<com.uwetrottmann.tmdb2.entities.Movie> = moviesService.summary(
+            id,
+            null,
+            AppendToResponse(
+                AppendToResponseItem.CREDITS,
+                AppendToResponseItem.TAGGED_IMAGES,
+                AppendToResponseItem.VIDEOS,
+                AppendToResponseItem.SIMILAR
+            )
+        ).executeWithRetry()
+            .toResult()
+
+        when (result) {
+            is Success -> {
+                moviesDataBase.saveMovie(result.data)
+            }
+            is ErrorResult -> {
+                Timber.error(result.throwable)
+            }
+        }
+
+    }
+
     override suspend fun refreshPopularContents() {
         try {
-            val result: Result<MovieResultsPage> = moviesService.popular(1, null, null)
+            val result = moviesService.popular(1, null, null)
                 .executeWithRetry()
                 .toResult()
 
             when (result) {
                 is Success -> {
-                    moviesDataBase.savePopularMovies(result.data.toMovies())
+                    moviesDataBase.savePopularMovies(result.data)
                 }
                 is ErrorResult -> {
                     Timber.error(result.throwable)
@@ -89,11 +109,9 @@ class MoviesRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun popularContents(page: Int) {
-
+    override suspend fun popularContents(page: Int): Flow<List<Movie>> {
+        return moviesDataBase.popularMovies()
     }
-
-
 }
 
 

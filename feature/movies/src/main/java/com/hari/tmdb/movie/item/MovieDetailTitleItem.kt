@@ -2,6 +2,8 @@ package com.hari.tmdb.movie.item
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import coil.Coil
+import coil.api.load
 import coil.request.RequestDisposable
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
@@ -12,21 +14,40 @@ import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.GroupieViewHolder
 
 class MovieDetailTitleItem @AssistedInject constructor(
-    @Assisted private val movie: Movie,
+    @Assisted private val movieData: Movie,
     private val lifecycleOwnerLiveData: LiveData<LifecycleOwner>
-) : BindableItem<ItemMovieDetailTitleBinding>(movie.id.hashCode().toLong()) {
+) : BindableItem<ItemMovieDetailTitleBinding>(movieData.id.hashCode().toLong()) {
 
     private val imageRequestDisposables = mutableListOf<RequestDisposable>()
-
-    companion object {
-        private const val TRANSITION_NAME_SUFFIX = "movie"
-    }
 
     override fun getLayout(): Int = R.layout.item_movie_detail_title
 
     override fun bind(viewBinding: ItemMovieDetailTitleBinding, position: Int) {
         with(viewBinding) {
+            viewBinding.movie = movieData
+            imageRequestDisposables += Coil.load(
+                posterImage.context,
+                "https://image.tmdb.org/t/p/w500/${movie?.posterPath}"
+            ) {
+                crossfade(true)
+                placeholder(R.drawable.placeholder_72dp)
+                lifecycle(lifecycleOwnerLiveData.value)
+                target {
+                    posterImage.setImageDrawable(it)
+                }
+            }
 
+            imageRequestDisposables += Coil.load(
+                productionImage.context,
+                "https://image.tmdb.org/t/p/w300/${movie?.productionCompanyPath}"
+            ) {
+                crossfade(true)
+                placeholder(R.drawable.placeholder_72dp)
+                lifecycle(lifecycleOwnerLiveData.value)
+                target {
+                    productionImage.setImageDrawable(it)
+                }
+            }
             imageRequestDisposables.clear()
         }
     }
@@ -39,7 +60,7 @@ class MovieDetailTitleItem @AssistedInject constructor(
     @AssistedInject.Factory
     interface Factory {
         fun create(
-            movie: Movie
+            movieData: Movie
         ): MovieDetailTitleItem
     }
 }

@@ -33,30 +33,45 @@
     <fragment
         android:id="@+id/main"
         android:name="com.hari.tmdb.movie.ui.MainMovieFragment"
-        android:label="MOOOV" />
+        android:label="MOOOV">
 
-
-    <fragment
-        android:id="@+id/movies"
-        android:name="com.hari.tmdb.movie.ui.MoviesFragment"
-        android:label="MainMovieFragment">
         <action
             android:id="@+id/action_movies_to_movieDetail"
             app:destination="@id/movieDetails"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
+        android:id="@+id/movies"
+        android:name="com.hari.tmdb.movie.ui.MoviesFragment"
+        android:label="MainMovieFragment"></fragment>
+
+    <fragment
         android:id="@+id/movieDetails"
         android:name="com.hari.tmdb.movie.ui.MovieDetailFragment"
-        android:label="Movie Detail">
+        android:label="{title}">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
 
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/moviesPage"
+        android:name="com.hari.tmdb.account.ui.MoviesPageFragment"
+        android:label="Account">
 
+        <argument
+            android:name="page"
+            app:argType="com.hari.tmdb.model.MoviePage" />
+
+
+    </fragment>
     <fragment
         android:id="@+id/account"
         android:name="com.hari.tmdb.account.ui.AccountFragment"

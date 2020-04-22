@@ -8,7 +8,7 @@ import dagger.Module
 internal abstract class RepositoryModule {
 
     @Binds
-    abstract fun filtersRepository(impl: MoviesRepositoryImp): MoviesRepository
+    abstract fun movieRepository(impl: MoviesRepositoryImp): MoviesRepository
 
     @Module
     internal object Providers

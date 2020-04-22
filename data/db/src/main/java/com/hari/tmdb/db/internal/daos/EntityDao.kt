@@ -1,13 +1,10 @@
 package com.hari.tmdb.db.internal.daos
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Transaction
-import androidx.room.Update
+import androidx.room.*
 import com.hari.tmdb.model.TmdbEntity
 
 abstract class EntityDao<in E : TmdbEntity> {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(entity: E): Long
 
     @Insert

@@ -32,4 +32,6 @@
     <string name="start_filter">Filter</string>
     <string name="filter_now">Filtering</string>
     <string name="empty_favorite_session">You choose your favorite sessions, then you can make a plan for you.</string>
+    <string name="votes">Votes</string>
+    <string name="read_more">Read More</string>
 </resources>

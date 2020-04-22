@@ -11,6 +11,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MovieItemBinding
+import com.hari.tmdb.movie.ui.MainMovieFragmentDirections.Companion.actionMoviesToMovieDetail
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.xwray.groupie.databinding.BindableItem
@@ -33,9 +34,10 @@ class MovieItem @AssistedInject constructor(
         with(viewBinding) {
             imageRequestDisposables += Coil.load(
                 imageViewPoster.context,
-                "https://image.tmdb.org/t/p/original/vHqpFuguBugZZfXIyjsb4tOAXve.jpg"
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
             ) {
                 crossfade(true)
+                placeholder(R.drawable.placeholder_72dp)
                 lifecycle(lifecycleOwnerLiveData.value)
                 target {
                     imageViewPoster.setImageDrawable(it)
@@ -51,7 +53,8 @@ class MovieItem @AssistedInject constructor(
                     root to root.transitionName
                 )
                 root.findNavController().navigate(
-                    R.id.movieDetails, null, null, extra
+                    actionMoviesToMovieDetail(movieId = movie.id, title = movie.title),
+                    extra
                 )
             }
             root.transitionName = TRANSITION_NAME_SUFFIX

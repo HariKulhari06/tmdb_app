@@ -20,6 +20,7 @@ dependencies {
     implementation Dep.Kotlin.stdlibJvm
 
     api Dep.Insetter.insetter
+    api Dep.AndroidX.recyclerViewAnimation
 
 
     api Dep.AndroidX.Navigation.runtimeKtx
