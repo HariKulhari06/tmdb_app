@@ -8,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.transition.Hold
 import com.hari.tmdb.di.Injectable
@@ -53,6 +54,9 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
 
     @Inject
     lateinit var movieDetailAboutItemFactory: MovieDetailAboutItem.Factory
+
+    @Inject
+    lateinit var movieDetailVideosItemFactory: MovieDetailVideoItem.Factory
 
     @Inject
     lateinit var movieDetailRelatedItemFactory: MovieDetailRelated.Factory
@@ -114,35 +118,58 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
                 items += movieDetailAboutItemFactory.create(movie)
 
                 adapter.update(items)
+
+                val castingSection =
+                    Section(HeaderItem(titleStringResId = R.string.top_paid_casting) {})
+                castingSection.setHideWhenEmpty(true)
+
+                val castingAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                castingAdapter.addAll(
+                    movie.cast.sortedBy { it.order }.map { cast ->
+                        movieDetailCastingFactory.create(cast)
+                    }
+                )
+
+                castingSection.add(
+                    CarouselGroup(
+                        itemDecoration = carouselDecoration,
+                        adapter = castingAdapter,
+                        layoutManager = linearLayoutManager()
+                    )
+                )
+                adapter.add(castingSection)
+
+
+                val videoSection = Section(HeaderItem(titleStringResId = R.string.videos) {})
+                videoSection.setHideWhenEmpty(true)
+
+                val videoAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                videoAdapter.addAll(
+                    movie.videos.map { video ->
+                        movieDetailVideosItemFactory.create(video)
+                    }
+                )
+
+                videoSection.add(
+                    CarouselGroup(
+                        adapter = videoAdapter,
+                        layoutManager = linearLayoutManager()
+                    )
+                )
+                adapter.add(videoSection)
             }
 
         })
 
 
-        val castingSection = Section(HeaderItem(titleStringResId = R.string.top_paid_casting) {})
-        castingSection.setHideWhenEmpty(true)
-        castingSection.add(castingGroup(carouselDecoration))
-        adapter.add(castingSection)
-
-        val relatedMovieSection = Section(HeaderItem(titleStringResId = R.string.releted_movies) {})
-        relatedMovieSection.setHideWhenEmpty(true)
-        relatedMovieSection.add(relatedMoviesGroup(carouselDecoration))
-        adapter.add(relatedMovieSection)
-
         //  startPostponedEnterTransition()
     }
 
-    private fun castingGroup(carouselDecoration: CarouselItemDecoration): CarouselGroup {
-        val relatedMoviesAdapter = GroupAdapter<GroupieViewHolder<*>>()
 
-        return CarouselGroup(carouselDecoration, relatedMoviesAdapter)
-    }
-
-
-    private fun relatedMoviesGroup(carouselDecoration: CarouselItemDecoration): CarouselGroup {
-        val relatedMoviesAdapter = GroupAdapter<GroupieViewHolder<*>>()
-
-        return CarouselGroup(carouselDecoration, relatedMoviesAdapter)
+    private fun linearLayoutManager(): LinearLayoutManager {
+        return LinearLayoutManager(requireContext()).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
+        }
     }
 
 }

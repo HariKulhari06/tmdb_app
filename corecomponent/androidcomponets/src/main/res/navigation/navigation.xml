@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/movies"
         android:name="com.hari.tmdb.movie.ui.MoviesFragment"
-        android:label="MainMovieFragment"></fragment>
+        android:label="MainMovieFragment" />
 
     <fragment
         android:id="@+id/movieDetails"

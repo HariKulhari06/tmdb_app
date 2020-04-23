@@ -23,6 +23,8 @@ Movie(
     var video: Boolean,
     var voteAverage: Double,
     var voteCount: Int,
-    var productionCompanyPath: String? = null
+    var productionCompanyPath: String? = null,
+    var videos: List<Video> = emptyList(),
+    var cast: List<Cast> = emptyList()
 ) : TmdbEntity
 

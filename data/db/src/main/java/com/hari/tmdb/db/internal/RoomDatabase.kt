@@ -1,9 +1,7 @@
 package com.hari.tmdb.db.internal
 
 import androidx.room.withTransaction
-import com.hari.tmdb.db.internal.daos.GenreDao
-import com.hari.tmdb.db.internal.daos.MovieDao
-import com.hari.tmdb.db.internal.daos.PopularMovieDao
+import com.hari.tmdb.db.internal.daos.*
 import com.hari.tmdb.db.internal.mapper.*
 import com.hari.tmdb.model.Genre
 import com.hari.tmdb.model.Movie
@@ -15,11 +13,16 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import com.uwetrottmann.tmdb2.entities.Movie as TmdbMovie
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 internal class RoomDatabase @Inject constructor(
     private val cacheDatabase: CacheDatabase,
     private val genreDao: GenreDao,
     private val movieDao: MovieDao,
-    private val popularMovieDao: PopularMovieDao
+    private val popularMovieDao: PopularMovieDao,
+    private val imageDao: ImageDao,
+    private val relatedMoviesDao: RelatedMoviesDao,
+    private val videoDao: VideoDao,
+    private val castingDao: CastingDao
 ) : MoviesDataBase {
     override suspend fun moviesGenre(): Flow<List<Genre>> {
         return genreDao.movieGenre().map { genreEntities ->
@@ -31,18 +34,41 @@ internal class RoomDatabase @Inject constructor(
         genreDao.insertAll(genreResultsToGenre.map(result))
     }
 
-    override suspend fun movie(id: Int): Flow<Movie> =
-        movieDao.movie(id).map { movieEntity ->
-            val movie = movieEntityToMovie.map(movieEntity)
+    override suspend fun movie(id: Int): Flow<Movie> {
+        return movieDao.entriesObservable(id).map { movieContents ->
+
+            val movie = movieEntityToMovie.map(movieContents.entry)
+
             movie.genres = genreEntityToGenre.forLists()
-                .invoke(genreDao.movieGenre(movieEntity.genreIds?.split(",")?.map { it.toInt() }
-                    ?: emptyList()))
+                .invoke(
+                    genreDao.movieGenre(
+                        movieContents.entry.genreIds?.split(",")?.map { it.toInt() }
+                            ?: emptyList()))
+
+            movie.videos =
+                movieContents.videos.map { videoEntity -> videoEntityToVideo.map(videoEntity) }
+
+            movie.cast =
+                movieContents.casting.map { castingEntityImp ->
+                    castingEntityToCast.map(
+                        castingEntityImp
+                    )
+                }
+
             movie
         }
+    }
 
     override suspend fun saveMovie(movie: TmdbMovie) {
         cacheDatabase.withTransaction {
             movieDao.update(movieToMovieEntityMapper.map(movie))
+            imageDao.saveImages(movie.id, tmdbMovieToImageEntityImp.map(movie))
+            videoDao.saveVideos(movie.id, tmdbMoviesToVideoEntity.map(movie))
+            castingDao.saveCasting(movie.id, tmdbMoviesToCastingImp.map(movie))
+            movieToRelatedMovieEntity.map(movie).map {
+                movieDao.insert(it.first)
+                relatedMoviesDao.insert(it.second)
+            }
         }
     }
 
