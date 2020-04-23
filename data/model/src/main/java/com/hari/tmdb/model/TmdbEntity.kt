@@ -11,3 +11,7 @@ interface Entry : TmdbEntity {
 interface PaginatedEntry : Entry {
     val page: Int
 }
+
+interface MultipleEntry : Entry {
+    val otherMovieId: Int
+}

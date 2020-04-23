@@ -5,46 +5,44 @@ import androidx.lifecycle.LiveData
 import coil.Coil
 import coil.api.load
 import coil.request.RequestDisposable
-import com.hari.tmdb.model.Cast
+import com.hari.tmdb.model.Video
 import com.hari.tmdb.movie.R
-import com.hari.tmdb.movie.databinding.ItemMovieCastingBinding
+import com.hari.tmdb.movie.databinding.ItemMovieVideoBinding
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.GroupieViewHolder
 
-class MovieDetailCasting @AssistedInject constructor(
-    @Assisted private val cast: Cast,
+class MovieDetailVideoItem @AssistedInject constructor(
+    @Assisted private val video: Video,
     private val lifecycleOwnerLiveData: LiveData<LifecycleOwner>
-) : BindableItem<ItemMovieCastingBinding>(cast.id.hashCode().toLong()) {
+) : BindableItem<ItemMovieVideoBinding>(video.id.hashCode().toLong()) {
 
     private val imageRequestDisposables = mutableListOf<RequestDisposable>()
 
-    companion object {
-        private const val TRANSITION_NAME_SUFFIX = "movie"
-    }
 
-    override fun getLayout(): Int = R.layout.item_movie_casting
+    override fun getLayout(): Int = R.layout.item_movie_video
 
-    override fun bind(viewBinding: ItemMovieCastingBinding, position: Int) {
+    override fun bind(viewBinding: ItemMovieVideoBinding, position: Int) {
         with(viewBinding) {
             imageRequestDisposables += Coil.load(
-                profileImage.context,
-                "https://image.tmdb.org/t/p/original/${cast.profilePath}"
+                videoThumbnail.context,
+                "https://img.youtube.com/vi/${video.key}/maxresdefault.jpg"
             ) {
                 crossfade(true)
                 lifecycle(lifecycleOwnerLiveData.value)
                 target {
-                    profileImage.setImageDrawable(it)
+                    videoThumbnail.setImageDrawable(it)
                 }
             }
-            castName.text = cast.name
-            castCharacter.text = cast.character
+            root.setOnClickListener {
+
+            }
             imageRequestDisposables.clear()
         }
     }
 
-    override fun unbind(viewHolder: GroupieViewHolder<ItemMovieCastingBinding>) {
+    override fun unbind(viewHolder: GroupieViewHolder<ItemMovieVideoBinding>) {
         super.unbind(viewHolder)
         imageRequestDisposables.forEach { it.dispose() }
     }
@@ -52,7 +50,7 @@ class MovieDetailCasting @AssistedInject constructor(
     @AssistedInject.Factory
     interface Factory {
         fun create(
-            cast: Cast
-        ): MovieDetailCasting
+            video: Video
+        ): MovieDetailVideoItem
     }
 }

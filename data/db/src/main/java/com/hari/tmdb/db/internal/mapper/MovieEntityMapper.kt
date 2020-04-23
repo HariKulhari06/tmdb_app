@@ -6,6 +6,7 @@
 package com.hari.tmdb.db.internal.mapper
 
 import com.hari.tmdb.db.internal.entity.MovieEntityImp
+import com.hari.tmdb.db.internal.entity.RelatedMovieEntity
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.model.mapper.Mapper
 import com.uwetrottmann.tmdb2.entities.BaseCompany
@@ -79,6 +80,23 @@ val movieToMovieEntityMapper = object : Mapper<TmdbMovie, MovieEntityImp> {
         return path
     }
 }
+
+val movieToRelatedMovieEntity =
+    object : Mapper<TmdbMovie, List<Pair<MovieEntityImp, RelatedMovieEntity>>> {
+        override suspend fun map(from: TmdbMovie): List<Pair<MovieEntityImp, RelatedMovieEntity>> {
+
+            return from.similar.results.map { baseMovie ->
+                val movieEntityImp = baseMovieToMovieEntityMapper.map(baseMovie)
+                val relatedMovieEntity = RelatedMovieEntity(
+                    movieId = baseMovie.id,
+                    otherMovieId = from.id,
+                    orderIndex = 1
+                )
+                movieEntityImp to relatedMovieEntity
+            }
+        }
+
+    }
 
 val movieEntityToMovie = object : Mapper<MovieEntityImp, Movie> {
     override suspend fun map(from: MovieEntityImp): Movie = Movie(

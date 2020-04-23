@@ -66,25 +66,29 @@ class MoviesRepositoryImp @Inject constructor(
     }
 
     override suspend fun refreshMovieDetails(id: Int) {
-        val result: Result<com.uwetrottmann.tmdb2.entities.Movie> = moviesService.summary(
-            id,
-            null,
-            AppendToResponse(
-                AppendToResponseItem.CREDITS,
-                AppendToResponseItem.TAGGED_IMAGES,
-                AppendToResponseItem.VIDEOS,
-                AppendToResponseItem.SIMILAR
-            )
-        ).executeWithRetry()
-            .toResult()
+        try {
+            val result: Result<com.uwetrottmann.tmdb2.entities.Movie> = moviesService.summary(
+                id,
+                null,
+                AppendToResponse(
+                    AppendToResponseItem.CREDITS,
+                    AppendToResponseItem.IMAGES,
+                    AppendToResponseItem.VIDEOS,
+                    AppendToResponseItem.SIMILAR
+                )
+            ).executeWithRetry()
+                .toResult()
 
-        when (result) {
-            is Success -> {
-                moviesDataBase.saveMovie(result.data)
+            when (result) {
+                is Success -> {
+                    moviesDataBase.saveMovie(result.data)
+                }
+                is ErrorResult -> {
+                    Timber.error(result.throwable)
+                }
             }
-            is ErrorResult -> {
-                Timber.error(result.throwable)
-            }
+        } catch (e: Exception) {
+            Timber.error(e)
         }
 
     }
