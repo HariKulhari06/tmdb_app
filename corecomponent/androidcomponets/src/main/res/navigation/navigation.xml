@@ -59,6 +59,10 @@
         <argument
             android:name="title"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_movieDetail_to_castingProfile"
+            app:destination="@id/castingProfile" />
     </fragment>
 
     <fragment
@@ -76,6 +80,13 @@
         android:id="@+id/account"
         android:name="com.hari.tmdb.account.ui.AccountFragment"
         android:label="Account">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/castingProfile"
+        android:name="com.hari.tmdb.movie.ui.CastingDetailFragment"
+        android:label="Cast Profile">
 
     </fragment>
 

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:scaleType="centerCrop"
+            android:src="@drawable/circuler_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:text="Hari Singh Kulhari"
+            android:textAppearance="@style/TextAppearance.Tmdb.Headline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+        <TextView
+            android:id="@+id/text_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_between_view"
+            android:text="Associate Producer"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_name" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/screen_space"
+            android:background="?attr/colorSurface"
+            android:backgroundTint="@color/divider_colors"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/text_job" />
+
+        <LinearLayout
+            android:id="@+id/known"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_known_for"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/known_for"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6" />
+
+            <TextView
+                android:id="@+id/text_known_for"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acting"
+                android:textAppearance="?attr/textAppearanceCaption" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/known_credits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_known_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/known_credits"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6" />
+
+            <TextView
+                android:id="@+id/text_known_credits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:textAppearance="?attr/textAppearanceCaption" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6" />
+
+            <TextView
+                android:id="@+id/text_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textAppearance="?attr/textAppearanceCaption" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/birthday"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6" />
+
+            <TextView
+                android:id="@+id/text_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1986-10-23 (33 years old)"
+                android:textAppearance="?attr/textAppearanceCaption" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/birthday_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_birthday_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_of_birth"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6" />
+
+            <TextView
+                android:id="@+id/text_birthday_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="London, England, UK"
+                android:textAppearance="?attr/textAppearanceCaption" />
+
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_spkace"
+            app:constraint_referenced_ids="known,known_credits,gender,birthday,birthday_place"
+            app:flow_horizontalGap="@dimen/screen_between_view"
+            app:flow_horizontalStyle="spread_inside"
+            app:flow_maxElementsWrap="3"
+            app:flow_verticalAlign="top"
+            app:flow_verticalGap="@dimen/screen_between_view"
+            app:flow_verticalStyle="spread_inside"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+
+        <TextView
+            android:id="@+id/title_known_as"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_between_view"
+            android:text="@string/also_known_as"
+            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/flow" />
+
+        <TextView
+            android:id="@+id/text_known_as"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Emilia Isabelle Euphemia Rose Clarke 艾米莉亚·克拉克 Αιμιλία Κλαρκ Эмилия Кларк Емілія Кларк 에밀리아 클라크"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/title_known_as" />
+
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/screen_space"
+            android:background="?attr/colorSurface"
+            android:backgroundTint="@color/divider_colors"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/text_known_as" />
+
+
+        <TextView
+            android:id="@+id/text_bio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:text="Emilia Isabelle Euphemia Rose Clarke (born 23 October 1986) is an English actress."
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

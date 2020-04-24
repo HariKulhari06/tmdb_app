@@ -2,12 +2,15 @@ package com.hari.tmdb.movie.item
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import coil.Coil
 import coil.api.load
 import coil.request.RequestDisposable
 import com.hari.tmdb.model.Cast
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.ItemMovieCastingBinding
+import com.hari.tmdb.movie.ui.MovieDetailFragmentDirections.Companion.actionMovieDetailToCastingProfile
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.xwray.groupie.databinding.BindableItem
@@ -40,6 +43,18 @@ class MovieDetailCasting @AssistedInject constructor(
             }
             castName.text = cast.name
             castCharacter.text = cast.character
+
+            val extra = FragmentNavigatorExtras(
+                itemRoot to itemRoot.transitionName
+            )
+
+
+            itemRoot.setOnClickListener {
+                itemRoot.findNavController().navigate(
+                    actionMovieDetailToCastingProfile(),
+                    extra
+                )
+            }
             imageRequestDisposables.clear()
         }
     }
