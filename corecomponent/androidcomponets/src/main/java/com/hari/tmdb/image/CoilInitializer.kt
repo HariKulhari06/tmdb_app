@@ -10,6 +10,8 @@ object CoilInitializer {
     fun init(context: Context) {
         Coil.setDefaultImageLoader {
             ImageLoader(context) {
+                allowHardware(false)
+                bitmapPoolPercentage(0.5)
                 okHttpClient { buildHttpClient(context) }
             }
         }

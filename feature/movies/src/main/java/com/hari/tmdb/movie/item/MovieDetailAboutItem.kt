@@ -1,15 +1,19 @@
 package com.hari.tmdb.movie.item
 
+import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import coil.request.RequestDisposable
+import com.google.android.material.chip.Chip
+import com.hari.tmdb.model.Genre
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.ItemMovieDetailAboutBinding
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.xwray.groupie.databinding.BindableItem
-import com.xwray.groupie.databinding.GroupieViewHolder
 
 class MovieDetailAboutItem @AssistedInject constructor(
     @Assisted private val movie: Movie,
@@ -18,23 +22,32 @@ class MovieDetailAboutItem @AssistedInject constructor(
 
     private val imageRequestDisposables = mutableListOf<RequestDisposable>()
 
-    companion object {
-        private const val TRANSITION_NAME_SUFFIX = "movie"
-    }
 
     override fun getLayout(): Int = R.layout.item_movie_detail_about
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun bind(viewBinding: ItemMovieDetailAboutBinding, position: Int) {
         with(viewBinding) {
+            aboutTagline.text = movie.tagLine
+            aboutText.text = movie.overview
 
-            imageRequestDisposables.clear()
+            genreChipGroup.removeAllViews()
+            movie.genres?.forEach { chip ->
+                genreChipGroup.addView(createGenreChip(genreChipGroup.context, chip))
+            }
+
         }
     }
 
-    override fun unbind(viewHolder: GroupieViewHolder<ItemMovieDetailAboutBinding>) {
-        super.unbind(viewHolder)
-        imageRequestDisposables.forEach { it.dispose() }
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun createGenreChip(context: Context, genre: Genre): Chip {
+        return Chip(context).apply {
+            text = genre.name
+            chipBackgroundColor = context.getColorStateList(R.color.cyan_50)
+            isClickable = false
+        }
     }
+
 
     @AssistedInject.Factory
     interface Factory {

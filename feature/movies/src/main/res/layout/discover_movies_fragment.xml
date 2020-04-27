@@ -14,7 +14,6 @@
             android:layout_height="match_parent">
 
             <ScrollView
-                android:paddingBottom="@dimen/bottom_sheet_default_peek_height"
                 android:id="@+id/fragment_sessions_scroll_view"
                 style="@style/Widget.Tmdb.Backdrop.BackLayer"
                 android:layout_width="match_parent"

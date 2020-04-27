@@ -15,6 +15,7 @@
     <string name="releted_movies">Related Movies</string>
     <string name="about_movie">About Movie</string>
     <string name="top_paid_casting">Top Paid Casting</string>
+    <string name="videos">Videos</string>
 
 
     <string name="popular">Popular</string>
@@ -32,4 +33,12 @@
     <string name="start_filter">Filter</string>
     <string name="filter_now">Filtering</string>
     <string name="empty_favorite_session">You choose your favorite sessions, then you can make a plan for you.</string>
+    <string name="votes">Votes</string>
+    <string name="read_more">Read More</string>
+    <string name="known_for">Known For</string>
+    <string name="known_credits">Known Credits</string>
+    <string name="gender">Gender</string>
+    <string name="birthday">Birthday</string>
+    <string name="place_of_birth">Place of Birth</string>
+    <string name="also_known_as">Also Known As</string>
 </resources>

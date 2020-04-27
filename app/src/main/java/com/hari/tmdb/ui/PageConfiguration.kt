@@ -9,7 +9,8 @@ enum class PageConfiguration(
     val hasTitle: Boolean = true,
     val isShowLogoImage: Boolean = false,
     val hideToolbar: Boolean = false,
-    val hideBottomNavigationMenu: Boolean = false
+    val hideBottomNavigationMenu: Boolean = false,
+    val isTopLevel: Boolean = false
 ) {
 
     SPLASH(
@@ -36,6 +37,12 @@ enum class PageConfiguration(
         R.id.account,
         hasTitle = true,
         hideToolbar = true
+    ),
+    CASTING(
+        R.id.people,
+        hasTitle = true,
+        hideBottomNavigationMenu = true,
+        isIndigoBackground = false
     ),
     OTHER(0);
 

@@ -13,4 +13,8 @@
     <string name="error_network" translatable="false">A network error has occurred.Please try again.</string>
     <string name="error_server" translatable="false">A server error has occurred.Please try again.</string>
     <string name="error_unknown" translatable="false">An unknown error has occurred.Please try again.</string>
+
+    <string name="not_specified">Not specified</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>

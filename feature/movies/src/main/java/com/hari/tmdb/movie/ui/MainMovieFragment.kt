@@ -7,8 +7,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.hari.tmdb.account.ui.MoviesPageFragmentArgs
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
+import com.hari.tmdb.model.MoviePage
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MainMovieFragmentBinding
 import com.hari.tmdb.movie.viewmodel.MoviesViewModel
@@ -60,8 +62,10 @@ class MainMovieFragment : Fragment(R.layout.main_movie_fragment), HasAndroidInje
 
         binding.moviesViewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount() = tabTitle.size
-            override fun createFragment(position: Int) =
-                if (position == 0) DiscoverMoviesFragment() else MoviesFragment()
+            override fun createFragment(position: Int): Fragment =
+                if (position == 0) DiscoverMoviesFragment() else MoviesPageFragment.newInstance(
+                    MoviesPageFragmentArgs(MoviePage.gePage(position))
+                )
         }
 
         tabLayoutMediator.attach()
@@ -73,6 +77,9 @@ abstract class MainMovieFragmentModule {
 
     @ContributesAndroidInjector(modules = [DiscoverMovieFragmentModule::class])
     abstract fun contributeDiscoverPageFragment(): DiscoverMoviesFragment
+
+    @ContributesAndroidInjector(modules = [MoviePageFragmentModule::class])
+    abstract fun contributeMoviesPageFragment(): MoviesPageFragment
 
     companion object {
         @PageScope

@@ -10,6 +10,9 @@ abstract class GenreDao : EntityDao<GenreEntityImp>() {
     @Query("SELECT * FROM genre")
     abstract fun movieGenre(): Flow<List<GenreEntityImp>>
 
+    @Query("SELECT * FROM genre WHERE id IN(:ids)")
+    abstract fun movieGenre(ids: List<Int>): List<GenreEntityImp>
+
     @Query("DELETE FROM genre")
     abstract fun deleteAll()
 }

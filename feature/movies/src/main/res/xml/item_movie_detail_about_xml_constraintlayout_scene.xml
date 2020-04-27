@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="50">
+        <KeyFrameSet />
+        <OnClick
+            motion:clickAction="toggle"
+            motion:targetId="@+id/about_text" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/about_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:layout_marginBottom="@dimen/screen_between_view"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end"
+            motion:layout_constraintStart_toStartOf="@+id/guideline_start"
+            motion:layout_constraintTop_toBottomOf="@+id/about_title">
+            <CustomAttribute
+                motion:attributeName="maxLines"
+                motion:customIntegerValue="4" />
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/about_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:layout_marginBottom="@dimen/screen_between_view"
+            motion:layout_constraintEnd_toEndOf="@id/guideline_end"
+            motion:layout_constraintStart_toStartOf="@+id/guideline_start"
+            motion:layout_constraintTop_toBottomOf="@+id/about_title">
+            <CustomAttribute
+                motion:attributeName="maxLines"
+                motion:customIntegerValue="100" />
+        </Constraint>
+
+    </ConstraintSet>
+</MotionScene>

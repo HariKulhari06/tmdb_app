@@ -1,6 +1,7 @@
 package com.hari.tmdb.repository.internal
 
 import com.hari.tmdb.model.repository.MoviesRepository
+import com.hari.tmdb.model.repository.PeoplesRepository
 import dagger.Binds
 import dagger.Module
 
@@ -8,7 +9,10 @@ import dagger.Module
 internal abstract class RepositoryModule {
 
     @Binds
-    abstract fun filtersRepository(impl: MoviesRepositoryImp): MoviesRepository
+    abstract fun movieRepository(impl: MoviesRepositoryImp): MoviesRepository
+
+    @Binds
+    abstract fun peopleRepository(impl: PeoplesRepositoryImp): PeoplesRepository
 
     @Module
     internal object Providers

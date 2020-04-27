@@ -1,6 +1,7 @@
 package com.hari.tmdb.ext
 
 import com.hari.tmdb.model.ErrorResult
+import com.hari.tmdb.model.LoadState
 import com.hari.tmdb.model.Result
 import com.hari.tmdb.model.Success
 import kotlinx.coroutines.delay
@@ -94,3 +95,15 @@ suspend fun <T, E> Response<T>.toResult(mapper: suspend (T) -> E): Result<E> {
 }
 
 
+@Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
+suspend fun <T, E> Response<T>.toLoadState(mapper: suspend (T) -> E): LoadState<E> {
+    return try {
+        if (isSuccessful) {
+            LoadState.Loaded(value = mapper(bodyOrThrow()))
+        } else {
+            LoadState.Error(toException())
+        }
+    } catch (e: Exception) {
+        LoadState.Error(e)
+    }
+}

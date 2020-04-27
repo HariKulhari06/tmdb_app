@@ -2,6 +2,7 @@ package com.hari.tmdb
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
@@ -16,12 +17,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.hari.tmdb.databinding.ActivityMainBinding
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
+import com.hari.tmdb.ext.getThemeColor
 import com.hari.tmdb.ext.stringRes
 import com.hari.tmdb.movie.di.MovieAssistedInjectModule
-import com.hari.tmdb.movie.ui.MainMovieFragment
-import com.hari.tmdb.movie.ui.MainMovieFragmentModule
-import com.hari.tmdb.movie.ui.MovieDetailFragment
-import com.hari.tmdb.movie.ui.MovieDetailFragmentModule
+import com.hari.tmdb.movie.ui.*
 import com.hari.tmdb.system.viewmodel.SystemViewModel
 import com.hari.tmdb.ui.PageConfiguration
 import com.hari.tmdb.ui.widget.SystemUiManager
@@ -37,8 +36,8 @@ import javax.inject.Provider
 class MainActivity : AppCompatActivity(), HasAndroidInjector {
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(
-                this,
-                R.layout.activity_main
+            this,
+            R.layout.activity_main
         )
     }
 
@@ -65,21 +64,22 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
+        setupStatusBarColors()
 
         systemViewModel.errorLiveData.observe(this) { appError ->
             Snackbar
-                    .make(
-                            findViewById(R.id.root_nav_host_fragment),
-                            appError.stringRes(),
-                            Snackbar.LENGTH_LONG
-                    )
-                    .show()
+                .make(
+                    findViewById(R.id.root_nav_host_fragment),
+                    appError.stringRes(),
+                    Snackbar.LENGTH_LONG
+                )
+                .show()
         }
     }
 
     private fun setupNavigation() {
         val appBarConfiguration =
-                AppBarConfiguration(setOf(R.id.splash, R.id.login, R.id.main))
+            AppBarConfiguration(setOf(R.id.splash, R.id.login, R.id.main))
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         val config = PageConfiguration.getConfiguration(destination.id)
 
         statusBarColors.isIndigoBackground = config.isIndigoBackground
+        binding.isIndigoBackground = config.isIndigoBackground
         binding.toolbar.isGone = config.hideToolbar
         binding.bottomNavigationView.isGone = config.hideBottomNavigationMenu
 
@@ -103,6 +104,23 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         } else {
             supportActionBar?.setLogo(null)
         }
+
+        val iconTint = getThemeColor(
+            if (config.isIndigoBackground) {
+                R.attr.colorOnPrimary
+            } else {
+                R.attr.colorOnSurface
+            }
+        )
+        if (destination.id != R.id.main)
+            binding.toolbar.navigationIcon = if (config.isTopLevel) {
+                AppCompatResources.getDrawable(this, R.drawable.ic_arrow_back_black_24dp)
+            } else {
+                AppCompatResources.getDrawable(this, R.drawable.ic_arrow_back_black_24dp)
+            }.apply {
+                this?.setTint(iconTint)
+            }
+
     }
 
     private fun setupStatusBarColors() {
@@ -126,16 +144,21 @@ abstract class MainActivityModule {
 
     @PageScope
     @ContributesAndroidInjector(
-            modules = [MainMovieFragmentModule::class, MovieAssistedInjectModule::class]
+        modules = [MainMovieFragmentModule::class, MovieAssistedInjectModule::class]
     )
     abstract fun contributeMoviesFragment(): MainMovieFragment
 
     @PageScope
     @ContributesAndroidInjector(
-            modules = [MovieDetailFragmentModule::class, MovieAssistedInjectModule::class]
+        modules = [MovieDetailFragmentModule::class, MovieAssistedInjectModule::class]
     )
     abstract fun contributeMovieDetailFragment(): MovieDetailFragment
 
+    @PageScope
+    @ContributesAndroidInjector(
+        modules = [PeopleFragmentModule::class, MovieAssistedInjectModule::class]
+    )
+    abstract fun contributePeopleFragment(): PeopleFragment
 
     @Module
     abstract class MainActivityBuilder {
