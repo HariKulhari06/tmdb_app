@@ -39,7 +39,7 @@ enum class PageConfiguration(
         hideToolbar = true
     ),
     CASTING(
-        R.id.castingProfile,
+        R.id.people,
         hasTitle = true,
         hideBottomNavigationMenu = true,
         isIndigoBackground = false

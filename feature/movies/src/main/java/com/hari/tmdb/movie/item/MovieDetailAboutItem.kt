@@ -31,7 +31,7 @@ class MovieDetailAboutItem @AssistedInject constructor(
             aboutTagline.text = movie.tagLine
             aboutText.text = movie.overview
 
-
+            genreChipGroup.removeAllViews()
             movie.genres?.forEach { chip ->
                 genreChipGroup.addView(createGenreChip(genreChipGroup.context, chip))
             }

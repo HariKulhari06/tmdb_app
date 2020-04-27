@@ -20,10 +20,7 @@ import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.getThemeColor
 import com.hari.tmdb.ext.stringRes
 import com.hari.tmdb.movie.di.MovieAssistedInjectModule
-import com.hari.tmdb.movie.ui.MainMovieFragment
-import com.hari.tmdb.movie.ui.MainMovieFragmentModule
-import com.hari.tmdb.movie.ui.MovieDetailFragment
-import com.hari.tmdb.movie.ui.MovieDetailFragmentModule
+import com.hari.tmdb.movie.ui.*
 import com.hari.tmdb.system.viewmodel.SystemViewModel
 import com.hari.tmdb.ui.PageConfiguration
 import com.hari.tmdb.ui.widget.SystemUiManager
@@ -157,6 +154,11 @@ abstract class MainActivityModule {
     )
     abstract fun contributeMovieDetailFragment(): MovieDetailFragment
 
+    @PageScope
+    @ContributesAndroidInjector(
+        modules = [PeopleFragmentModule::class, MovieAssistedInjectModule::class]
+    )
+    abstract fun contributePeopleFragment(): PeopleFragment
 
     @Module
     abstract class MainActivityBuilder {

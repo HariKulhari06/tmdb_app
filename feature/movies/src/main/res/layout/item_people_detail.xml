@@ -5,11 +5,19 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="people"
+            type="com.hari.tmdb.model.People" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+
+        android:background="?attr/colorSurface">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
@@ -27,36 +35,41 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="@dimen/screen_space"
             android:scaleType="centerCrop"
-            android:src="@drawable/circuler_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/circuler_bg" />
 
         <TextView
             android:id="@+id/text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/screen_space"
-            android:text="Hari Singh Kulhari"
+            android:text="@{people.name}"
             android:textAppearance="@style/TextAppearance.Tmdb.Headline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_image"
+            tools:text="Hari Singh Kulhari" />
 
-        <TextView
-            android:id="@+id/text_job"
+        <ImageView
+            android:id="@+id/home_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/screen_between_view"
-            android:text="Associate Producer"
-            android:textAppearance="?attr/textAppearanceBody1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_name" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_insert_link_black_24dp"
+            android:tint="?colorOnSurface"
+            android:visibility="@{people.homepage!=null?View.VISIBLE:View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/text_name"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_name"
+            tools:ignore="ContentDescription" />
 
         <View
             android:id="@+id/divider"
@@ -67,13 +80,14 @@
             android:backgroundTint="@color/divider_colors"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_job" />
+            app:layout_constraintTop_toBottomOf="@+id/home_page" />
 
         <LinearLayout
             android:id="@+id/known"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -87,14 +101,15 @@
                 android:id="@+id/text_known_for"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Acting"
-                android:textAppearance="?attr/textAppearanceCaption" />
+                android:text="@{people.knownForDepartment}"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:text="Acting" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/known_credits"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
@@ -111,13 +126,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25"
-                android:textAppearance="?attr/textAppearanceCaption" />
+                android:textAppearance="?attr/textAppearanceBody2" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/gender"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
@@ -133,14 +148,15 @@
                 android:id="@+id/text_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Female"
-                android:textAppearance="?attr/textAppearanceCaption" />
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:gender="@{people.gender}"
+                tools:text="Female" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/birthday"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
@@ -156,14 +172,15 @@
                 android:id="@+id/text_birthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1986-10-23 (33 years old)"
-                android:textAppearance="?attr/textAppearanceCaption" />
+                android:text="@{people.birthday}"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:text="1986-10-23 (33 years old)" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/birthday_place"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
@@ -179,8 +196,9 @@
                 android:id="@+id/text_birthday_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="London, England, UK"
-                android:textAppearance="?attr/textAppearanceCaption" />
+                android:text="@{people.placeOfBirth}"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:text="London" />
 
         </LinearLayout>
 
@@ -189,14 +207,14 @@
             android:id="@+id/flow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_spkace"
+            android:layout_marginTop="@dimen/screen_space"
             app:constraint_referenced_ids="known,known_credits,gender,birthday,birthday_place"
+            app:flow_horizontalAlign="start"
             app:flow_horizontalGap="@dimen/screen_between_view"
             app:flow_horizontalStyle="spread_inside"
             app:flow_maxElementsWrap="3"
             app:flow_verticalAlign="top"
             app:flow_verticalGap="@dimen/screen_between_view"
-            app:flow_verticalStyle="spread_inside"
             app:flow_wrapMode="chain"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -217,11 +235,12 @@
             android:id="@+id/text_known_as"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Emilia Isabelle Euphemia Rose Clarke 艾米莉亚·克拉克 Αιμιλία Κλαρκ Эмилия Кларк Емілія Кларк 에밀리아 클라크"
-            android:textAppearance="?attr/textAppearanceCaption"
+            android:textAlignment="textStart"
+            android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/title_known_as" />
+            app:layout_constraintTop_toBottomOf="@id/title_known_as"
+            tools:text="Emilia Isabelle Euphemia Rose Clarke 艾米莉亚·克拉克 Αιμιλία Κλαρκ Эмилия Кларк Емілія Кларк 에밀리아 클라크" />
 
 
         <View
@@ -241,11 +260,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/screen_space"
-            android:text="Emilia Isabelle Euphemia Rose Clarke (born 23 October 1986) is an English actress."
+            android:text="@{people.biography}"
             android:textAppearance="?attr/textAppearanceBody1"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/divider1" />
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            tools:text="Emilia Isabelle Euphemia Rose Clarke (born 23 October 1986) is an English actress. Emilia Isabelle Euphemia Rose Clarke (born 23 October 1986) is an English actress. Emilia Isabelle Euphemia Rose Clarke (born 23 October 1986) is an English actress." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
