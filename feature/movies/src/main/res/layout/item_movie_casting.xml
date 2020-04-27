@@ -10,6 +10,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"
+        android:background="?selectableItemBackground"
+        android:transitionName="casting"
         android:layout_height="@dimen/movie_poster_height"
         android:layout_marginBottom="@dimen/screen_between_view"
         android:elevation="5dp"

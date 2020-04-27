@@ -43,4 +43,7 @@ class TmdbServiceModule {
 
     @Provides
     fun provideTmdbGenreService(tmdb: Tmdb) = tmdb.genreService()
+
+    @Provides
+    fun provideTmdbPeoplesService(tmdb: Tmdb) = tmdb.personService()
 }

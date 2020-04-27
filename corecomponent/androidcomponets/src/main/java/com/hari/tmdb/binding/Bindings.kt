@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import com.hari.tmdb.R
 import com.hari.tmdb.util.AndroidRInteger
 import java.text.NumberFormat
 import java.util.*
@@ -64,4 +65,12 @@ fun TextView.runtime(runtime: Int) {
     val hours: Int = runtime / 60 //since both are ints, you get an int
     val minutes: Int = runtime % 60
     text = "$hours" + "h " + minutes + "m"
+}
+
+@BindingAdapter("gender")
+fun TextView.gender(gender: Int) {
+    text =
+        if (gender == 1) context.getString(R.string.female) else if (gender == 2) context.getString(
+            R.string.male
+        ) else context.getString(R.string.not_specified)
 }

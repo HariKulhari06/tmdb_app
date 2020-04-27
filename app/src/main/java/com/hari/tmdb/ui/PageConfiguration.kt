@@ -38,6 +38,12 @@ enum class PageConfiguration(
         hasTitle = true,
         hideToolbar = true
     ),
+    CASTING(
+        R.id.people,
+        hasTitle = true,
+        hideBottomNavigationMenu = true,
+        isIndigoBackground = false
+    ),
     OTHER(0);
 
     operator fun component1() = id

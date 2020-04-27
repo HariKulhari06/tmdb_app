@@ -7,7 +7,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import coil.Coil
 import coil.api.load
 import coil.request.RequestDisposable
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MovieItemBinding
@@ -32,6 +31,19 @@ class MovieItem @AssistedInject constructor(
 
     override fun bind(viewBinding: MovieItemBinding, position: Int) {
         with(viewBinding) {
+            root.setOnClickListener {
+                val extra = FragmentNavigatorExtras(
+                    root to root.transitionName
+                )
+                root.findNavController().navigate(
+                    actionMoviesToMovieDetail(movieId = movie.id, title = movie.title),
+                    extra
+                )
+            }
+
+            root.transitionName = TRANSITION_NAME_SUFFIX
+            imageRequestDisposables.clear()
+
             imageRequestDisposables += Coil.load(
                 imageViewPoster.context,
                 "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
@@ -43,22 +55,6 @@ class MovieItem @AssistedInject constructor(
                     imageViewPoster.setImageDrawable(it)
                 }
             }
-
-            val lp = root.layoutParams
-            if (lp is FlexboxLayoutManager.LayoutParams) {
-                lp.flexGrow = 1f
-            }
-            root.setOnClickListener {
-                val extra = FragmentNavigatorExtras(
-                    root to root.transitionName
-                )
-                root.findNavController().navigate(
-                    actionMoviesToMovieDetail(movieId = movie.id, title = movie.title),
-                    extra
-                )
-            }
-            root.transitionName = TRANSITION_NAME_SUFFIX
-            imageRequestDisposables.clear()
         }
     }
 

@@ -15,10 +15,10 @@ import com.hari.tmdb.db.internal.entity.*
         ImageEntityImp::class,
         RelatedMovieEntity::class,
         VideoEntity::class,
-        CastingEntityImp::class
+        CastingEntityImp::class,
+        PeopleEntityImp::class
     ],
-    version = 1,
-    exportSchema = false
+    version = 1
 )
 @TypeConverters(AppTypeConverters::class)
 internal abstract class CacheDatabase : RoomDatabase() {
@@ -29,6 +29,7 @@ internal abstract class CacheDatabase : RoomDatabase() {
     abstract fun relatedMovieDao(): RelatedMoviesDao
     abstract fun videoDao(): VideoDao
     abstract fun castingDao(): CastingDao
+    abstract fun peopleDao(): PeopleDao
     fun sqlite(): SupportSQLiteDatabase {
         return mDatabase
     }

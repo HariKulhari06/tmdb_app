@@ -59,6 +59,14 @@
         <argument
             android:name="title"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_movieDetail_to_people"
+            app:destination="@id/people"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -76,6 +84,24 @@
         android:id="@+id/account"
         android:name="com.hari.tmdb.account.ui.AccountFragment"
         android:label="Account">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/people"
+        android:name="com.hari.tmdb.movie.ui.PeopleFragment"
+        android:label="{title}">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+        <argument
+            android:name="peopleId"
+            app:argType="integer" />
+        <argument
+            android:name="transitionNameSuffix"
+            app:argType="string" />
 
     </fragment>
 

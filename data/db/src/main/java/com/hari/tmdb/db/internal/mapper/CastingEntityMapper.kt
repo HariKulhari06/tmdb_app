@@ -6,14 +6,15 @@
 package com.hari.tmdb.db.internal.mapper
 
 import com.hari.tmdb.db.internal.entity.CastingEntityImp
+import com.hari.tmdb.db.internal.entity.PeopleEntityImp
 import com.hari.tmdb.model.Cast
 import com.hari.tmdb.model.mapper.Mapper
 import com.uwetrottmann.tmdb2.entities.Movie
 
-val tmdbMoviesToCastingImp = object : Mapper<Movie, List<CastingEntityImp>> {
-    override suspend fun map(from: Movie): List<CastingEntityImp> {
+val tmdbMoviesToCastingImp = object : Mapper<Movie, List<Pair<CastingEntityImp, PeopleEntityImp>>> {
+    override suspend fun map(from: Movie): List<Pair<CastingEntityImp, PeopleEntityImp>> {
         return from.credits.cast.map { castMember ->
-            CastingEntityImp(
+            val castingEntityImp = CastingEntityImp(
                 id = castMember.id,
                 movieId = from.id,
                 name = castMember.name,
@@ -24,6 +25,13 @@ val tmdbMoviesToCastingImp = object : Mapper<Movie, List<CastingEntityImp>> {
                 order = castMember.order,
                 profilePath = castMember.profile_path
             )
+
+            val peopleEntityImp = PeopleEntityImp(
+                id = castMember.id,
+                name = castMember.name,
+                profilePath = castMember.profile_path
+            )
+            castingEntityImp to peopleEntityImp
         }
     }
 

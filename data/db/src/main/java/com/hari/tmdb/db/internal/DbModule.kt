@@ -13,6 +13,9 @@ internal abstract class DbModule {
     @Binds
     abstract fun moviesDataBase(impl: RoomDatabase): MoviesDataBase
 
+    @Binds
+    abstract fun peoplesDataBase(impl: RoomDatabase): PeoplesDatabase
+
     @Module
     internal object Providers {
         @Singleton
@@ -61,6 +64,11 @@ internal abstract class DbModule {
         @Provides
         fun castingDao(database: CacheDatabase): CastingDao {
             return database.castingDao()
+        }
+
+        @Provides
+        fun peopleDao(database: CacheDatabase): PeopleDao {
+            return database.peopleDao()
         }
     }
 }
