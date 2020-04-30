@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.view.children
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -17,6 +18,7 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.hari.tmdb.ext.assistedActivityViewModels
+import com.hari.tmdb.ext.sortByEnumNameToDisplayValue
 import com.hari.tmdb.model.ExpandFilterState
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.DiscoverMoviesFragmentBinding
@@ -32,6 +34,7 @@ import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dev.chrisbanes.insetter.doOnApplyWindowInsets
 import javax.inject.Inject
 import javax.inject.Provider
 

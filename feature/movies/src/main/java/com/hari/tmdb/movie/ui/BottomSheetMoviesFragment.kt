@@ -85,7 +85,7 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
         val peekHeight =
             resources.getDimensionPixelSize(R.dimen.bottom_sheet_default_peek_height)
 
-        binding.sessionMotionLayout.doOnApplyWindowInsets { _, insets, initialState ->
+        binding.sessionMotionLayout.doOnApplyWindowInsets { _, insets, _ ->
             lifecycleScope.launchWhenStarted {
                 binding.startFilter.awaitNextLayout()
                 val filterButtonHeight = binding.startFilter.measuredHeight
