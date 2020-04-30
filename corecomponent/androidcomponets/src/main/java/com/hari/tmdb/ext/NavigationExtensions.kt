@@ -26,7 +26,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.hari.tmdb.R
+import com.hari.tmdb.androidcomponents.R
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].

@@ -82,8 +82,9 @@ class DiscoverMoviesViewModel @Inject constructor(
         )
     }
 
-    fun filterChanged(includeAdult: Boolean, checked: Boolean) {
+    fun filterChanged(includeAdult: String, checked: Boolean) {
         val filters = filterLiveData.requireValue()
+        (filters.includeAdult as MutableSet).clear()
         filterLiveData.value = filters.copy(
             includeAdult = if (checked) filters.includeAdult + includeAdult else filters.includeAdult - includeAdult
         )
@@ -91,8 +92,25 @@ class DiscoverMoviesViewModel @Inject constructor(
 
     fun filterChanged(sortBy: SortBy, checked: Boolean) {
         val filters = filterLiveData.requireValue()
+        (filters.sortBy as MutableSet).clear()
         filterLiveData.value = filters.copy(
             sortBy = if (checked) filters.sortBy + sortBy else filters.sortBy - sortBy
+        )
+    }
+
+    fun filterChanged(certificate: Certification, checked: Boolean) {
+        val filters = filterLiveData.requireValue()
+        (filters.certifications as MutableSet).clear()
+        filterLiveData.value = filters.copy(
+            certifications = if (checked) filters.certifications + certificate else filters.certifications - certificate
+        )
+    }
+
+    fun filterChanged(language: Language, checked: Boolean) {
+        val filters = filterLiveData.requireValue()
+        (filters.languages as MutableSet).clear()
+        filterLiveData.value = filters.copy(
+            languages = if (checked) filters.languages + language else filters.languages - language
         )
     }
 }

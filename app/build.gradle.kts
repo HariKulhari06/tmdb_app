@@ -73,7 +73,6 @@ dependencies {
     implementation(project(":data:model"))
     implementation(project(":data:repository"))
 
-
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.AndroidX.appCompat)
     implementation(Dep.AndroidX.coreKtx)
@@ -86,5 +85,7 @@ dependencies {
     kapt(Dep.Dagger.androidProcessor)
     compileOnly(Dep.Dagger.assistedInjectAnnotations)
     kapt(Dep.Dagger.assistedInjectProcessor)
+
+    debugImplementation(Dep.LeakCanary.leakCanary)
 
 }

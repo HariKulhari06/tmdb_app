@@ -6,6 +6,7 @@ import com.hari.tmdb.di.createAppComponent
 import com.hari.tmdb.initializer.AppInitializers
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import leakcanary.AppWatcher
 import javax.inject.Inject
 
 open class App : DaggerApplication(), AppComponentHolder {
@@ -23,6 +24,7 @@ open class App : DaggerApplication(), AppComponentHolder {
 
     override fun onCreate() {
         super.onCreate()
+        AppWatcher.manualInstall(this)
         initializers.initialize(this)
     }
 

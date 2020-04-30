@@ -2,9 +2,9 @@ package com.hari.tmdb.model
 
 data class Filters(
     val genres: Set<Genre> = mutableSetOf(),
-    val languages: Set<Genre> = mutableSetOf(),
-    val certifications: Set<Genre> = mutableSetOf(),
-    var includeAdult: Set<Boolean> = mutableSetOf(),
+    var languages: Set<Language> = mutableSetOf(),
+    val certifications: Set<Certification> = mutableSetOf(),
+    var includeAdult: Set<String> = mutableSetOf(),
     var sortBy: Set<SortBy> = mutableSetOf()
 ) {
 

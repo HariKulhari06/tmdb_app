@@ -86,37 +86,48 @@
                         app:layout_constraintTop_toBottomOf="@id/filter_genre_title" />
 
                     <TextView
-                        android:id="@+id/filter_language_title"
+                        android:id="@+id/filter_runtime_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:text="@string/filter_language"
+                        android:text="Runtime"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         android:textColor="?attr/colorOnPrimary"
                         app:layout_constraintStart_toStartOf="@id/guideline_start"
                         app:layout_constraintTop_toBottomOf="@id/genre_filters" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/language_filters"
+
+                    <com.appyvet.materialrangebar.RangeBar
+                        android:id="@+id/seekBar_runtime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:chipSpacingVertical="@dimen/movie_filter_chip_vertical_margin"
                         app:layout_constraintEnd_toEndOf="@id/guideline_end"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@id/guideline_start"
-                        app:layout_constraintTop_toBottomOf="@id/filter_language_title" />
+                        app:layout_constraintTop_toBottomOf="@+id/filter_runtime_title"
+                        app:mrb_barWeight="7dp"
+                        app:mrb_connectingLineColor="?attr/colorSecondary"
+                        app:mrb_pinMaxFont="10sp"
+                        app:mrb_rangeBar="true"
+                        app:mrb_rangeBarColor="@color/indigo_400"
+                        app:mrb_rangeBar_rounded="true"
+                        app:mrb_temporaryPins="true"
+                        app:mrb_thumbColor="?attr/colorSecondary"
+                        app:mrb_thumbSize="12dp"
+                        app:mrb_tickDefaultColor="?attr/colorSecondary"
+                        app:mrb_tickEnd="360" />
+
 
                     <TextView
                         android:id="@+id/filter_certification_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/filter_certification"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         android:textColor="?attr/colorOnPrimary"
                         app:layout_constraintStart_toStartOf="@id/guideline_start"
-                        app:layout_constraintTop_toBottomOf="@id/language_filters" />
+                        app:layout_constraintTop_toBottomOf="@id/seekBar_runtime" />
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/certification_filters"
@@ -173,6 +184,29 @@
                         app:layout_constraintStart_toStartOf="@id/guideline_start"
                         app:layout_constraintTop_toBottomOf="@id/filter_sort_by_title" />
 
+
+                    <TextView
+                        android:id="@+id/filter_language_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/filter_language"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
+                        android:textColor="?attr/colorOnPrimary"
+                        app:layout_constraintStart_toStartOf="@id/guideline_start"
+                        app:layout_constraintTop_toBottomOf="@id/sort_by_filters" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/language_filters"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:chipSpacingVertical="@dimen/movie_filter_chip_vertical_margin"
+                        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@id/guideline_start"
+                        app:layout_constraintTop_toBottomOf="@id/filter_language_title" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 
@@ -188,5 +222,6 @@
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
                 tools:layout="@layout/discover_movies_fragment" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     </com.hari.tmdb.ui.widget.CoordinatorLayoutInViewPagerHost>
 </layout>

@@ -6,8 +6,10 @@
 package com.hari.tmdb.db.internal.mapper
 
 import com.hari.tmdb.db.internal.entity.GenreEntityImp
+import com.hari.tmdb.db.internal.entity.LanguageEntity
 import com.hari.tmdb.db.internal.entity.helper.GenreEntity
 import com.hari.tmdb.model.Genre
+import com.hari.tmdb.model.Language
 import com.hari.tmdb.model.mapper.Mapper
 import com.uwetrottmann.tmdb2.entities.GenreResults
 import com.uwetrottmann.tmdb2.entities.Genre as TmdbGenre
@@ -32,3 +34,13 @@ val genreEntityToGenre = object : Mapper<GenreEntity, Genre> {
         name = from.name ?: ""
     )
 }
+
+val languageEntityToLanguage = object : Mapper<LanguageEntity, Language> {
+    override suspend fun map(from: LanguageEntity): Language = Language(
+        iso6391 = from.iso6391,
+        englishName = from.englishName,
+        name = from.name
+
+    )
+}
+

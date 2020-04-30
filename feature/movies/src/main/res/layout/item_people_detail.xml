@@ -212,7 +212,7 @@
             app:flow_horizontalAlign="start"
             app:flow_horizontalGap="@dimen/screen_between_view"
             app:flow_horizontalStyle="spread_inside"
-            app:flow_maxElementsWrap="1"
+            app:flow_maxElementsWrap="2"
             app:flow_verticalAlign="top"
             app:flow_verticalGap="@dimen/screen_between_view"
             app:flow_wrapMode="chain"

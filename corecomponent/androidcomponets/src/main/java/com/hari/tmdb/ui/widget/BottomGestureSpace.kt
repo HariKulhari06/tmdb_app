@@ -2,7 +2,7 @@ package com.hari.tmdb.ui.widget
 
 import android.content.res.Resources
 import android.os.Build
-import com.hari.tmdb.R
+import com.hari.tmdb.androidcomponents.R
 
 class BottomGestureSpace(private val resources: Resources) {
     val gestureSpaceSize by lazy {

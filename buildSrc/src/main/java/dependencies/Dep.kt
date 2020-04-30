@@ -3,7 +3,7 @@ package dependencies
 @Suppress("unused", "MayBeConstant")
 object Dep {
     object GradlePlugin {
-        val android = "com.android.tools.build:gradle:4.1.0-alpha07"
+        val android = "com.android.tools.build:gradle:4.1.0-alpha08"
         val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
         val playServices = "com.google.gms:google-services:4.3.3"
@@ -188,8 +188,13 @@ object Dep {
     val liveEvent = "com.github.hadilq.liveevent:liveevent:1.0.1"
 
     object LeakCanary {
-        val version = "2.1"
+        val version = "2.2"
         val leakCanary = "com.squareup.leakcanary:leakcanary-android:$version"
+    }
+
+    object RangeSeekBar {
+        val version = "1.4.8"
+        val rangeSeekBar = "com.appyvet:materialrangebar:$version"
     }
 
     object Stetho {

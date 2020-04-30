@@ -46,9 +46,10 @@ class MoviesRepositoryImp @Inject constructor(
 
     override suspend fun getMovieFilters(): Flow<Filters> {
         val genreFlow = moviesDataBase.moviesGenre()
-        val adultFlow = flowOf(listOf(true, false))
+        val languageFlow = moviesDataBase.languages()
+        val adultFlow = flowOf(listOf("Yes", "No"))
 
-        return combine(genreFlow, adultFlow) { genre, adults ->
+        return combine(genreFlow, adultFlow, languageFlow) { genre, adults, languages ->
             val genres = genre
                 .sortedBy { it.name }
                 .toSet()
@@ -56,7 +57,9 @@ class MoviesRepositoryImp @Inject constructor(
             Filters(
                 genres = genres,
                 includeAdult = adults.toSet(),
-                sortBy = getSortingOptionAsSet()
+                sortBy = getSortingOptionAsSet(),
+                certifications = setOfCertifications,
+                languages = languages.toSet()
             )
         }
     }

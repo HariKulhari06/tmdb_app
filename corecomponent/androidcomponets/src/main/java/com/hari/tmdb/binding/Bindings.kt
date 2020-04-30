@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import com.hari.tmdb.R
+import com.hari.tmdb.androidcomponents.R
 import com.hari.tmdb.util.AndroidRInteger
 import java.text.NumberFormat
 import java.util.*

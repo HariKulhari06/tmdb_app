@@ -1,3 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hari.tmdb">
-</manifest>
+<manifest package="com.hari.tmdb.androidcomponents"></manifest>

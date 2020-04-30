@@ -46,4 +46,7 @@ class TmdbServiceModule {
 
     @Provides
     fun provideTmdbPeoplesService(tmdb: Tmdb) = tmdb.personService()
+
+    @Provides
+    fun provideAuthenticationService(tmdb: Tmdb) = tmdb.authenticationService()
 }

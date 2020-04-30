@@ -30,6 +30,7 @@ dependencies {
     api Dep.AndroidX.coreKtx
     api Dep.AndroidX.liveDataKtx
     api Dep.AndroidX.liveDataCoreKtx
+    api Dep.AndroidX.preference
 
     implementation Dep.Dagger.core
     implementation Dep.Dagger.androidSupport

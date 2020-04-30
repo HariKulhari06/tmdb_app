@@ -23,7 +23,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.withScale
 import androidx.core.graphics.withTranslation
 import com.google.android.material.math.MathUtils.lerp
-import com.hari.tmdb.R
+import com.hari.tmdb.androidcomponents.R
 import com.hari.tmdb.util.AndroidRInterpolator
 
 
