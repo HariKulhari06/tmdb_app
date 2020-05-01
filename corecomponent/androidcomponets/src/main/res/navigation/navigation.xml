@@ -14,6 +14,12 @@
             app:destination="@id/login"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splash_to_main"
+            app:destination="@id/main"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -43,6 +49,8 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popExitAnim="@anim/fade_out" />
+
+
     </fragment>
 
     <fragment

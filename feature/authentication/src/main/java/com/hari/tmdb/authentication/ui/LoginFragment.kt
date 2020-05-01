@@ -7,6 +7,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialSharedAxis
 import com.hari.tmdb.authentication.R
 import com.hari.tmdb.authentication.databinding.FragmentLoginBinding
 import com.hari.tmdb.authentication.viewmodel.LoginViewModel
@@ -29,6 +31,18 @@ class LoginFragment : Fragment(R.layout.fragment_login), Injectable {
     lateinit var loginViewModelProvider: Provider<LoginViewModel>
     private val loginViewModel: LoginViewModel by assistedActivityViewModels {
         loginViewModelProvider.get()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+
+        val forward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true)
+        enterTransition = forward
+
+        val backward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, false)
+        returnTransition = backward
+
     }
 
 
