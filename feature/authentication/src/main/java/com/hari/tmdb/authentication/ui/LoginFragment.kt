@@ -2,6 +2,9 @@ package com.hari.tmdb.authentication.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.transition.addListener
+import androidx.core.transition.doOnEnd
+import androidx.core.transition.doOnStart
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -35,7 +38,16 @@ class LoginFragment : Fragment(R.layout.fragment_login), Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext()).apply {
+            addListener {
+                doOnStart {
+                    postponeEnterTransition()
+                }
+                doOnEnd {
+                    startPostponedEnterTransition()
+                }
+            }
+        }
 
         val forward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.X, true)
         enterTransition = forward

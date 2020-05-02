@@ -115,4 +115,9 @@
 
     </fragment>
 
+
+    <fragment
+        android:id="@+id/search"
+        android:name="com.hari.tmdb.search.ui.SearchFragment" />
+
 </navigation>

@@ -1,0 +1,38 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+
+apply from: rootProject.file('gradle/android.gradle')
+android.dataBinding.enabled = true
+
+
+dependencies {
+    implementation project(':feature:system')
+    implementation project(':corecomponent:androidcomponets')
+
+    implementation Dep.AndroidX.constraint
+    implementation Dep.AndroidX.design
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.legacy
+    implementation Dep.AndroidX.recyclerView
+    implementation Dep.Flexbox.flexbox
+
+
+    implementation Dep.Groupie.groupie
+    implementation Dep.Groupie.databinding
+
+    implementation Dep.Coil.coil
+
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    compileOnly Dep.Dagger.assistedInjectAnnotations
+    kapt Dep.Dagger.assistedInjectProcessor
+
+}

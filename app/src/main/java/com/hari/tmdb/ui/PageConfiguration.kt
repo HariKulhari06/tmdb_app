@@ -44,6 +44,13 @@ enum class PageConfiguration(
         hideBottomNavigationMenu = true,
         isIndigoBackground = false
     ),
+    SEARCH(
+        R.id.search,
+        hasTitle = false,
+        hideBottomNavigationMenu = true,
+        isIndigoBackground = false,
+        hideToolbar = true
+    ),
     OTHER(0);
 
     operator fun component1() = id
