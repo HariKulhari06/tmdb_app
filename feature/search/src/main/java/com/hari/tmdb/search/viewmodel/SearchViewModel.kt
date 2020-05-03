@@ -15,7 +15,6 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
-
     val query = MutableLiveData<String>()
 
     // UiModel definition
