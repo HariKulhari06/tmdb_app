@@ -3,10 +3,12 @@ package com.hari.tmdb.repository
 import android.content.Context
 import com.hari.tmdb.db.internal.MoviesDataBase
 import com.hari.tmdb.db.internal.PeoplesDatabase
+import com.hari.tmdb.model.repository.AccountRepository
 import com.hari.tmdb.model.repository.MoviesRepository
 import com.hari.tmdb.model.repository.PeoplesRepository
 import com.hari.tmdb.repository.internal.RepositoryModule
 import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
+import com.uwetrottmann.tmdb2.services.AuthenticationService
 import com.uwetrottmann.tmdb2.services.GenresService
 import com.uwetrottmann.tmdb2.services.MoviesService
 import com.uwetrottmann.tmdb2.services.PeopleService
@@ -23,6 +25,7 @@ import javax.inject.Singleton
 interface RepositoryComponent {
     fun moviesRepository(): MoviesRepository
     fun peoplesRepository(): PeoplesRepository
+    fun accountRepository(): AccountRepository
 
 
     @Component.Factory
@@ -34,7 +37,8 @@ interface RepositoryComponent {
             @BindsInstance genresService: GenresService,
             @BindsInstance moviesService: MoviesService,
             @BindsInstance discoverMovieBuilder: DiscoverMovieBuilder,
-            @BindsInstance personService: PeopleService
+            @BindsInstance personService: PeopleService,
+            @BindsInstance authenticationService: AuthenticationService
         ): RepositoryComponent
     }
 

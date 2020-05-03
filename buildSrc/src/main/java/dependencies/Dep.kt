@@ -3,7 +3,7 @@ package dependencies
 @Suppress("unused", "MayBeConstant")
 object Dep {
     object GradlePlugin {
-        val android = "com.android.tools.build:gradle:3.6.1"
+        val android = "com.android.tools.build:gradle:4.1.0-alpha08"
         val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
         val playServices = "com.google.gms:google-services:4.3.3"
@@ -82,6 +82,17 @@ object Dep {
         object Work {
             val version = "2.3.1"
             val runtimeKtx = "androidx.work:work-runtime-ktx:$version"
+        }
+
+        object Compose {
+            val version = "0.1.0-dev09"
+            val runtime = "androidx.compose:compose-runtime:$version"
+            val framework = "androidx.ui:ui-framework:$version"
+            val layout = "androidx.ui:ui-layout:$version"
+            val material = "androidx.ui:ui-material:$version"
+            val foundation = "androidx.ui:ui-foundation:$version"
+            val animation = "androidx.ui:ui-animation:$version"
+            val tooling = "androidx.ui:ui-tooling:$version"
         }
     }
 
@@ -177,8 +188,13 @@ object Dep {
     val liveEvent = "com.github.hadilq.liveevent:liveevent:1.0.1"
 
     object LeakCanary {
-        val version = "2.1"
+        val version = "2.2"
         val leakCanary = "com.squareup.leakcanary:leakcanary-android:$version"
+    }
+
+    object RangeSeekBar {
+        val version = "1.4.8"
+        val rangeSeekBar = "com.appyvet:materialrangebar:$version"
     }
 
     object Stetho {

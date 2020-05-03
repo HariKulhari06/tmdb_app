@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/main">
+    app:startDestination="@id/splash">
 
     <fragment
         android:id="@+id/splash"
@@ -24,8 +24,10 @@
         <action
             android:id="@+id/action_login_to_main"
             app:destination="@id/main"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />
     </fragment>

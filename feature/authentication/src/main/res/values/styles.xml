@@ -3,7 +3,7 @@
 
     <style name="Widget.Tmdb.Login.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_height">50dp</item>
-        <item name="cornerRadius">5dp</item>
+        <item name="cornerRadius">30dp</item>
     </style>
 
 

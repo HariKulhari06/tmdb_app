@@ -16,7 +16,8 @@ import com.hari.tmdb.db.internal.entity.*
         RelatedMovieEntity::class,
         VideoEntity::class,
         CastingEntityImp::class,
-        PeopleEntityImp::class
+        PeopleEntityImp::class,
+        LanguageEntity::class
     ],
     version = 1
 )
@@ -30,6 +31,7 @@ internal abstract class CacheDatabase : RoomDatabase() {
     abstract fun videoDao(): VideoDao
     abstract fun castingDao(): CastingDao
     abstract fun peopleDao(): PeopleDao
+    abstract fun languageDao(): LanguageDao
     fun sqlite(): SupportSQLiteDatabase {
         return mDatabase
     }

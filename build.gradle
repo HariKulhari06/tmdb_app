@@ -16,7 +16,6 @@ buildscript {
         classpath Dep.GradlePlugin.android
         classpath Dep.GradlePlugin.kotlin
         classpath Dep.GradlePlugin.safeArgs
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -24,6 +23,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
 }
 

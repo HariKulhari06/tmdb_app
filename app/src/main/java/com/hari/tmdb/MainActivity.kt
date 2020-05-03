@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
+import com.hari.tmdb.authentication.ui.LoginFragment
 import com.hari.tmdb.databinding.ActivityMainBinding
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
@@ -159,6 +160,10 @@ abstract class MainActivityModule {
         modules = [PeopleFragmentModule::class, MovieAssistedInjectModule::class]
     )
     abstract fun contributePeopleFragment(): PeopleFragment
+
+    @PageScope
+    @ContributesAndroidInjector
+    abstract fun contributeLoginFragment(): LoginFragment
 
     @Module
     abstract class MainActivityBuilder {

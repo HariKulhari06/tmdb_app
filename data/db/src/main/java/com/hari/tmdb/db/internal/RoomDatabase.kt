@@ -6,6 +6,7 @@ import com.hari.tmdb.db.internal.entity.CastingEntityImp
 import com.hari.tmdb.db.internal.entity.PeopleEntityImp
 import com.hari.tmdb.db.internal.mapper.*
 import com.hari.tmdb.model.Genre
+import com.hari.tmdb.model.Language
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.model.People
 import com.hari.tmdb.model.mapper.forLists
@@ -28,11 +29,18 @@ internal class RoomDatabase @Inject constructor(
     private val relatedMoviesDao: RelatedMoviesDao,
     private val videoDao: VideoDao,
     private val castingDao: CastingDao,
-    private val peopleDao: PeopleDao
+    private val peopleDao: PeopleDao,
+    private val languageDao: LanguageDao
 ) : MoviesDataBase, PeoplesDatabase {
     override suspend fun moviesGenre(): Flow<List<Genre>> {
         return genreDao.movieGenre().map { genreEntities ->
             genreEntityToGenre.forLists().invoke(genreEntities)
+        }
+    }
+
+    override suspend fun languages(): Flow<List<Language>> {
+        return languageDao.languages().map {
+            languageEntityToLanguage.forLists().invoke(it)
         }
     }
 

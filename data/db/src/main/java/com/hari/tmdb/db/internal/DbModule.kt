@@ -23,11 +23,13 @@ internal abstract class DbModule {
         fun cacheDatabase(
             context: Context
         ): CacheDatabase {
-            return Room.databaseBuilder(
-                context,
-                CacheDatabase::class.java,
-                "mooov.db"
-            )
+            return Room
+                .databaseBuilder(
+                    context,
+                    CacheDatabase::class.java,
+                    "mooov.db"
+                )
+                .createFromAsset("database/languages.sqlite")
                 .build()
         }
 
@@ -69,6 +71,11 @@ internal abstract class DbModule {
         @Provides
         fun peopleDao(database: CacheDatabase): PeopleDao {
             return database.peopleDao()
+        }
+
+        @Provides
+        fun languageDao(database: CacheDatabase): LanguageDao {
+            return database.languageDao()
         }
     }
 }

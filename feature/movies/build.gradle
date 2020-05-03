@@ -33,4 +33,5 @@ dependencies {
     implementation Dep.Groupie.databinding
 
     implementation Dep.Coil.coil
+    implementation Dep.RangeSeekBar.rangeSeekBar
 }

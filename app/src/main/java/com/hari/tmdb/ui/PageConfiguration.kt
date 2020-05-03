@@ -55,8 +55,7 @@ enum class PageConfiguration(
 
     companion object {
         fun getConfiguration(@IdRes id: Int): PageConfiguration {
-            return PageConfiguration
-                .values()
+            return values()
                 .firstOrNull { it.id == id } ?: OTHER
         }
     }

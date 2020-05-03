@@ -1,9 +1,8 @@
 package com.hari.tmdb.ext
 
 import androidx.annotation.StringRes
-import com.hari.tmdb.R
+import com.hari.tmdb.androidcomponents.R
 import com.hari.tmdb.model.AppError
-
 import kotlinx.coroutines.TimeoutCancellationException
 
 fun Throwable?.toAppError(): AppError? {
