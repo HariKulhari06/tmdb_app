@@ -6,12 +6,10 @@ import com.hari.tmdb.db.internal.PeoplesDatabase
 import com.hari.tmdb.model.repository.AccountRepository
 import com.hari.tmdb.model.repository.MoviesRepository
 import com.hari.tmdb.model.repository.PeoplesRepository
+import com.hari.tmdb.model.repository.SearchRepository
 import com.hari.tmdb.repository.RepositoryComponent
 import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
-import com.uwetrottmann.tmdb2.services.AuthenticationService
-import com.uwetrottmann.tmdb2.services.GenresService
-import com.uwetrottmann.tmdb2.services.MoviesService
-import com.uwetrottmann.tmdb2.services.PeopleService
+import com.uwetrottmann.tmdb2.services.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -42,6 +40,15 @@ object RepositoryComponentModule {
         return repositoryComponent.accountRepository()
     }
 
+
+    @Provides
+    @Singleton
+    fun provideSearchRepository(
+        repositoryComponent: RepositoryComponent
+    ): SearchRepository {
+        return repositoryComponent.searchRepository()
+    }
+
     @Provides
     @Singleton
     fun provideRepositoryComponent(
@@ -52,7 +59,8 @@ object RepositoryComponentModule {
         moviesService: MoviesService,
         discoverMovieBuilder: DiscoverMovieBuilder,
         peopleService: PeopleService,
-        authenticationService: AuthenticationService
+        authenticationService: AuthenticationService,
+        searchService: SearchService
     ): RepositoryComponent {
 
         return RepositoryComponent.factory()
@@ -64,7 +72,8 @@ object RepositoryComponentModule {
                 moviesService = moviesService,
                 discoverMovieBuilder = discoverMovieBuilder,
                 personService = peopleService,
-                authenticationService = authenticationService
+                authenticationService = authenticationService,
+                searchService = searchService
             )
 
     }

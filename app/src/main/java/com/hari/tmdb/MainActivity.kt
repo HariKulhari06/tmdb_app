@@ -1,8 +1,16 @@
 package com.hari.tmdb
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
+import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.appcompat.widget.ActionMenuView
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.view.children
 import androidx.core.view.isGone
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
@@ -22,6 +30,9 @@ import com.hari.tmdb.ext.getThemeColor
 import com.hari.tmdb.ext.stringRes
 import com.hari.tmdb.movie.di.MovieAssistedInjectModule
 import com.hari.tmdb.movie.ui.*
+import com.hari.tmdb.search.di.SearchAssistedInjectModule
+import com.hari.tmdb.search.ui.SearchFragment
+import com.hari.tmdb.search.ui.SearchFragmentModule
 import com.hari.tmdb.system.viewmodel.SystemViewModel
 import com.hari.tmdb.ui.PageConfiguration
 import com.hari.tmdb.ui.widget.SystemUiManager
@@ -124,6 +135,36 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        binding.toolbar.children.forEach {
+            when (it) {
+                is ActionMenuView -> {
+                    it.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                        it.children.filterIsInstance<ActionMenuItemView>().forEach { menuItemView ->
+                            setRippleColor(menuItemView, binding.isIndigoBackground)
+                        }
+                    }
+                }
+                is AppCompatImageButton -> setRippleColor(it, binding.isIndigoBackground)
+            }
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun setRippleColor(view: View, isIndigoBackground: Boolean) {
+        (view.background as? RippleDrawable)?.setColor(
+            ColorStateList.valueOf(
+                this.getThemeColor(
+                    if (isIndigoBackground) {
+                        R.attr.colorOnPrimary
+                    } else {
+                        R.attr.colorControlHighlight
+                    }
+                )
+            )
+        )
+    }
+
     private fun setupStatusBarColors() {
         statusBarColors.systemUiVisibility.distinctUntilChanged().observe(this) { visibility ->
             window.decorView.systemUiVisibility = visibility
@@ -164,6 +205,12 @@ abstract class MainActivityModule {
     @PageScope
     @ContributesAndroidInjector
     abstract fun contributeLoginFragment(): LoginFragment
+
+    @PageScope
+    @ContributesAndroidInjector(
+        modules = [SearchFragmentModule::class, SearchAssistedInjectModule::class]
+    )
+    abstract fun contributeSearchFragment(): SearchFragment
 
     @Module
     abstract class MainActivityBuilder {

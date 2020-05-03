@@ -1,6 +1,8 @@
 package com.hari.tmdb.data.api
 
+import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
 import com.uwetrottmann.tmdb2.Tmdb
+import com.uwetrottmann.tmdb2.services.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -36,17 +38,21 @@ class TmdbApiModule {
 @Module
 class TmdbServiceModule {
     @Provides
-    fun provideTmdbMoviesService(tmdb: Tmdb) = tmdb.moviesService()
+    fun provideTmdbMoviesService(tmdb: Tmdb): MoviesService = tmdb.moviesService()
 
     @Provides
-    fun provideTmdbMoviesDiscoverService(tmdb: Tmdb) = tmdb.discoverMovie()
+    fun provideTmdbMoviesDiscoverService(tmdb: Tmdb): DiscoverMovieBuilder = tmdb.discoverMovie()
 
     @Provides
-    fun provideTmdbGenreService(tmdb: Tmdb) = tmdb.genreService()
+    fun provideTmdbGenreService(tmdb: Tmdb): GenresService = tmdb.genreService()
 
     @Provides
-    fun provideTmdbPeoplesService(tmdb: Tmdb) = tmdb.personService()
+    fun provideTmdbPeoplesService(tmdb: Tmdb): PeopleService = tmdb.personService()
 
     @Provides
-    fun provideAuthenticationService(tmdb: Tmdb) = tmdb.authenticationService()
+    fun provideAuthenticationService(tmdb: Tmdb): AuthenticationService =
+        tmdb.authenticationService()
+
+    @Provides
+    fun provideSearchService(tmdb: Tmdb): SearchService = tmdb.searchService()
 }

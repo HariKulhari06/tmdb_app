@@ -152,6 +152,7 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
 
                 videoSection.add(
                     CarouselGroup(
+                        itemDecoration = carouselDecoration,
                         adapter = videoAdapter,
                         layoutManager = linearLayoutManager()
                     )

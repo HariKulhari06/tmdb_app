@@ -11,7 +11,7 @@ fun <T> Flow<T>.toLoadingState(): Flow<LoadState<T>> {
         .onStart {
             @Suppress("UNCHECKED_CAST")
             emit(LoadState.Loading as LoadState<T>)
-        }
+        }.onEach { LoadState.Loading }
         .catch { e ->
             emit(LoadState.Error<T>(e))
         }
