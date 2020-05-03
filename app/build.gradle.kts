@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":feature:movies"))
     implementation(project(":feature:system"))
     implementation(project(":feature:authentication"))
+    implementation(project(":feature:search"))
 
     implementation(project(":data:api"))
     implementation(project(":data:db"))

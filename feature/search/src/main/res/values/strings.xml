@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="query_hint">Search movies...</string>
+    <string name="search_empty_result_message">Sorry no result found for this search.\nPlease try with another phrase.</string>
+    <string name="no_result_found">No Result Found.</string>
+</resources>

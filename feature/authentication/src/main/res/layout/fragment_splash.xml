@@ -16,6 +16,7 @@
             android:id="@+id/logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:transitionName="app_logo"
             app:layout_constraintVertical_chainStyle="packed"
             android:src="@drawable/app_logo"
             app:layout_constraintBottom_toBottomOf="parent"

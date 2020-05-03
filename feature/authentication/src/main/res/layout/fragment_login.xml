@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
-        android:elevation="0dp"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,6 +63,7 @@
 
 
             <TextView
+                android:transitionName="app_logo"
                 android:id="@+id/text_sign_in_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

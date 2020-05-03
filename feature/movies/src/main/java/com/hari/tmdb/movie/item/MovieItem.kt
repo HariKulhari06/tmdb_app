@@ -31,9 +31,9 @@ class MovieItem @AssistedInject constructor(
 
     override fun bind(viewBinding: MovieItemBinding, position: Int) {
         with(viewBinding) {
-            root.setOnClickListener {
+            imageViewPoster.setOnClickListener {
                 val extra = FragmentNavigatorExtras(
-                    root to root.transitionName
+                    imageViewPoster to imageViewPoster.transitionName
                 )
                 root.findNavController().navigate(
                     actionMoviesToMovieDetail(movieId = movie.id, title = movie.title),
@@ -41,7 +41,7 @@ class MovieItem @AssistedInject constructor(
                 )
             }
 
-            root.transitionName = TRANSITION_NAME_SUFFIX
+            imageViewPoster.transitionName = TRANSITION_NAME_SUFFIX
             imageRequestDisposables.clear()
 
             imageRequestDisposables += Coil.load(

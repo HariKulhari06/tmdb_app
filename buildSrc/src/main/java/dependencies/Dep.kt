@@ -239,11 +239,15 @@ object Dep {
         val common = "io.mockk:mockk-common:1.9.3"
     }
 
+    object Lottie {
+        val lottie = "com.airbnb.android:lottie:3.4.0"
+    }
+
     object Timber {
         val common = "com.jakewharton.timber:timber-common:5.0.0-SNAPSHOT"
         val jdk = "com.jakewharton.timber:timber-jdk:5.0.0-SNAPSHOT"
         val android = "com.jakewharton.timber:timber-android:5.0.0-SNAPSHOT"
-        val timber ="com.jakewharton.timber:timber:4.7.1"
+        val timber = "com.jakewharton.timber:timber:4.7.1"
     }
 
     object Insetter {

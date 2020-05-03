@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hari.tmdb.search.viewmodel.SearchViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="?attr/colorSurface">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_view"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            isVisible="@{viewModel.ui.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:indeterminate="true"
+            android:progress="50"
+            android:scaleX="2"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_between_view"
+            android:text="@string/search"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/progress_view" />
+
+        <TextView
+            android:id="@+id/text_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_between_view"
+            android:text="@string/millions_of_movies_tv_shows_and_people_to_discover"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/text_search" />
+
+        <TextView
+            android:id="@+id/text_recent_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:text="Recent Search"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/text_tag" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/screen_between_view"
+            android:clipToPadding="false"
+            android:splitMotionEvents="false"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/text_recent_search"
+            app:spanCount="3"
+            tools:listitem="@layout/item_search" />
+
+
+        <!--
+                <include
+                    android:id="@+id/empty_state"
+                    layout="@layout/search_empty_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
