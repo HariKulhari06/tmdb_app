@@ -49,7 +49,7 @@ enum class PageConfiguration(
         hasTitle = false,
         hideBottomNavigationMenu = true,
         isIndigoBackground = false,
-        hideToolbar = true
+        hideToolbar = false
     ),
     OTHER(0);
 

@@ -50,6 +50,9 @@
             app:exitAnim="@anim/fade_out"
             app:popExitAnim="@anim/fade_out" />
 
+        <action
+            android:id="@+id/action_movies_to_search"
+            app:destination="@id/search" />
 
     </fragment>
 
@@ -118,6 +121,13 @@
 
     <fragment
         android:id="@+id/search"
-        android:name="com.hari.tmdb.search.ui.SearchFragment" />
+        android:name="com.hari.tmdb.search.ui.SearchFragment">
+        <action
+            android:id="@+id/action_search_to_movieDetail"
+            app:destination="@id/movieDetails"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
 
 </navigation>

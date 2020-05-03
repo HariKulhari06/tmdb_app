@@ -18,6 +18,7 @@
 
         <!-- Widget styles -->
         <item name="filterChipStyle">@style/Widget.Tmdb.FilterChip</item>
+        //<item name="searchViewStyle">@style/Widget.Tmdb.SearchView</item>
     </style>
 
     <style name="Theme.Tmdb" parent="Base.Theme.Tmdb">

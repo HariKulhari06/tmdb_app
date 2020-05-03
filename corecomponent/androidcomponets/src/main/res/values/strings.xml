@@ -44,5 +44,6 @@
         <item>@string/pref_theme_value_battery</item>
     </string-array>
     <string name="millions_of_movies_tv_shows_and_people_to_discover">Millions of movies, TV shows and people to discover. Explore Now.</string>
+    <string name="search">Search</string>
 
 </resources>
