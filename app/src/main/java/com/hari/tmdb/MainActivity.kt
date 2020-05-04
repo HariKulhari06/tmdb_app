@@ -27,6 +27,7 @@ import com.hari.tmdb.databinding.ActivityMainBinding
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.getThemeColor
+import com.hari.tmdb.ext.hideSoftInput
 import com.hari.tmdb.ext.stringRes
 import com.hari.tmdb.movie.di.MovieAssistedInjectModule
 import com.hari.tmdb.movie.ui.*
@@ -101,6 +102,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     private fun onDestinationChange(destination: NavDestination) {
+        if (destination.id != R.id.search) hideSoftInput()
+
         val config = PageConfiguration.getConfiguration(destination.id)
 
         statusBarColors.isIndigoBackground = config.isIndigoBackground

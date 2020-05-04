@@ -5,11 +5,10 @@ import com.hari.tmdb.ext.combine
 import com.hari.tmdb.ext.requireValue
 import com.hari.tmdb.ext.toAppError
 import com.hari.tmdb.ext.toLoadingState
-import com.hari.tmdb.log.Timber
 import com.hari.tmdb.model.*
 import com.hari.tmdb.model.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class DiscoverMoviesViewModel @Inject constructor(
@@ -19,14 +18,16 @@ class DiscoverMoviesViewModel @Inject constructor(
         val isLoading: Boolean,
         val error: AppError?,
         val filters: Filters,
-        val allFilters: Filters
+        val allFilters: Filters,
+        val movies: List<Movie>?
     ) {
         companion object {
             val EMPTY = UiModel(
                 true,
                 null,
                 Filters(),
-                Filters()
+                Filters(),
+                null
             )
         }
     }
@@ -41,32 +42,37 @@ class DiscoverMoviesViewModel @Inject constructor(
                 .toLoadingState()
                 .asLiveData()
         )
-        try {
-            viewModelScope.launch(Dispatchers.IO) {
-                moviesRepository.refreshFilters()
-            }
-        } catch (e: Exception) {
-            // We can show sessions with cache
-            Timber.debug(e)
-        }
+        moviesRepository.refreshFilters()
     }
+
+    private val moviesLoadStateLiveData: LiveData<LoadState<List<Movie>>> =
+        liveData(Dispatchers.IO) {
+            moviesRepository.discoverMovies(filters = filterLiveData.asFlow())
+                .toLoadingState()
+                .collect {
+                    emit(it)
+                }
+        }
 
     // Produce UiModel
     val uiModel: LiveData<UiModel> = combine(
         initialValue = UiModel.EMPTY,
         liveData1 = filtersLoadStateLiveData,
-        liveData2 = filterLiveData
+        liveData2 = filterLiveData,
+        liveData3 = moviesLoadStateLiveData
     ) { current: UiModel,
         filtersLoadState: LoadState<Filters>,
-        filters: Filters
+        filters: Filters,
+        moviesLoadState: LoadState<List<Movie>>
         ->
-        val isLoading = filtersLoadState.isLoading
+        val isLoading = filtersLoadState.isLoading || moviesLoadState.isLoading
         val allFilters = filtersLoadState.getValueOrNull() ?: Filters()
         UiModel(
             isLoading = isLoading,
-            error = filtersLoadState.getErrorIfExists().toAppError(),
+            error = moviesLoadState.getErrorIfExists().toAppError(),
             filters = filters,
-            allFilters = allFilters
+            allFilters = allFilters,
+            movies = moviesLoadState.getValueOrNull()
         )
     }
 

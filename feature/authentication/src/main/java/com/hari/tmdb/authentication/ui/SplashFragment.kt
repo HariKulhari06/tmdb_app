@@ -8,7 +8,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.hari.tmdb.authentication.R
 import com.hari.tmdb.authentication.databinding.FragmentSplashBinding
-import com.hari.tmdb.authentication.ui.SplashFragmentDirections.Companion.actionSplashToLogin
 import kotlinx.coroutines.delay
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
@@ -24,8 +23,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 binding.logo to binding.logo.transitionName
             )
             delay(2000)
-            findNavController().navigate(actionSplashToLogin(), extra)
-            //findNavController().navigate(R.id.search)
+            // findNavController().navigate(actionSplashToLogin(), extra)
+            findNavController().navigate(R.id.main)
         }
     }
 }

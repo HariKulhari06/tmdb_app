@@ -8,7 +8,6 @@ import com.hari.tmdb.model.repository.MoviesRepository
 import com.hari.tmdb.model.repository.PeoplesRepository
 import com.hari.tmdb.model.repository.SearchRepository
 import com.hari.tmdb.repository.RepositoryComponent
-import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
 import com.uwetrottmann.tmdb2.services.*
 import dagger.Module
 import dagger.Provides
@@ -57,7 +56,7 @@ object RepositoryComponentModule {
         peoplesDatabase: PeoplesDatabase,
         genresService: GenresService,
         moviesService: MoviesService,
-        discoverMovieBuilder: DiscoverMovieBuilder,
+        discoverService: DiscoverService,
         peopleService: PeopleService,
         authenticationService: AuthenticationService,
         searchService: SearchService
@@ -70,7 +69,7 @@ object RepositoryComponentModule {
                 peoplesDatabase = peoplesDatabase,
                 genresService = genresService,
                 moviesService = moviesService,
-                discoverMovieBuilder = discoverMovieBuilder,
+                discoverService = discoverService,
                 personService = peopleService,
                 authenticationService = authenticationService,
                 searchService = searchService
