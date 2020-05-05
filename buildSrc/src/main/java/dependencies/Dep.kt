@@ -197,6 +197,12 @@ object Dep {
         val rangeSeekBar = "com.appyvet:materialrangebar:$version"
     }
 
+    object Paging {
+        val version = "2.1.2"
+        val runtime = "androidx.paging:paging-runtime:$version"
+        val ktx = "androidx.paging:paging-runtime-ktx:$version"
+    }
+
     object Stetho {
         val stetho = "com.facebook.stetho:stetho:1.5.1"
     }
