@@ -38,6 +38,7 @@ android {
 
 dependencies {
 
+
     implementation Dep.Kotlin.stdlibJvm
 
     implementation Dep.AndroidX.appCompat
