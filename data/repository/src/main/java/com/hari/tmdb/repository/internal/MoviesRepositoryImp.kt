@@ -1,24 +1,34 @@
 package com.hari.tmdb.repository.internal
 
 import com.hari.tmdb.db.internal.MoviesDataBase
+import com.hari.tmdb.ext.bodyOrThrow
 import com.hari.tmdb.ext.executeWithRetry
 import com.hari.tmdb.ext.toResult
 import com.hari.tmdb.log.Timber
 import com.hari.tmdb.model.*
+import com.hari.tmdb.model.mapper.Mapper
 import com.hari.tmdb.model.repository.MoviesRepository
 import com.uwetrottmann.tmdb2.entities.AppendToResponse
+import com.uwetrottmann.tmdb2.entities.BaseMovie
+import com.uwetrottmann.tmdb2.entities.DiscoverFilter
+import com.uwetrottmann.tmdb2.entities.MovieResultsPage
 import com.uwetrottmann.tmdb2.enumerations.AppendToResponseItem
+import com.uwetrottmann.tmdb2.enumerations.SortBy
+import com.uwetrottmann.tmdb2.services.DiscoverService
 import com.uwetrottmann.tmdb2.services.GenresService
 import com.uwetrottmann.tmdb2.services.MoviesService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import retrofit2.Call
 import javax.inject.Inject
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MoviesRepositoryImp @Inject constructor(
     private val moviesDataBase: MoviesDataBase,
     private val genresService: GenresService,
-    private val moviesService: MoviesService
+    private val moviesService: MoviesService,
+    private val discoverService: DiscoverService
 ) : MoviesRepository {
 
     override suspend fun refreshFilters() {
@@ -47,7 +57,7 @@ class MoviesRepositoryImp @Inject constructor(
     override suspend fun getMovieFilters(): Flow<Filters> {
         val genreFlow = moviesDataBase.moviesGenre()
         val languageFlow = moviesDataBase.languages()
-        val adultFlow = flowOf(listOf("Yes", "No"))
+        val adultFlow = adultsFiltersAsFlow()
 
         return combine(genreFlow, adultFlow, languageFlow) { genre, adults, languages ->
             val genres = genre
@@ -119,7 +129,102 @@ class MoviesRepositoryImp @Inject constructor(
     override suspend fun popularContents(page: Int): Flow<List<Movie>> {
         return moviesDataBase.popularMovies()
     }
+
+    override suspend fun discoverMovies(filters: Flow<Filters>): Flow<List<Movie>> {
+
+        val baseMovieToMovieMapper = object : Mapper<BaseMovie, Movie> {
+            override suspend fun map(from: BaseMovie): Movie = Movie(
+                id = from.id,
+                adult = from.adult,
+                backdropPath = from.backdrop_path,
+                originalLanguage = from.original_language,
+                originalTitle = from.original_title,
+                overview = from.overview,
+                popularity = from.popularity,
+                posterPath = from.poster_path,
+                releaseDate = "",
+                title = from.title,
+                video = false,
+                voteAverage = from.vote_average,
+                voteCount = from.vote_count
+            )
+        }
+
+        val mapper = object : Mapper<MovieResultsPage, List<Movie>> {
+            override suspend fun map(from: MovieResultsPage): List<Movie> {
+                return from.results?.map { baseMovie ->
+                    baseMovieToMovieMapper.map(baseMovie)
+                } ?: emptyList()
+            }
+        }
+
+
+        return filters
+            .map { filter ->
+                mapper.map(
+                    discoverService.tmdbDiscover(filter)
+                        .execute()
+                        .bodyOrThrow()
+                )
+            }
+    }
 }
+
+private fun DiscoverService.tmdbDiscover(filters: Filters): Call<MovieResultsPage> {
+    val language = filters.languages.firstOrNull()?.iso6391
+    val certificate = filters.certifications.firstOrNull()?.name
+    val adult = filters.includeAdult.firstOrNull().equals("Yes")
+    val sortBy = SortBy.values().firstOrNull { sort: SortBy ->
+        val name = filters.sortBy.firstOrNull()?.name
+        if (name.isNullOrEmpty())
+            false
+        else
+            name == sort.name
+    }
+    val genres = filters.genres.let { genre: Set<Genre> ->
+        if (genre.isEmpty()) {
+            null
+        } else {
+            DiscoverFilter(genre.first().id)
+        }
+    }
+
+    return discoverMovie(
+        language,
+        null,
+        sortBy,
+        null,
+        certificate,
+        null,
+        adult,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        genres,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    )
+}
+
+
 
 
 

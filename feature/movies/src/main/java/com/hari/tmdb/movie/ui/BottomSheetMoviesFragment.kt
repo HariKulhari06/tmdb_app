@@ -6,10 +6,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.hari.tmdb.di.PageScope
@@ -19,8 +16,10 @@ import com.hari.tmdb.model.ExpandFilterState.COLLAPSED
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.BottomSheetMoviesFragmentBinding
 import com.hari.tmdb.movie.item.MovieItem
+import com.hari.tmdb.movie.viewmodel.DiscoverMoviesViewModel
 import com.hari.tmdb.movie.viewmodel.MovieTabViewModel
 import com.hari.tmdb.ui.widget.BottomGestureSpace
+import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.databinding.GroupieViewHolder
 import dagger.Module
@@ -41,6 +40,12 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
         "Discover"
     }) {
         sessionTabViewModelProvider.get()
+    }
+
+    @Inject
+    lateinit var discoverMoviesViewModelProvider: Provider<DiscoverMoviesViewModel>
+    private val discoverMoviesViewModel: DiscoverMoviesViewModel by assistedActivityViewModels {
+        discoverMoviesViewModelProvider.get()
     }
 
     @Inject
@@ -125,6 +130,16 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
                 binding.isCollapsed = shouldBeCollapsed
             }
         }
+
+        discoverMoviesViewModel.uiModel.observe(viewLifecycleOwner, Observer { uiModel ->
+            uiModel.movies?.let { movies ->
+                val items = mutableListOf<Group>()
+                items += movies.map {
+                    movieItemFactory.create(it)
+                }
+                groupAdapter.update(items)
+            }
+        })
     }
 
 

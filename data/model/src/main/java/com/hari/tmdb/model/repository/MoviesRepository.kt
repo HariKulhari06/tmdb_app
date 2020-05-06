@@ -17,4 +17,6 @@ interface MoviesRepository {
 
     suspend fun refreshPopularContents()
     suspend fun popularContents(page: Int): Flow<List<Movie>>
+
+    suspend fun discoverMovies(filters: Flow<Filters>): Flow<List<Movie>>
 }

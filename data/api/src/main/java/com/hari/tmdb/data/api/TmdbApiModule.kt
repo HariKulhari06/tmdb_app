@@ -1,6 +1,5 @@
 package com.hari.tmdb.data.api
 
-import com.uwetrottmann.tmdb2.DiscoverMovieBuilder
 import com.uwetrottmann.tmdb2.Tmdb
 import com.uwetrottmann.tmdb2.services.*
 import dagger.Module
@@ -41,7 +40,7 @@ class TmdbServiceModule {
     fun provideTmdbMoviesService(tmdb: Tmdb): MoviesService = tmdb.moviesService()
 
     @Provides
-    fun provideTmdbMoviesDiscoverService(tmdb: Tmdb): DiscoverMovieBuilder = tmdb.discoverMovie()
+    fun provideTmdbMoviesDiscoverService(tmdb: Tmdb): DiscoverService = tmdb.discoverService()
 
     @Provides
     fun provideTmdbGenreService(tmdb: Tmdb): GenresService = tmdb.genreService()

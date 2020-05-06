@@ -1,13 +1,17 @@
 package com.hari.tmdb.ext
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.core.content.getSystemService
 import androidx.core.content.res.use
 import androidx.databinding.adapters.Converters
+import androidx.fragment.app.Fragment
 
 @ColorInt
 fun Context.getThemeColor(
@@ -32,5 +36,15 @@ fun Context.getThemeColorDrawable(
 
 fun Context.isNightMode(): Boolean {
     return resources.configuration.uiMode and
-        Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 }
+
+fun Activity.hideSoftInput() {
+    val imm: InputMethodManager? = getSystemService()
+    val currentFocus = currentFocus
+    if (currentFocus != null && imm != null) {
+        imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+    }
+}
+
+fun Fragment.hideSoftInput() = requireActivity().hideSoftInput()

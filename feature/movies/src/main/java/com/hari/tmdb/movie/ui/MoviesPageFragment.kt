@@ -63,12 +63,6 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
         moviesPageViewModel.ui.observe(viewLifecycleOwner, Observer { uiModel ->
             binding.progressBar.isVisible = uiModel.isLoading
             uiModel.movies?.let { movies ->
-                /*  setUpMoviesView(
-                      binding,
-                      adapter,
-                      moviesMOvie
-                  )*/
-
                 val items = mutableListOf<Group>()
                 items += movies.map {
                     movieItemFactory.create(it)
@@ -79,18 +73,6 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
 
         binding.swipeRefreshLayout.setOnRefreshListener { moviesPageViewModel.refresh() }
     }
-
-    /*  private fun setUpMoviesView(
-          binding: MoviesPageFragmentBinding,
-          adapter: GroupAdapter<GroupieViewHolder<*>>,
-          movies: List<Movie>
-      ) {
-          val items = mutableListOf<Group>()
-          items += movies.map {
-              movieItemFactory.create(it)
-          }
-          adapter.update(items)
-      }*/
 
 
     companion object {

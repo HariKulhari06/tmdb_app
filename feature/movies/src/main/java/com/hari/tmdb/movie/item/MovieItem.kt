@@ -46,7 +46,7 @@ class MovieItem @AssistedInject constructor(
 
             imageRequestDisposables += Coil.load(
                 imageViewPoster.context,
-                "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
+                "https://image.tmdb.org/t/p/w185/${movie.posterPath}"
             ) {
                 crossfade(true)
                 placeholder(R.drawable.placeholder_72dp)

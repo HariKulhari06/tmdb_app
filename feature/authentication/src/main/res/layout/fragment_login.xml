@@ -63,7 +63,6 @@
 
 
             <TextView
-                android:transitionName="app_logo"
                 android:id="@+id/text_sign_in_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,6 +70,7 @@
                 android:gravity="center"
                 android:text="@string/sign_in_to_contiune"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:transitionName="app_logo"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
                 app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
@@ -178,6 +178,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/screen_space"
+                android:gravity="center"
+                android:text="Skip"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
