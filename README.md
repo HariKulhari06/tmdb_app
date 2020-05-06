@@ -9,9 +9,7 @@
 ![GitHub watchers](https://img.shields.io/github/watchers/HariKulhari06/tmdb_app?style=social)
 ![GitHub Issues](https://img.shields.io/github/issues/HariKulhari06/tmdb_app?style=social)
 
-**TMDB** is a sample Movies, and Tv shows Android application 📱 built to demonstrate use of *Modern Android development* tools. Dedicated to all Android Developers with ❤️. 
-
-***You can Install and test latest Foodium app from below 👇***
+**TMDB** is a sample Movies, and Tv shows Android application 📱 built to demonstrate use of *Modern Android development* tools. Dedicated to all Android Developers with ❤️.
 
 
 ## About
