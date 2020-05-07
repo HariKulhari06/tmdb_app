@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.hari.tmdb.di.PageScope
@@ -29,9 +31,11 @@ import com.hari.tmdb.search.item.KeywordItem
 import com.hari.tmdb.search.item.SearchItem
 import com.hari.tmdb.search.viewmodel.SearchViewModel
 import com.hari.tmdb.system.viewmodel.SystemViewModel
+import com.hari.tmdb.ui.item.CarouselGroup
 import com.hari.tmdb.util.AppcompatRId
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Section
 import com.xwray.groupie.databinding.GroupieViewHolder
 import dagger.Module
 import dagger.Provides
@@ -99,50 +103,62 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
         binding.recyclerViewSearch.adapter = adapter
         binding.recyclerViewSearch.itemAnimator = SlideInUpAnimator()
 
+
         searchViewModel.ui.observe(viewLifecycleOwner, Observer { uiModel ->
+            adapter.clear()
             uiModel.error?.let {
                 systemViewModel.onError(it)
             }
-
             uiModel.movies?.let { movies ->
-                setRecentSearchUiVisibility(binding, movies.isEmpty())
-                setNoResultStateVisibility(
-                    binding,
-                    (movies.isEmpty() && searchViewModel.getSearchQuery().isNullOrEmpty().not())
-                )
-                val items = mutableListOf<Group>()
-                items += movies.map { movie ->
+                val searchSection = Section(
+                    com.hari.tmdb.ui.item.HeaderItem(
+                        titleStringResId = R.string.movies_tv_show_person
+                    ) {})
+                searchSection.setHideWhenEmpty(true)
+
+                val videoAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                val searchItem = mutableListOf<Group>()
+                searchItem += movies.map { movie ->
                     searchItemFactory.create(movie)
                 }
+                videoAdapter.addAll(searchItem)
 
-                adapter.update(items)
+                searchSection.add(
+                    CarouselGroup(
+                        adapter = videoAdapter,
+                        layoutManager = GridLayoutManager(requireContext(), 3)
+                    )
+                )
 
-                /* uiModel.keywords?.let { keywords ->
-                     items.add(headerItemFactory.create(getString(R.string.explore_keywords_related_to)))
-                     items += keywords.map { keyword ->
-                         keywordItemFactory.create(keyword)
-                     }
-                     adapter.addAll(items)
-                 }*/
+                adapter.add(searchSection)
             }
 
+            uiModel.keywords?.let { keywords ->
+                val keywordSection = Section(
+                    com.hari.tmdb.ui.item.HeaderItem(
+                        titleStringResId = R.string.explore_keywords_related_to
+                    ) {})
+                keywordSection.setHideWhenEmpty(true)
 
+                val keywordAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                val keywordItem = mutableListOf<Group>()
+                keywordItem += keywords.map { keyword ->
+                    keywordItemFactory.create(keyword)
+                }
+                keywordAdapter.addAll(keywordItem)
+
+                keywordSection.add(
+                    CarouselGroup(
+                        adapter = keywordAdapter,
+                        layoutManager = LinearLayoutManager(requireContext())
+                    )
+                )
+                adapter.add(keywordSection)
+
+            }
         })
     }
 
-    private fun setRecentSearchUiVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
-        val fadeThrough = MaterialFadeThrough.create(requireContext())
-        TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
-
-        if (isVisible) {
-            binding.recentSearchViewGroup.visibility = View.VISIBLE
-            binding.textMoviesTvShowsPerson.visibility = View.INVISIBLE
-        } else {
-            binding.recentSearchViewGroup.visibility = View.GONE
-            binding.textMoviesTvShowsPerson.visibility = View.VISIBLE
-        }
-
-    }
 
     private fun setNoResultStateVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
         val fadeThrough = MaterialFadeThrough.create(requireContext())

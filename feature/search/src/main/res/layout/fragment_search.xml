@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -65,28 +64,6 @@
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@+id/text_search" />
 
-        <TextView
-            android:id="@+id/text_recent_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_space"
-            android:text="@string/recent_search"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_tag" />
-
-        <TextView
-            android:id="@+id/text_movies_tv_shows_person"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_space"
-            android:text="@string/movies_tv_show_person"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_tag" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search"
@@ -95,25 +72,17 @@
             android:layout_marginTop="@dimen/screen_between_view"
             android:clipToPadding="false"
             android:splitMotionEvents="false"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_movies_tv_shows_person"
-            app:spanCount="3"
-            tools:listitem="@layout/item_search" />
+            app:layout_constraintTop_toBottomOf="@+id/text_tag" />
 
 
         <include
             android:id="@+id/no_result_state"
             layout="@layout/search_empty_state"
             android:visibility="gone" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/recent_search_view_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="text_search,text_recent_search,text_tag" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

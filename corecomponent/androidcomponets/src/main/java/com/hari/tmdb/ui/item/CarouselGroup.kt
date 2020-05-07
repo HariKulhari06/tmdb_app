@@ -1,4 +1,4 @@
-package com.hari.tmdb.movie.item
+package com.hari.tmdb.ui.item
 
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.Group

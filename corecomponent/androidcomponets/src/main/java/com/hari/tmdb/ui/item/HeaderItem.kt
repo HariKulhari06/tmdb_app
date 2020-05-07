@@ -1,11 +1,12 @@
-package com.hari.tmdb.movie.item
+package com.hari.tmdb.ui.item
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.view.isGone
-import com.hari.tmdb.movie.R
-import com.hari.tmdb.movie.databinding.ItemHeaderBinding
+import com.hari.tmdb.androidcomponents.R
+import com.hari.tmdb.androidcomponents.databinding.ItemHeaderBinding
 import com.xwray.groupie.databinding.BindableItem
+
 
 class HeaderItem constructor(
     @StringRes val titleStringResId: Int,

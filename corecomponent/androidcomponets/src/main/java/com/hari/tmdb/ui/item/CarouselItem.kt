@@ -1,9 +1,10 @@
-package com.hari.tmdb.movie.item
+package com.hari.tmdb.ui.item
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.hari.tmdb.movie.R
-import com.hari.tmdb.movie.databinding.ItemCarouselBinding
+import com.hari.tmdb.androidcomponents.R
+import com.hari.tmdb.androidcomponents.databinding.ItemCarouselBinding
+
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.GroupieViewHolder

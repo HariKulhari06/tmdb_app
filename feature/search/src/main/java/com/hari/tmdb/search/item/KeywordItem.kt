@@ -15,6 +15,7 @@ class KeywordItem @AssistedInject constructor(
 
     override fun bind(viewBinding: ItemKeywordBinding, position: Int) {
         viewBinding.keyword = keyword
+        viewBinding.root.setOnClickListener { }
     }
 
     @AssistedInject.Factory
