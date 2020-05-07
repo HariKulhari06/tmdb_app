@@ -3,6 +3,7 @@ package com.hari.tmdb.search.ui
 import android.app.Activity
 import android.app.SearchManager
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -16,12 +17,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
 import com.hari.tmdb.search.R
 import com.hari.tmdb.search.databinding.FragmentSearchBinding
+import com.hari.tmdb.search.item.HeaderItem
+import com.hari.tmdb.search.item.KeywordItem
 import com.hari.tmdb.search.item.SearchItem
 import com.hari.tmdb.search.viewmodel.SearchViewModel
 import com.hari.tmdb.system.viewmodel.SystemViewModel
@@ -54,6 +58,12 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
     @Inject
     lateinit var searchItemFactory: SearchItem.Factory
+
+    @Inject
+    lateinit var headerItemFactory: HeaderItem.Factory
+
+    @Inject
+    lateinit var keywordItemFactory: KeywordItem.Factory
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -95,14 +105,54 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
             }
 
             uiModel.movies?.let { movies ->
+                setRecentSearchUiVisibility(binding, movies.isEmpty())
+                setNoResultStateVisibility(
+                    binding,
+                    (movies.isEmpty() && searchViewModel.getSearchQuery().isNullOrEmpty().not())
+                )
                 val items = mutableListOf<Group>()
                 items += movies.map { movie ->
                     searchItemFactory.create(movie)
                 }
+
                 adapter.update(items)
+
+                /* uiModel.keywords?.let { keywords ->
+                     items.add(headerItemFactory.create(getString(R.string.explore_keywords_related_to)))
+                     items += keywords.map { keyword ->
+                         keywordItemFactory.create(keyword)
+                     }
+                     adapter.addAll(items)
+                 }*/
             }
 
+
         })
+    }
+
+    private fun setRecentSearchUiVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
+        val fadeThrough = MaterialFadeThrough.create(requireContext())
+        TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+
+        if (isVisible) {
+            binding.recentSearchViewGroup.visibility = View.VISIBLE
+            binding.textMoviesTvShowsPerson.visibility = View.INVISIBLE
+        } else {
+            binding.recentSearchViewGroup.visibility = View.GONE
+            binding.textMoviesTvShowsPerson.visibility = View.VISIBLE
+        }
+
+    }
+
+    private fun setNoResultStateVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
+        val fadeThrough = MaterialFadeThrough.create(requireContext())
+        TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+        if (isVisible) {
+            binding.noResultState.visibility = View.VISIBLE
+        } else {
+            binding.noResultState.visibility = View.GONE
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

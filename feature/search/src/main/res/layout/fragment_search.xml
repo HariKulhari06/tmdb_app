@@ -12,8 +12,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
+        android:id="@+id/container"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="?attr/colorSurface">
 
         <androidx.constraintlayout.widget.Guideline
@@ -42,6 +43,7 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/text_search"
             android:layout_width="wrap_content"
@@ -68,8 +70,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/screen_space"
-            android:text="Recent Search"
+            android:text="@string/recent_search"
             android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/text_tag" />
+
+        <TextView
+            android:id="@+id/text_movies_tv_shows_person"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_space"
+            android:text="@string/movies_tv_show_person"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@+id/text_tag" />
@@ -85,18 +99,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_recent_search"
+            app:layout_constraintTop_toBottomOf="@+id/text_movies_tv_shows_person"
             app:spanCount="3"
             tools:listitem="@layout/item_search" />
 
 
-        <!--
-                <include
-                    android:id="@+id/empty_state"
-                    layout="@layout/search_empty_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-        -->
+        <include
+            android:id="@+id/no_result_state"
+            layout="@layout/search_empty_state"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/recent_search_view_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="text_search,text_recent_search,text_tag" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
