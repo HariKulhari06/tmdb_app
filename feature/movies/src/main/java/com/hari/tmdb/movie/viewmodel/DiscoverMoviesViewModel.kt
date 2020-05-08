@@ -65,7 +65,7 @@ class DiscoverMoviesViewModel @Inject constructor(
         filters: Filters,
         moviesLoadState: LoadState<List<Movie>>
         ->
-        val isLoading = filtersLoadState.isLoading || moviesLoadState.isLoading
+        val isLoading = moviesLoadState.isLoading
         val allFilters = filtersLoadState.getValueOrNull() ?: Filters()
         UiModel(
             isLoading = isLoading,

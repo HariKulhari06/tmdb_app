@@ -18,6 +18,7 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.hari.tmdb.ext.assistedActivityViewModels
+import com.hari.tmdb.ext.assistedViewModels
 import com.hari.tmdb.ext.sortByEnumNameToDisplayValue
 import com.hari.tmdb.model.ExpandFilterState
 import com.hari.tmdb.movie.R
@@ -43,7 +44,7 @@ class DiscoverMoviesFragment : Fragment(R.layout.discover_movies_fragment), HasA
 
     @Inject
     lateinit var discoverMoviesViewModelProvider: Provider<DiscoverMoviesViewModel>
-    private val discoverMoviesViewModel: DiscoverMoviesViewModel by assistedActivityViewModels {
+    private val discoverMoviesViewModel: DiscoverMoviesViewModel by assistedViewModels {
         discoverMoviesViewModelProvider.get()
     }
 

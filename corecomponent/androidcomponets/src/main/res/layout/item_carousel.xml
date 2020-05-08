@@ -5,10 +5,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/screen_space"
-        android:splitMotionEvents="false"
-        android:layout_marginEnd="@dimen/screen_space"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:splitMotionEvents="false">
 
     </androidx.recyclerview.widget.RecyclerView>
 </layout>

@@ -120,6 +120,16 @@
             app:spanCount="3"
             tools:listitem="@layout/movie_item" />
 
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/empty_session"
             android:layout_width="0dp"
@@ -157,6 +167,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/empty_icon" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.hari.tmdb.movie.widget.BottomSheetMotionLayout>
 </layout>

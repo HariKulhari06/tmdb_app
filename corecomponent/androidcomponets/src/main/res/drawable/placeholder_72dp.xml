@@ -21,15 +21,18 @@
     </item>
 
     <item>
-        <shape android:tint="?attr/colorOnBackground">
-            <solid android:color="#FFFF00FF" />
+        <shape>
+            <solid android:color="@color/divider_colors" />
+            <size
+                android:width="300dp"
+                android:height="500dp" />
         </shape>
     </item>
 
     <item
         android:width="72dp"
         android:height="72dp"
-        android:drawable="@drawable/placeholder"
+        android:drawable="@drawable/app_logo_72dp"
         android:gravity="center"
         tools:ignore="UnusedAttribute" />
 </layer-list>

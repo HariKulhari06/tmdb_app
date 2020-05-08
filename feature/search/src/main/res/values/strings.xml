@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="query_hint">Search movies...</string>
-    <string name="search_empty_result_message">Sorry no result found for this search.\nPlease try with another phrase.</string>
+    <string name="search_empty_result_message">Sorry no result found for this search.\nTry searching for another movie, tv show, person.</string>
     <string name="no_result_found">No Result Found.</string>
+    <string name="movies_tv_show_person"><![CDATA[Movies, Tv shows & Person]]></string>
+    <string name="recent_search">Recent Search</string>
+    <string name="explore_keywords_related_to">Explore Keywords Related To</string>
 </resources>

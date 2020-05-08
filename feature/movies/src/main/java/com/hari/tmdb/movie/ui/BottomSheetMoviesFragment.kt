@@ -132,6 +132,7 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
         }
 
         discoverMoviesViewModel.uiModel.observe(viewLifecycleOwner, Observer { uiModel ->
+            binding.progressBar.isVisible = uiModel.isLoading
             uiModel.movies?.let { movies ->
                 val items = mutableListOf<Group>()
                 items += movies.map {

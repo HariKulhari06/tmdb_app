@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="keyword"
+            type="com.hari.tmdb.model.Keyword" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keyword_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/screen_space"
+        android:paddingBottom="@dimen/screen_space"
+        android:transitionName="keyword_container">
+
+        <TextView
+            android:id="@+id/keyword_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{keyword.name}"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/explore_keywords_related_to" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

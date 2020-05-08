@@ -3,6 +3,7 @@ package com.hari.tmdb.search.ui
 import android.app.Activity
 import android.app.SearchManager
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -16,18 +17,27 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
+import com.hari.tmdb.groupie.ItemDecorationAlbumColumns
 import com.hari.tmdb.search.R
 import com.hari.tmdb.search.databinding.FragmentSearchBinding
+import com.hari.tmdb.search.item.HeaderItem
+import com.hari.tmdb.search.item.KeywordItem
 import com.hari.tmdb.search.item.SearchItem
 import com.hari.tmdb.search.viewmodel.SearchViewModel
 import com.hari.tmdb.system.viewmodel.SystemViewModel
+import com.hari.tmdb.ui.item.CarouselGroup
 import com.hari.tmdb.util.AppcompatRId
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Section
 import com.xwray.groupie.databinding.GroupieViewHolder
 import dagger.Module
 import dagger.Provides
@@ -56,6 +66,12 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
     lateinit var searchItemFactory: SearchItem.Factory
 
     @Inject
+    lateinit var headerItemFactory: HeaderItem.Factory
+
+    @Inject
+    lateinit var keywordItemFactory: KeywordItem.Factory
+
+    @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
@@ -77,6 +93,8 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
         val backward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, false)
         returnTransition = backward
+
+        exitTransition = Hold()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,20 +107,82 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
         binding.recyclerViewSearch.adapter = adapter
         binding.recyclerViewSearch.itemAnimator = SlideInUpAnimator()
 
+
         searchViewModel.ui.observe(viewLifecycleOwner, Observer { uiModel ->
+            adapter.clear()
             uiModel.error?.let {
                 systemViewModel.onError(it)
             }
-
             uiModel.movies?.let { movies ->
-                val items = mutableListOf<Group>()
-                items += movies.map { movie ->
+                val searchSection = Section(
+                    com.hari.tmdb.ui.item.HeaderItem(
+                        titleStringResId = R.string.movies_tv_show_person
+                    ) {})
+                searchSection.setHideWhenEmpty(true)
+
+                val videoAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                val searchItem = mutableListOf<Group>()
+                searchItem += movies.map { movie ->
                     searchItemFactory.create(movie)
                 }
-                adapter.update(items)
+                videoAdapter.addAll(searchItem)
+
+                searchSection.add(
+                    CarouselGroup(
+                        itemDecoration = ItemDecorationAlbumColumns(10, 3),
+                        adapter = videoAdapter,
+                        layoutManager = GridLayoutManager(requireContext(), 3)
+                    )
+                )
+                adapter.add(0, searchSection)
+                uiModel.keywords?.let { keywords ->
+                    val keywordSection = Section(
+                        com.hari.tmdb.ui.item.HeaderItem(
+                            titleStringResId = R.string.explore_keywords_related_to
+                        ) {})
+                    keywordSection.setHideWhenEmpty(true)
+
+                    val keywordAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                    val keywordItem = mutableListOf<Group>()
+                    keywordItem += keywords.map { keyword ->
+                        keywordItemFactory.create(keyword)
+                    }
+                    keywordAdapter.addAll(keywordItem)
+
+                    keywordSection.add(
+                        CarouselGroup(
+                            adapter = keywordAdapter,
+                            layoutManager = LinearLayoutManager(requireContext())
+                        )
+                    )
+                    adapter.add(1, keywordSection)
+                }
             }
 
         })
+    }
+
+
+    private fun setHeaderItemVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
+        val fadeThrough = MaterialFadeThrough.create(requireContext())
+        TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+        if (isVisible) {
+            binding.noResultState.visibility = View.VISIBLE
+        } else {
+            binding.noResultState.visibility = View.GONE
+        }
+
+    }
+
+    private fun setNoResultStateVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
+        val fadeThrough = MaterialFadeThrough.create(requireContext())
+        TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+        if (isVisible) {
+            binding.noResultState.visibility = View.VISIBLE
+        } else {
+            binding.noResultState.visibility = View.GONE
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -176,6 +256,10 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
 @Module
 abstract class SearchFragmentModule {
+
+    /* @ContributesAndroidInjector(modules = [KeywordFragmentModule::class])
+     abstract fun contributeKeywordResultFragment(): KeywordSearchResultFragment*/
+
     companion object {
         @PageScope
         @Provides

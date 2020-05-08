@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.hari.tmdb.search.viewmodel.SearchViewModel" />
@@ -12,8 +14,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
+        android:id="@+id/container"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="?attr/colorSurface">
 
         <androidx.constraintlayout.widget.Guideline
@@ -38,9 +41,9 @@
             android:layout_height="7dp"
             android:indeterminate="true"
             android:progress="50"
-            android:scaleX="2"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/text_search"
@@ -63,40 +66,33 @@
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@+id/text_search" />
 
-        <TextView
-            android:id="@+id/text_recent_search"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.Group
+            isVisibleWithAnimation="@{viewModel.ui.movies.size()==0}"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_space"
-            android:text="Recent Search"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_tag" />
+            app:constraint_referenced_ids="text_tag,text_search" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/screen_between_view"
             android:clipToPadding="false"
             android:splitMotionEvents="false"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@+id/text_recent_search"
-            app:spanCount="3"
-            tools:listitem="@layout/item_search" />
+            app:layout_constraintTop_toBottomOf="@+id/text_tag"
+            tools:itemCount="2" />
 
 
-        <!--
-                <include
-                    android:id="@+id/empty_state"
-                    layout="@layout/search_empty_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-        -->
+        <include
+            android:id="@+id/no_result_state"
+            layout="@layout/search_empty_state"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

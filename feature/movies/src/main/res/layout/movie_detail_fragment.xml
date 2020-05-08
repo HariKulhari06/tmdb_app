@@ -9,15 +9,16 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.Tmdb.DayNight"
-        android:descendantFocusability="blocksDescendants">
+        android:descendantFocusability="blocksDescendants"
+        android:theme="@style/Theme.Tmdb.DayNight">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_detail_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/screen_space"
+            android:layout_marginEnd="@dimen/screen_space"
             android:orientation="vertical"
-            android:scrollbars="vertical"
             android:splitMotionEvents="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

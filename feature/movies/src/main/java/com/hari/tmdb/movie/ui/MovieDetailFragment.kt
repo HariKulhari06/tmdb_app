@@ -23,6 +23,8 @@ import com.hari.tmdb.movie.viewmodel.MovieDetailViewModel
 import com.hari.tmdb.movie.widget.MovieDetailItemDecoration
 import com.hari.tmdb.system.viewmodel.SystemViewModel
 import com.hari.tmdb.ui.animation.MEDIUM_EXPAND_DURATION
+import com.hari.tmdb.ui.item.CarouselGroup
+import com.hari.tmdb.ui.item.HeaderItem
 import com.hari.tmdb.ui.transaction.fadeThrough
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
@@ -140,7 +142,10 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
                 adapter.add(castingSection)
 
 
-                val videoSection = Section(HeaderItem(titleStringResId = R.string.videos) {})
+                val videoSection = Section(
+                    HeaderItem(
+                        titleStringResId = R.string.videos
+                    ) {})
                 videoSection.setHideWhenEmpty(true)
 
                 val videoAdapter = GroupAdapter<GroupieViewHolder<*>>()
@@ -161,9 +166,6 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
             }
 
         })
-
-
-        //  startPostponedEnterTransition()
     }
 
 

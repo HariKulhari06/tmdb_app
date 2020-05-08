@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/screen_space">
+        android:paddingTop="@dimen/screen_space"
+        android:paddingBottom="@dimen/screen_space">
 
         <LinearLayout
             android:layout_width="0dp"

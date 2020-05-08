@@ -24,7 +24,7 @@ class SearchItem @AssistedInject constructor(
     private val imageRequestDisposables = mutableListOf<RequestDisposable>()
 
     companion object {
-        private const val TRANSITION_NAME_SUFFIX = "movie"
+        private const val TRANSITION_NAME_SUFFIX = "search"
     }
 
     override fun getLayout(): Int = R.layout.item_search
@@ -41,8 +41,8 @@ class SearchItem @AssistedInject constructor(
                 )
             }
 
-            imageViewPoster.transitionName = TRANSITION_NAME_SUFFIX
-            imageRequestDisposables.clear()
+
+            // imageRequestDisposables.clear()
 
             imageRequestDisposables += Coil.load(
                 imageViewPoster.context,
@@ -50,6 +50,7 @@ class SearchItem @AssistedInject constructor(
             ) {
                 crossfade(true)
                 placeholder(R.drawable.placeholder_72dp)
+                error(R.drawable.placeholder_72dp)
                 lifecycle(lifecycleOwnerLiveData.value)
                 target {
                     imageViewPoster.setImageDrawable(it)
