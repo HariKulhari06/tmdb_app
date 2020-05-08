@@ -32,6 +32,8 @@ import com.hari.tmdb.ext.stringRes
 import com.hari.tmdb.movie.di.MovieAssistedInjectModule
 import com.hari.tmdb.movie.ui.*
 import com.hari.tmdb.search.di.SearchAssistedInjectModule
+import com.hari.tmdb.search.ui.KeywordFragmentModule
+import com.hari.tmdb.search.ui.KeywordSearchResultFragment
 import com.hari.tmdb.search.ui.SearchFragment
 import com.hari.tmdb.search.ui.SearchFragmentModule
 import com.hari.tmdb.system.viewmodel.SystemViewModel
@@ -214,6 +216,12 @@ abstract class MainActivityModule {
         modules = [SearchFragmentModule::class, SearchAssistedInjectModule::class]
     )
     abstract fun contributeSearchFragment(): SearchFragment
+
+    @PageScope
+    @ContributesAndroidInjector(
+        modules = [KeywordFragmentModule::class, SearchAssistedInjectModule::class]
+    )
+    abstract fun contributeKeywordSearchFragment(): KeywordSearchResultFragment
 
     @Module
     abstract class MainActivityBuilder {

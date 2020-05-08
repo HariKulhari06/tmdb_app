@@ -20,8 +20,6 @@ dependencies {
     implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.legacy
     implementation Dep.AndroidX.recyclerView
-    implementation Dep.Flexbox.flexbox
-
 
     implementation Dep.Groupie.groupie
     implementation Dep.Groupie.databinding

@@ -15,7 +15,6 @@ enum class PageConfiguration(
 
     SPLASH(
         R.id.splash,
-        isIndigoBackground = false,
         hasTitle = false,
         hideToolbar = true,
         hideBottomNavigationMenu = true
@@ -30,8 +29,7 @@ enum class PageConfiguration(
     DETAIL(
         R.id.movieDetails,
         hasTitle = true,
-        hideBottomNavigationMenu = true,
-        isIndigoBackground = false
+        hideBottomNavigationMenu = true
     ),
     ACCOUNT(
         R.id.account,
@@ -41,15 +39,17 @@ enum class PageConfiguration(
     CASTING(
         R.id.people,
         hasTitle = true,
-        hideBottomNavigationMenu = true,
-        isIndigoBackground = false
+        hideBottomNavigationMenu = true
     ),
     SEARCH(
         R.id.search,
         hasTitle = false,
-        hideBottomNavigationMenu = true,
-        isIndigoBackground = false,
-        hideToolbar = false
+        hideBottomNavigationMenu = true
+    ),
+    KEYWORD_SEARCH(
+        R.id.keywordSearchResult,
+        hasTitle = true,
+        hideBottomNavigationMenu = true
     ),
     OTHER(0);
 

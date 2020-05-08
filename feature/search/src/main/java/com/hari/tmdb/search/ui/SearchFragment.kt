@@ -19,11 +19,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
+import com.hari.tmdb.groupie.ItemDecorationAlbumColumns
 import com.hari.tmdb.search.R
 import com.hari.tmdb.search.databinding.FragmentSearchBinding
 import com.hari.tmdb.search.item.HeaderItem
@@ -91,6 +93,8 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
         val backward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, false)
         returnTransition = backward
+
+        exitTransition = Hold()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,40 +129,50 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
                 searchSection.add(
                     CarouselGroup(
+                        itemDecoration = ItemDecorationAlbumColumns(10, 3),
                         adapter = videoAdapter,
                         layoutManager = GridLayoutManager(requireContext(), 3)
                     )
                 )
+                adapter.add(0, searchSection)
+                uiModel.keywords?.let { keywords ->
+                    val keywordSection = Section(
+                        com.hari.tmdb.ui.item.HeaderItem(
+                            titleStringResId = R.string.explore_keywords_related_to
+                        ) {})
+                    keywordSection.setHideWhenEmpty(true)
 
-                adapter.add(searchSection)
-            }
+                    val keywordAdapter = GroupAdapter<GroupieViewHolder<*>>()
+                    val keywordItem = mutableListOf<Group>()
+                    keywordItem += keywords.map { keyword ->
+                        keywordItemFactory.create(keyword)
+                    }
+                    keywordAdapter.addAll(keywordItem)
 
-            uiModel.keywords?.let { keywords ->
-                val keywordSection = Section(
-                    com.hari.tmdb.ui.item.HeaderItem(
-                        titleStringResId = R.string.explore_keywords_related_to
-                    ) {})
-                keywordSection.setHideWhenEmpty(true)
-
-                val keywordAdapter = GroupAdapter<GroupieViewHolder<*>>()
-                val keywordItem = mutableListOf<Group>()
-                keywordItem += keywords.map { keyword ->
-                    keywordItemFactory.create(keyword)
-                }
-                keywordAdapter.addAll(keywordItem)
-
-                keywordSection.add(
-                    CarouselGroup(
-                        adapter = keywordAdapter,
-                        layoutManager = LinearLayoutManager(requireContext())
+                    keywordSection.add(
+                        CarouselGroup(
+                            adapter = keywordAdapter,
+                            layoutManager = LinearLayoutManager(requireContext())
+                        )
                     )
-                )
-                adapter.add(keywordSection)
-
+                    adapter.add(1, keywordSection)
+                }
             }
+
         })
     }
 
+
+    private fun setHeaderItemVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
+        val fadeThrough = MaterialFadeThrough.create(requireContext())
+        TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+        if (isVisible) {
+            binding.noResultState.visibility = View.VISIBLE
+        } else {
+            binding.noResultState.visibility = View.GONE
+        }
+
+    }
 
     private fun setNoResultStateVisibility(binding: FragmentSearchBinding, isVisible: Boolean) {
         val fadeThrough = MaterialFadeThrough.create(requireContext())
@@ -242,6 +256,10 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
 @Module
 abstract class SearchFragmentModule {
+
+    /* @ContributesAndroidInjector(modules = [KeywordFragmentModule::class])
+     abstract fun contributeKeywordResultFragment(): KeywordSearchResultFragment*/
+
     companion object {
         @PageScope
         @Provides

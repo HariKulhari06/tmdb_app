@@ -89,13 +89,16 @@ class SearchRepositoryImp @Inject constructor(
             .flatMapLatest { searchQuery ->
                 flow {
                     emit(
-                        baseKeywordToKeyword.forLists()
-                            .invoke(
-                                searchService
-                                    .keyword(searchQuery, 1)
-                                    .execute()
-                                    .bodyOrThrow().results
-                            )
+                        if (searchQuery.isBlank())
+                            emptyList()
+                        else
+                            baseKeywordToKeyword.forLists()
+                                .invoke(
+                                    searchService
+                                        .keyword(searchQuery, 1)
+                                        .execute()
+                                        .bodyOrThrow().results
+                                )
                     )
                 }
             }

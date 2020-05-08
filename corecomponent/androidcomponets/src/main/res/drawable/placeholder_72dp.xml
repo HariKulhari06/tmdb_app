@@ -22,7 +22,7 @@
 
     <item>
         <shape>
-            <solid android:color="?attr/colorOnPrimary" />
+            <solid android:color="@color/divider_colors" />
             <size
                 android:width="300dp"
                 android:height="500dp" />

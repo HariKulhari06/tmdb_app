@@ -68,7 +68,6 @@ class PeopleFragment : Fragment(R.layout.people_fragment), Injectable {
                 val items = mutableListOf<Group>()
                 items += peopleDetailItemFactory.create(people)
                 adapter.update(items)
-
             }
         })
     }
