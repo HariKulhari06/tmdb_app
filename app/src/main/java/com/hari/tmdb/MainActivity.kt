@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         )
     }
 
+
     @Inject
     lateinit var systemViewModelProvider: Provider<SystemViewModel>
     private val systemViewModel: SystemViewModel by assistedActivityViewModels {
