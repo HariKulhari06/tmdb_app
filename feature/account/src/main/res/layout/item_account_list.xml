@@ -11,10 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
-        android:paddingStart="@dimen/start_margin_account"
-        android:paddingTop="@dimen/screen_space"
-        android:paddingEnd="@dimen/screen_space"
-        android:paddingBottom="@dimen/screen_space">
+        android:padding="@dimen/screen_space">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
@@ -33,13 +30,14 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="?attr/colorPrimary"
             android:scaleType="centerCrop"
-            tools:src="@drawable/poster"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_watchlist_24px" />
 
         <TextView
             android:id="@+id/title"
@@ -47,8 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/screen_space"
             android:layout_marginEnd="@dimen/screen_space"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textSize="18sp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
             app:layout_constraintBottom_toBottomOf="@+id/icon"
             app:layout_constraintEnd_toStartOf="@+id/icon_arrow"
             app:layout_constraintStart_toEndOf="@id/icon"

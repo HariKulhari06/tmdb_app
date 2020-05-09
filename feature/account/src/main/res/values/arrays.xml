@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="account_list_item">
-        <item>@string/favorite_movies</item>
-        <item>@string/favorite_tv_shows</item>
-        <item>@string/discussions</item>
+        <item>@string/your_favorites</item>
+        <item>@string/your_rating</item>
         <item>@string/custom_lists</item>
-        <item>@string/rated_movies</item>
-        <item>@string/rated_tv_shows</item>
         <item>@string/watchlist</item>
+        <item>@string/settings</item>
         <item>@string/logout</item>
     </string-array>
+
+    <array name="account_options_icon">
+        <item>@drawable/ic_favorite_border_24</item>
+        <item>@drawable/ic_rating_24</item>
+        <item>@drawable/ic_outline_list_alt_24</item>
+        <item>@drawable/ic_watchlist_24px</item>
+        <item>@drawable/ic_outline_settings_24</item>
+        <item>@drawable/ic_logout_24</item>
+    </array>
+
 </resources>

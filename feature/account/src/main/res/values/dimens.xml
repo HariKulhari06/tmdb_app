@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="avatar_height">140dp</dimen>
-    <dimen name="avatar_width">100dp</dimen>
-    <dimen name="start_margin_account">40dp</dimen>
+    <dimen name="avatar_size">80dp</dimen>
 </resources>

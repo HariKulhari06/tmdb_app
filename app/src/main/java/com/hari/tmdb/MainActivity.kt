@@ -22,6 +22,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
+import com.hari.tmdb.account.ui.AccountFragment
 import com.hari.tmdb.authentication.ui.LoginFragment
 import com.hari.tmdb.databinding.ActivityMainBinding
 import com.hari.tmdb.di.PageScope
@@ -222,6 +223,11 @@ abstract class MainActivityModule {
         modules = [KeywordFragmentModule::class, SearchAssistedInjectModule::class]
     )
     abstract fun contributeKeywordSearchFragment(): KeywordSearchResultFragment
+
+    @PageScope
+    @ContributesAndroidInjector
+    abstract fun contributeAccountFragment(): AccountFragment
+
 
     @Module
     abstract class MainActivityBuilder {

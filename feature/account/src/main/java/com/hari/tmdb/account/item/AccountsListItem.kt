@@ -1,9 +1,8 @@
 package com.hari.tmdb.account.item
 
+
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
-import coil.Coil
-import coil.api.load
-import coil.transform.RoundedCornersTransformation
 import com.hari.tmdb.account.R
 import com.hari.tmdb.account.databinding.ItemAccountListBinding
 import com.hari.tmdb.model.AccountsItem
@@ -13,21 +12,29 @@ class AccountsListItem(private val item: AccountsItem) : BindableItem<ItemAccoun
     override fun getLayout(): Int = R.layout.item_account_list
     override fun bind(viewBinding: ItemAccountListBinding, position: Int) {
         with(viewBinding) {
-            Coil
-                .load(icon.context, item.icon) {
-                    crossfade(true)
-                    transformations(RoundedCornersTransformation(15.0f))
-                    target(icon)
-                }
-
+            icon.setImageDrawable(item.icon)
             title.text = item.title
-            iconArrow.isVisible = item.showArrow
+            iconArrow.isVisible = true
             root.setOnClickListener {
 
             }
+
+            if (item.title == title.context.getString(R.string.logout)) {
+                title.setTextColor(
+                    AppCompatResources.getColorStateList(
+                        icon.context,
+                        R.color.design_default_color_error
+
+                    ).defaultColor
+                )
+                icon.setColorFilter(
+                    AppCompatResources.getColorStateList(
+                        icon.context,
+                        R.color.design_default_color_error
+
+                    ).defaultColor
+                )
+            }
         }
-
     }
-
-
 }

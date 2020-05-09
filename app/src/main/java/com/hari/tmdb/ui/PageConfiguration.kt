@@ -33,8 +33,7 @@ enum class PageConfiguration(
     ),
     ACCOUNT(
         R.id.account,
-        hasTitle = true,
-        hideToolbar = true
+        hasTitle = true
     ),
     CASTING(
         R.id.people,
