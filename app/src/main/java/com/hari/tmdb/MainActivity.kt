@@ -37,6 +37,9 @@ import com.hari.tmdb.search.ui.KeywordFragmentModule
 import com.hari.tmdb.search.ui.KeywordSearchResultFragment
 import com.hari.tmdb.search.ui.SearchFragment
 import com.hari.tmdb.search.ui.SearchFragmentModule
+import com.hari.tmdb.settings.SettingsFragment
+import com.hari.tmdb.settings.SettingsModule
+import com.hari.tmdb.settings.di.SettingsAssistedInjectModule
 import com.hari.tmdb.system.viewmodel.SystemViewModel
 import com.hari.tmdb.ui.PageConfiguration
 import com.hari.tmdb.ui.widget.SystemUiManager
@@ -227,6 +230,11 @@ abstract class MainActivityModule {
     @PageScope
     @ContributesAndroidInjector
     abstract fun contributeAccountFragment(): AccountFragment
+
+
+    @PageScope
+    @ContributesAndroidInjector(modules = [SettingsModule::class, SettingsAssistedInjectModule::class])
+    abstract fun contributeSettingsFragment(): SettingsFragment
 
 
     @Module

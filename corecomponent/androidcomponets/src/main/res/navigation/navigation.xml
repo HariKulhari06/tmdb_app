@@ -98,6 +98,16 @@
         android:name="com.hari.tmdb.account.ui.AccountFragment"
         android:label="Account">
 
+
+        <action
+            android:id="@+id/action_account_to_settings"
+            app:destination="@id/setting"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+
     </fragment>
 
     <fragment
@@ -148,5 +158,10 @@
             app:argType="string" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.hari.tmdb.settings.SettingsFragment"
+        android:label="@string/setting_label" />
 
 </navigation>

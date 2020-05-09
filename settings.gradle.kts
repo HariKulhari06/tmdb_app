@@ -12,6 +12,7 @@ include(
     ":feature:authentication",
     ":feature:account",
     ":corecomponent:compose",
-    ":feature:search"
+    ":feature:search",
+    ":feature:settings"
 )
 rootProject.name = "TMDB"
