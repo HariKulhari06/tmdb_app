@@ -20,6 +20,8 @@
     <string name="female">Female</string>
 
 
+    <!-- Setting -->
+    <string name="setting_label" translatable="false">Settings</string>
     <!-- Preference -->
     <string name="theme_label" translatable="false">Theme</string>
     <string name="dark_theme_label" translatable="false">Dark theme</string>

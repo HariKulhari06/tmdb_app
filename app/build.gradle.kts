@@ -68,6 +68,7 @@ dependencies {
     implementation(project(":feature:system"))
     implementation(project(":feature:authentication"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:settings"))
 
     implementation(project(":data:api"))
     implementation(project(":data:db"))
