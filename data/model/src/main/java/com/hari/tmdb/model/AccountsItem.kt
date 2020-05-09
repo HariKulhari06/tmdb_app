@@ -1,9 +1,9 @@
 package com.hari.tmdb.model
 
-import androidx.annotation.DrawableRes
+import android.graphics.drawable.Drawable
 
 data class AccountsItem(
-    @DrawableRes val icon: Int,
+    val icon: Drawable?,
     val title: String,
     val showArrow: Boolean = true
 )

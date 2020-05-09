@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <ImageView
+            android:id="@+id/avatar_imageView"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_marginTop="@dimen/screen_space"
+            android:layout_marginBottom="@dimen/screen_space"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/poster" />
+
+
+        <TextView
+            android:id="@+id/user_name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:text="Hari Choudhary"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintBottom_toTopOf="@+id/cation_text"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@+id/avatar_imageView"
+            app:layout_constraintTop_toTopOf="@+id/avatar_imageView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/cation_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_space"
+            android:text="TMDB Username"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar_imageView"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@+id/avatar_imageView"
+            app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

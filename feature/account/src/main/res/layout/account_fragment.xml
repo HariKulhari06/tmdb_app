@@ -4,86 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        app:showPaths="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/account_fragment_xml_constraintlayout_scene">
-
-        <View
-            android:id="@+id/top_banner"
-            android:layout_width="0dp"
-            android:layout_height="180dp"
-            android:background="@drawable/top_banner_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/action_bar_view" />
-
-        <View
-            android:id="@+id/action_bar_view"
-            android:layout_width="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="?actionBarSize"
-            android:background="?colorPrimary"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/back_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_space"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:tint="?attr/colorOnPrimary"
-            app:layout_constraintBottom_toBottomOf="@id/action_bar_view"
-            app:layout_constraintStart_toStartOf="@id/action_bar_view"
-            app:layout_constraintTop_toTopOf="@id/action_bar_view"
-            tools:ignore="ContentDescription" />
-
-
-        <ImageView
-            android:id="@+id/avatar_imageView"
-            android:layout_width="@dimen/avatar_width"
-            android:layout_height="@dimen/avatar_height"
-            android:layout_marginStart="@dimen/start_margin_account"
-            android:layout_marginTop="90dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster"
-            app:layout_constraintStart_toStartOf="@id/top_banner"
-            app:layout_constraintTop_toTopOf="@id/top_banner"
-            tools:ignore="ContentDescription" />
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_space"
-            android:layout_marginTop="30dp"
-            android:text="HariChoudhary"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/avatar_imageView"
-            app:layout_constraintTop_toTopOf="@+id/avatar_imageView" />
+        android:layout_height="match_parent">
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accounts_item_recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/screen_space"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avatar_imageView"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_account_list" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
