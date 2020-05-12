@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.awaitNextLayout
+import com.hari.tmdb.groupie.ItemDecorationAlbumColumns
 import com.hari.tmdb.model.ExpandFilterState.COLLAPSED
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.BottomSheetMoviesFragmentBinding
@@ -63,6 +67,12 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
         binding.isEmptyFavoritePage = false
         val groupAdapter = GroupAdapter<GroupieViewHolder<*>>()
         binding.movieRecycler.adapter = groupAdapter
+        binding.movieRecycler.addItemDecoration(
+            ItemDecorationAlbumColumns(
+                resources.getDimensionPixelSize(R.dimen.item_decoration_album),
+                3
+            )
+        )
 
         binding.movieRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

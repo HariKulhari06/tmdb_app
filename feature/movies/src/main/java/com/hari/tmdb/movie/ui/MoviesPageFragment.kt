@@ -11,6 +11,7 @@ import com.hari.tmdb.account.ui.MoviesPageFragmentArgs
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
+import com.hari.tmdb.groupie.ItemDecorationAlbumColumns
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MoviesPageFragmentBinding
 import com.hari.tmdb.movie.item.MovieItem
@@ -59,6 +60,12 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
         val binding = MoviesPageFragmentBinding.bind(view)
         val adapter = GroupAdapter<GroupieViewHolder<*>>()
         binding.moviesRecycler.adapter = adapter
+        binding.moviesRecycler.addItemDecoration(
+            ItemDecorationAlbumColumns(
+                resources.getDimensionPixelSize(R.dimen.item_decoration_album),
+                3
+            )
+        )
 
         moviesPageViewModel.ui.observe(viewLifecycleOwner, Observer { uiModel ->
             binding.progressBar.isVisible = uiModel.isLoading

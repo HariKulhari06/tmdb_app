@@ -20,6 +20,7 @@
             android:layout_marginEnd="@dimen/screen_space"
             android:orientation="vertical"
             android:splitMotionEvents="false"
+            android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <com.google.android.material.bottomappbar.BottomAppBar

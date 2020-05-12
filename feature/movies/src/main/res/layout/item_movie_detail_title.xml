@@ -230,6 +230,7 @@
         <ImageView
             android:id="@+id/production_image"
             android:layout_width="60dp"
+            android:tint="?attr/colorOnSurface"
             android:layout_height="30dp"
             android:layout_marginStart="@dimen/screen_between_view"
             android:padding="1dp"

@@ -1,3 +1,5 @@
+rootProject.name = "TMDB"
+
 include(
     ":app",
     ":corecomponent:androidcomponets",
@@ -15,4 +17,3 @@ include(
     ":feature:search",
     ":feature:settings"
 )
-rootProject.name = "TMDB"

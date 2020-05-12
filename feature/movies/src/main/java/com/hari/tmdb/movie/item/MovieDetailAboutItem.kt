@@ -43,7 +43,7 @@ class MovieDetailAboutItem @AssistedInject constructor(
     private fun createGenreChip(context: Context, genre: Genre): Chip {
         return Chip(context).apply {
             text = genre.name
-            chipBackgroundColor = context.getColorStateList(R.color.cyan_50)
+            chipBackgroundColor = context.getColorStateList(R.color.movies_detail_genre_background)
             isClickable = false
         }
     }

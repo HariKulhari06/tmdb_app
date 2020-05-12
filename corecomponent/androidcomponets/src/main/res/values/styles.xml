@@ -5,7 +5,7 @@
         <item name="searchHintIcon">@null</item>
     </style>
 
-    <style name="Widget.Tmdb.TabLayout" parent="Widget.MaterialComponents.TabLayout.Colored">
+    <style name="Widget.Tmdb.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">?attr/colorSecondary</item>
     </style>
 

@@ -129,7 +129,11 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
 
                 searchSection.add(
                     CarouselGroup(
-                        itemDecoration = ItemDecorationAlbumColumns(10, 3),
+                        itemDecoration = ItemDecorationAlbumColumns(
+                            resources.getDimensionPixelSize(
+                                R.dimen.item_decoration_album
+                            ), 3
+                        ),
                         adapter = videoAdapter,
                         layoutManager = GridLayoutManager(requireContext(), 3)
                     )
