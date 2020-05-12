@@ -17,7 +17,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{ContextsKt.getThemeColorDrawable(context, isIndigoBackground ? R.attr.colorPrimary : R.attr.colorSurface)}"
+        android:background="@{ContextsKt.getThemeColorDrawable(context, isIndigoBackground ? R.attr.colorPrimarySurface : R.attr.colorSurface)}"
         android:fitsSystemWindows="true"
         app:statusBarBackground="@{ContextsKt.getThemeColorDrawable(context, isIndigoBackground ? R.attr.colorPrimarySurface : R.attr.colorSurface)}"
         tools:context="com.hari.tmdb.MainActivity">
@@ -59,7 +59,7 @@
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
-                style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+                style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:itemIconTint="@color/bottom_navigation_colors"

@@ -12,7 +12,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            style="@style/Widget.Tmdb.TabLayout"
+            style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/screen_space"

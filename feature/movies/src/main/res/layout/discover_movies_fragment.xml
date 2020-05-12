@@ -5,8 +5,7 @@
 
     <com.hari.tmdb.ui.widget.CoordinatorLayoutInViewPagerHost
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:theme="@style/Theme.Tmdb">
+        android:layout_height="match_parent">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/fragment_sessions_coordinator"

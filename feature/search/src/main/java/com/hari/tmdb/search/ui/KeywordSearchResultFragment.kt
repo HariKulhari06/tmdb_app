@@ -11,6 +11,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
+import com.hari.tmdb.groupie.ItemDecorationAlbumColumns
 import com.hari.tmdb.search.R
 import com.hari.tmdb.search.databinding.FragmentKeywordResultBinding
 import com.hari.tmdb.search.item.SearchItem
@@ -68,6 +69,11 @@ class KeywordSearchResultFragment : Fragment(R.layout.fragment_keyword_result), 
         val adapter = GroupAdapter<GroupieViewHolder<*>>()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.itemAnimator = LandingAnimator()
+        binding.recyclerView.addItemDecoration(
+            ItemDecorationAlbumColumns(
+                resources.getDimensionPixelSize(R.dimen.item_decoration_album), 3
+            )
+        )
 
         keywordViewModel.ui.observe(viewLifecycleOwner, Observer { uiModel ->
             uiModel.error?.let { error ->

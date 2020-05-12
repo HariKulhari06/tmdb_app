@@ -9,6 +9,7 @@ import com.hari.tmdb.model.*
 import com.hari.tmdb.model.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DiscoverMoviesViewModel @Inject constructor(
@@ -42,7 +43,11 @@ class DiscoverMoviesViewModel @Inject constructor(
                 .toLoadingState()
                 .asLiveData()
         )
-        moviesRepository.refreshFilters()
+
+        viewModelScope.launch(Dispatchers.IO) {
+            moviesRepository.refreshFilters()
+        }
+
     }
 
     private val moviesLoadStateLiveData: LiveData<LoadState<List<Movie>>> =

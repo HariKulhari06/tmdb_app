@@ -104,7 +104,7 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
         val carouselDecoration = CarouselItemDecoration(
             ContextCompat.getColor(
                 requireContext(),
-                R.color.white
+                R.color.color_surface
             ), resources.getDimensionPixelSize(R.dimen.space_carousel)
         )
 
