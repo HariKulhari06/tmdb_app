@@ -126,20 +126,22 @@ class BottomSheetMoviesFragment : Fragment(R.layout.bottom_sheet_movies_fragment
             }
         }
 
-        sessionTabViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
-            val shouldBeCollapsed = when (uiModel.expandFilterState) {
-                COLLAPSED ->
-                    true
-                else ->
-                    false
-            }
-            if (binding.isCollapsed != shouldBeCollapsed) {
-                TransitionManager.beginDelayedTransition(
-                    binding.movieRecycler.parent as ViewGroup
-                )
-                binding.isCollapsed = shouldBeCollapsed
-            }
-        }
+        sessionTabViewModel.uiModel.observe(
+            viewLifecycleOwner,
+            Observer { uiModel: MovieTabViewModel.UiModel ->
+                val shouldBeCollapsed = when (uiModel.expandFilterState) {
+                    COLLAPSED ->
+                        true
+                    else ->
+                        false
+                }
+                if (binding.isCollapsed != shouldBeCollapsed) {
+                    TransitionManager.beginDelayedTransition(
+                        binding.movieRecycler.parent as ViewGroup
+                    )
+                    binding.isCollapsed = shouldBeCollapsed
+                }
+            })
 
         discoverMoviesViewModel.uiModel.observe(viewLifecycleOwner, Observer { uiModel ->
             binding.progressBar.isVisible = uiModel.isLoading
