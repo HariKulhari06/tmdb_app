@@ -3,6 +3,7 @@ package com.hari.tmdb.db.internal
 import com.hari.tmdb.model.Genre
 import com.hari.tmdb.model.Language
 import com.hari.tmdb.model.Movie
+import com.hari.tmdb.model.MovieCategory
 import com.uwetrottmann.tmdb2.entities.GenreResults
 import com.uwetrottmann.tmdb2.entities.MovieResultsPage
 import kotlinx.coroutines.flow.Flow
@@ -21,5 +22,8 @@ interface MoviesDataBase {
 
     suspend fun savePopularMovies(result: MovieResultsPage)
 
+    suspend fun saveMovies(result: MovieResultsPage, movieCategory: MovieCategory)
+
     suspend fun popularMovies(): Flow<List<Movie>>
+    suspend fun movies(movieCategory: MovieCategory): Flow<List<Movie>>
 }

@@ -3,12 +3,11 @@ package com.hari.tmdb.db.internal
 import androidx.room.withTransaction
 import com.hari.tmdb.db.internal.daos.*
 import com.hari.tmdb.db.internal.entity.CastingEntityImp
+import com.hari.tmdb.db.internal.entity.MovieEntityImp
 import com.hari.tmdb.db.internal.entity.PeopleEntityImp
+import com.hari.tmdb.db.internal.entity.PopularMovieEntity
 import com.hari.tmdb.db.internal.mapper.*
-import com.hari.tmdb.model.Genre
-import com.hari.tmdb.model.Language
-import com.hari.tmdb.model.Movie
-import com.hari.tmdb.model.People
+import com.hari.tmdb.model.*
 import com.hari.tmdb.model.mapper.forLists
 import com.uwetrottmann.tmdb2.entities.GenreResults
 import com.uwetrottmann.tmdb2.entities.MovieResultsPage
@@ -111,8 +110,40 @@ internal class RoomDatabase @Inject constructor(
         }
     }
 
+    override suspend fun saveMovies(result: MovieResultsPage, movieCategory: MovieCategory) {
+        cacheDatabase.withTransaction {
+            if (result.page == 1)
+                popularMovieDao.deleteAll(movieCategory)
+
+            val movies: MutableList<MovieEntityImp> = mutableListOf<MovieEntityImp>()
+            val moviesWithCategory: MutableList<PopularMovieEntity> =
+                mutableListOf<PopularMovieEntity>()
+            val moviesPair: List<Pair<MovieEntityImp, PopularMovieEntity>> =
+                popularMovieEntryMapper.map(result)
+
+            moviesPair.mapTo(movies) { pair ->
+                pair.first
+            }
+
+            moviesPair.mapTo(moviesWithCategory) { pair ->
+                pair.second.also { movie ->
+                    movie.movieCategory = movieCategory
+                }
+            }
+
+            movieDao.insertAll(movies)
+            popularMovieDao.insertAll(moviesWithCategory)
+        }
+    }
+
     override suspend fun popularMovies(): Flow<List<Movie>> {
         return popularMovieDao.entriesObservable().map { popularEntity ->
+            popularEntity.map { movieEntityToMovie.map(it.movieEntity) }
+        }
+    }
+
+    override suspend fun movies(movieCategory: MovieCategory): Flow<List<Movie>> {
+        return popularMovieDao.entriesObservable(movieCategory).map { popularEntity ->
             popularEntity.map { movieEntityToMovie.map(it.movieEntity) }
         }
     }

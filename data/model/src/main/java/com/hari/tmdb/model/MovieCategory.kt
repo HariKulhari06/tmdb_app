@@ -5,7 +5,7 @@ import androidx.annotation.IdRes
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-enum class MoviePage(val position: Int) : Parcelable {
+enum class MovieCategory(val position: Int) : Parcelable {
     POPULAR(1),
     NOW_PLAYING(2),
     UPCOMING(3),
@@ -13,8 +13,8 @@ enum class MoviePage(val position: Int) : Parcelable {
     OTHER(0);
 
     companion object {
-        fun gePage(@IdRes id: Int): MoviePage {
-            return MoviePage
+        fun movieCategory(@IdRes id: Int): MovieCategory {
+            return MovieCategory
                 .values()
                 .firstOrNull { it.position == id } ?: OTHER
         }

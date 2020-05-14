@@ -168,6 +168,43 @@ class MoviesRepositoryImp @Inject constructor(
                 )
             }
     }
+
+    override suspend fun refreshMoviesByCategory(movieCategory: MovieCategory) {
+        try {
+            val result = when (movieCategory) {
+                MovieCategory.POPULAR -> {
+                    moviesService.popular(1, null, null)
+                }
+                MovieCategory.NOW_PLAYING -> {
+                    moviesService.nowPlaying(1, null, null)
+                }
+                MovieCategory.UPCOMING -> {
+                    moviesService.upcoming(1, null, null)
+                }
+                MovieCategory.TOP_RATED -> {
+                    moviesService.topRated(1, null, null)
+                }
+                MovieCategory.OTHER -> {
+                    moviesService.popular(1, null, null)
+                }
+            }.executeWithRetry().toResult()
+
+            when (result) {
+                is Success -> {
+                    moviesDataBase.saveMovies(result.data, movieCategory)
+                }
+                is ErrorResult -> {
+                    Timber.error(result.throwable)
+                }
+            }
+        } catch (e: Exception) {
+            Timber.error(e)
+        }
+    }
+
+    override suspend fun getMovies(movieCategory: MovieCategory): Flow<List<Movie>> =
+        moviesDataBase.movies(movieCategory)
+
 }
 
 private fun DiscoverService.tmdbDiscover(filters: Filters): Call<MovieResultsPage> {

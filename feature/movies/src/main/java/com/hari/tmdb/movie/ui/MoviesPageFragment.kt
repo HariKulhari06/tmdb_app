@@ -42,7 +42,7 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
     @Inject
     lateinit var moviesPageViewModelFactory: MoviePageViewModel.Factory
     private val moviesPageViewModel by assistedViewModels {
-        moviesPageViewModelFactory.create(args.page)
+        moviesPageViewModelFactory.create(args.category)
     }
 
     private val args: MoviesPageFragmentArgs by lazy {
@@ -78,7 +78,6 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
             }
         })
 
-        binding.swipeRefreshLayout.setOnRefreshListener { moviesPageViewModel.refresh() }
     }
 
 

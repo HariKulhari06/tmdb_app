@@ -1,16 +1,13 @@
 package com.hari.tmdb.movie.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.hari.tmdb.ext.combine
 import com.hari.tmdb.ext.toAppError
 import com.hari.tmdb.ext.toLoadingState
 import com.hari.tmdb.model.AppError
 import com.hari.tmdb.model.LoadState
 import com.hari.tmdb.model.Movie
-import com.hari.tmdb.model.MoviePage
+import com.hari.tmdb.model.MovieCategory
 import com.hari.tmdb.model.repository.MoviesRepository
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
@@ -19,10 +16,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MoviePageViewModel @AssistedInject constructor(
-    @Assisted private val moviePage: MoviePage,
+    @Assisted private val moviesCategory: MovieCategory,
     private val moviesRepository: MoviesRepository
 ) : ViewModel() {
 
+    private val movieCategory: MutableLiveData<MovieCategory> = MutableLiveData(moviesCategory)
 
     // UiModel definition
     data class UiModel(
@@ -40,20 +38,21 @@ class MoviePageViewModel @AssistedInject constructor(
     }
 
     //LiveData
-    private val moviesLoadStateLiveData: LiveData<LoadState<List<Movie>>> = liveData {
-        if (moviePage == MoviePage.POPULAR)
-            moviesRepository.popularContents(1)
-                .toLoadingState()
-                .collect { emit(it) }
+    private val moviesLoadStateLiveData: LiveData<LoadState<List<Movie>>> =
+        movieCategory.switchMap { category ->
 
-        refresh()
-    }
+            viewModelScope.launch(Dispatchers.IO) {
+                moviesRepository.refreshMoviesByCategory(category)
+            }
 
-    fun refresh() {
-        viewModelScope.launch(Dispatchers.IO) {
-            moviesRepository.refreshPopularContents()
+            liveData {
+                moviesRepository.getMovies(category)
+                    .toLoadingState()
+                    .collect {
+                        emit(it)
+                    }
+            }
         }
-    }
 
     val ui: LiveData<UiModel> = combine(
         initialValue = UiModel.EMPTY,
@@ -73,7 +72,7 @@ class MoviePageViewModel @AssistedInject constructor(
     @AssistedInject.Factory
     interface Factory {
         fun create(
-            moviePage: MoviePage
+            moviesCategory: MovieCategory
         ): MoviePageViewModel
     }
 

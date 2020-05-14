@@ -88,8 +88,8 @@
         android:label="Account">
 
         <argument
-            android:name="page"
-            app:argType="com.hari.tmdb.model.MoviePage" />
+            android:name="category"
+            app:argType="com.hari.tmdb.model.MovieCategory" />
 
 
     </fragment>

@@ -1,3 +1,8 @@
+@file:Suppress(
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS",
+    "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
+)
+
 package com.hari.tmdb.db.internal.mapper
 
 import com.hari.tmdb.db.internal.entity.MovieEntityImp
@@ -14,7 +19,6 @@ val popularMovieEntryMapper =
                     movieId = movieEntity.id,
                     pageOrder = 1,
                     page = from.page
-
                 )
                 movieEntity to popularMovieEntity
             }

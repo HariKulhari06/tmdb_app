@@ -15,7 +15,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.hari.tmdb.account.ui.MoviesPageFragmentArgs
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
-import com.hari.tmdb.model.MoviePage
+import com.hari.tmdb.model.MovieCategory
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MainMovieFragmentBinding
 import com.hari.tmdb.movie.ui.MainMovieFragmentDirections.Companion.actionMoviesToSearch
@@ -77,7 +77,7 @@ class MainMovieFragment : Fragment(R.layout.main_movie_fragment), HasAndroidInje
             override fun getItemCount() = tabTitle.size
             override fun createFragment(position: Int): Fragment =
                 if (position == 0) DiscoverMoviesFragment() else MoviesPageFragment.newInstance(
-                    MoviesPageFragmentArgs(MoviePage.gePage(position))
+                    MoviesPageFragmentArgs(MovieCategory.movieCategory(position))
                 )
         }
 
