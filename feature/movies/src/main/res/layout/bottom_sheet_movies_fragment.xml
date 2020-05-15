@@ -104,18 +104,20 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler"
+            style="@style/Widget.Tmdb.RecyclerView.FastScroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="2dp"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:orientation="vertical"
+            android:paddingStart="@dimen/item_decoration_album"
             android:paddingTop="8dp"
+            android:paddingEnd="@dimen/item_decoration_album"
             android:splitMotionEvents="false"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider"
             app:spanCount="3"
             tools:listitem="@layout/movie_item" />

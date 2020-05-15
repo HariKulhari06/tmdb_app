@@ -11,7 +11,7 @@ import com.squareup.inject.assisted.AssistedInject
 
 class MoviePageViewModel @AssistedInject constructor(
     @Assisted private val moviesCategory: MovieCategory,
-    private val moviesRepository: MoviesRepository
+    moviesRepository: MoviesRepository
 ) : ViewModel() {
     private val moviesResult: Listing<Movie> =
         moviesRepository.moviesPagedList(moviesCategory, viewModelScope)
@@ -34,5 +34,4 @@ class MoviePageViewModel @AssistedInject constructor(
             moviesCategory: MovieCategory
         ): MoviePageViewModel
     }
-
 }

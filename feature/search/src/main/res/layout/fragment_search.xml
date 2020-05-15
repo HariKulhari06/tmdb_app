@@ -73,15 +73,18 @@
             app:constraint_referenced_ids="text_tag,text_search" />
 
         <androidx.recyclerview.widget.RecyclerView
+            style="@style/Widget.Tmdb.RecyclerView.FastScroll"
             android:id="@+id/recycler_view_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:splitMotionEvents="false"
+            android:paddingStart="@dimen/item_decoration_album"
+            android:paddingEnd="@dimen/item_decoration_album"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_tag"
             tools:itemCount="2" />
 
