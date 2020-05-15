@@ -1,5 +1,6 @@
 package com.hari.tmdb.db.internal
 
+import androidx.paging.DataSource
 import com.hari.tmdb.model.Genre
 import com.hari.tmdb.model.Language
 import com.hari.tmdb.model.Movie
@@ -26,4 +27,6 @@ interface MoviesDataBase {
 
     suspend fun popularMovies(): Flow<List<Movie>>
     suspend fun movies(movieCategory: MovieCategory): Flow<List<Movie>>
+    fun moviesDataSource(movieCategory: MovieCategory): DataSource.Factory<Int, Movie>
+    suspend fun getMovieLastPage(id: Int, movieCategory: MovieCategory): Int
 }

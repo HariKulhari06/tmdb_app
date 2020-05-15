@@ -17,6 +17,7 @@ dependencies {
     kapt Dep.AndroidX.Room.compiler
     implementation Dep.AndroidX.Room.runtime
     implementation Dep.AndroidX.Room.coroutine
+    implementation Dep.Paging.ktx
 
     kapt Dep.Dagger.compiler
     kapt Dep.Dagger.androidProcessor

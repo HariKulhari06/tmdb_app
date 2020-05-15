@@ -1,5 +1,6 @@
 package com.hari.tmdb.db.internal
 
+import androidx.paging.DataSource
 import androidx.room.withTransaction
 import com.hari.tmdb.db.internal.daos.*
 import com.hari.tmdb.db.internal.entity.CastingEntityImp
@@ -15,6 +16,7 @@ import com.uwetrottmann.tmdb2.entities.Person
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import com.uwetrottmann.tmdb2.entities.Movie as TmdbMovie
 
@@ -146,6 +148,18 @@ internal class RoomDatabase @Inject constructor(
         return popularMovieDao.entriesObservable(movieCategory).map { popularEntity ->
             popularEntity.map { movieEntityToMovie.map(it.movieEntity) }
         }
+    }
+
+    override fun moviesDataSource(movieCategory: MovieCategory): DataSource.Factory<Int, Movie> {
+        return popularMovieDao.dataSource(movieCategory).map { popularEntity ->
+            runBlocking {
+                movieEntityToMovie.map(popularEntity.movieEntity)
+            }
+        }
+    }
+
+    override suspend fun getMovieLastPage(id: Int, movieCategory: MovieCategory): Int {
+        return popularMovieDao.getLastPage(id, movieCategory) ?: 1
     }
 
     override suspend fun insertPeoples(peoples: List<PeopleEntityImp>) {

@@ -13,6 +13,7 @@ dependencies {
     implementation Dep.Kotlin.coroutines
     implementation Dep.AndroidX.lifecycleLiveData
     implementation Dep.AndroidX.Work.runtimeKtx
+    implementation Dep.Paging.ktx
 
     implementation Dep.Dagger.core
     implementation Dep.Dagger.androidSupport

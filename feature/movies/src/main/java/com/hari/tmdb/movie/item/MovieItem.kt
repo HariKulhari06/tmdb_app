@@ -24,7 +24,7 @@ class MovieItem @AssistedInject constructor(
     private val imageRequestDisposables = mutableListOf<RequestDisposable>()
 
     companion object {
-        private const val TRANSITION_NAME_SUFFIX = "movie"
+        const val TRANSITION_NAME_SUFFIX = "movie"
     }
 
     override fun getLayout(): Int = R.layout.movie_item

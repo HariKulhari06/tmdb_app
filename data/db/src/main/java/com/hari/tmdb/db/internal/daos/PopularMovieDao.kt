@@ -1,5 +1,6 @@
 package com.hari.tmdb.db.internal.daos
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -23,6 +24,10 @@ abstract class PopularMovieDao : PaginatedEntryDao<PopularMovieEntity, PopularEn
     @Query("SELECT * FROM popular_movies WHERE movie_category =:movieCategory ORDER BY page, page_order")
     abstract fun entriesObservable(movieCategory: MovieCategory): Flow<List<PopularEntryWithMovie>>
 
+    @Transaction
+    @Query("SELECT * FROM popular_movies WHERE movie_category =:movieCategory ORDER BY page, page_order")
+    abstract fun dataSource(movieCategory: MovieCategory): DataSource.Factory<Int, PopularEntryWithMovie>
+
     @Query("DELETE FROM popular_movies WHERE page = :page")
     abstract override suspend fun deletePage(page: Int)
 
@@ -34,4 +39,7 @@ abstract class PopularMovieDao : PaginatedEntryDao<PopularMovieEntity, PopularEn
 
     @Query("SELECT MAX(page) from popular_movies")
     abstract override suspend fun getLastPage(): Int?
+
+    @Query("SELECT MAX(page) from popular_movies WHERE movie_category =:movieCategory AND movie_id =:id")
+    abstract suspend fun getLastPage(id: Int, movieCategory: MovieCategory): Int?
 }
