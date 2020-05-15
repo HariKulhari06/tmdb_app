@@ -10,7 +10,7 @@ abstract class EntityDao<in E : TmdbEntity> {
     @Insert
     abstract suspend fun insertAll(vararg entity: E)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(entities: List<E>)
 
     @Update

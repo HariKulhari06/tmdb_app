@@ -34,4 +34,6 @@ dependencies {
 
     implementation Dep.Coil.coil
     implementation Dep.RangeSeekBar.rangeSeekBar
+
+    implementation Dep.Paging.ktx
 }

@@ -18,6 +18,8 @@ dependencies {
     implementation Dep.Kotlin.coroutines
     implementation Dep.AndroidX.lifecycleLiveData
 
+    implementation Dep.Paging.ktx
+
     kapt Dep.Dagger.compiler
     kapt Dep.Dagger.androidProcessor
     implementation Dep.Dagger.core
