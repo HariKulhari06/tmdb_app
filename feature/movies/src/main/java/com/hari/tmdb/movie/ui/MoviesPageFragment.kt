@@ -58,6 +58,8 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = MoviesPageFragmentBinding.bind(view)
+        binding.pageViewModel = moviesPageViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         initMoviesAdapter(binding)
         setUpSwipeToRefresh(binding)
@@ -77,14 +79,15 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
         val mergeAdapter = MergeAdapter(pagedAdapter, loadingAdapter)
 
         val layoutManager = GridLayoutManager(requireContext(), 3)
-        /*  layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-              override fun getSpanSize(position: Int): Int {
-                  return if (loadingAdapter.hasExtraRow())
-                      3
-                  else
-                      1
-              }
-          }*/
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (mergeAdapter.getItemViewType(position) == R.layout.list_item_loading &&
+                    position == mergeAdapter.itemCount.minus(1)
+                ) 3
+                else
+                    1
+            }
+        }
 
         binding.moviesRecycler.layoutManager = layoutManager
         binding.moviesRecycler.adapter = mergeAdapter
