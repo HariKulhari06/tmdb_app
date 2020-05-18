@@ -9,6 +9,7 @@ include(
     ":data:local",
     ":data:model",
     ":data:repository",
+    ":image-loading",
     ":feature:movies",
     ":feature:system",
     ":feature:authentication",

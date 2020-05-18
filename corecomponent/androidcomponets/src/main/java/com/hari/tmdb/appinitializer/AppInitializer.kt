@@ -1,4 +1,4 @@
-package com.hari.tmdb.initializer
+package com.hari.tmdb.appinitializer
 
 import android.app.Application
 

@@ -1,0 +1,26 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+
+apply from: rootProject.file('gradle/android.gradle')
+android.dataBinding.enabled = true
+
+
+dependencies {
+    implementation project(':corecomponent:androidcomponets')
+
+    implementation Dep.Coil.coil
+
+
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    compileOnly Dep.Dagger.assistedInjectAnnotations
+    kapt Dep.Dagger.assistedInjectProcessor
+}
