@@ -40,6 +40,7 @@ class MovieItem @AssistedInject constructor(
             imageViewPoster.transitionName = movie.id.toString()
             imageRequestDisposables.clear()
 
+            imageViewPoster.setImageDrawable(null)
             imageRequestDisposables += Coil.load(
                 imageViewPoster.context,
                 "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
