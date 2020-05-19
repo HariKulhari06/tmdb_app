@@ -82,9 +82,7 @@ class MoviesRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun movieContents(id: Int): Flow<Movie> {
-        return moviesDataBase.movie(id)
-    }
+    override suspend fun movieContents(id: Int): Flow<Movie> = moviesDataBase.movie(id)
 
     override suspend fun refreshMovieDetails(id: Int) {
         try {
@@ -254,7 +252,7 @@ private fun DiscoverService.tmdbDiscover(filters: Filters): Call<MovieResultsPag
         if (genre.isEmpty()) {
             null
         } else {
-            DiscoverFilter(genre.first().id)
+            DiscoverFilter(*genre.map { it.id }.toTypedArray())
         }
     }
 
@@ -285,8 +283,8 @@ private fun DiscoverService.tmdbDiscover(filters: Filters): Call<MovieResultsPag
         null,
         null,
         null,
-        null,
-        null,
+        filters.runtime.gte,
+        filters.runtime.lte,
         null,
         null,
         null

@@ -124,4 +124,11 @@ class DiscoverMoviesViewModel @Inject constructor(
             languages = if (checked) filters.languages + language else filters.languages - language
         )
     }
+
+    fun filterRuntime(gte: Int, lte: Int) {
+        val filters = filterLiveData.requireValue()
+        filterLiveData.value = filters.copy(
+            runtime = Runtime(gte, lte)
+        )
+    }
 }

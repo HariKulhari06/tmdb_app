@@ -7,7 +7,8 @@ data class Filters(
     var languages: Set<Language> = mutableSetOf(),
     val certifications: Set<Certification> = mutableSetOf(),
     var includeAdult: Set<String> = mutableSetOf(),
-    var sortBy: Set<SortBy> = mutableSetOf()
+    var sortBy: Set<SortBy> = mutableSetOf(),
+    var runtime: Runtime = Runtime()
 ) {
 
 

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
+import com.appyvet.materialrangebar.IRangeBarFormatter
 import com.appyvet.materialrangebar.RangeBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.ChipGroup
@@ -18,7 +18,6 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.hari.tmdb.ext.assistedActivityViewModels
-import com.hari.tmdb.ext.assistedViewModels
 import com.hari.tmdb.ext.sortByEnumNameToDisplayValue
 import com.hari.tmdb.model.ExpandFilterState
 import com.hari.tmdb.movie.R
@@ -44,7 +43,7 @@ class DiscoverMoviesFragment : Fragment(R.layout.discover_movies_fragment), HasA
 
     @Inject
     lateinit var discoverMoviesViewModelProvider: Provider<DiscoverMoviesViewModel>
-    private val discoverMoviesViewModel: DiscoverMoviesViewModel by assistedViewModels {
+    private val discoverMoviesViewModel: DiscoverMoviesViewModel by assistedActivityViewModels {
         discoverMoviesViewModelProvider.get()
     }
 
@@ -136,11 +135,16 @@ class DiscoverMoviesFragment : Fragment(R.layout.discover_movies_fragment), HasA
             }
         })
 
-        binding.seekBarRuntime.tickCount
-
+        binding.seekBarRuntime.setFormatter(IRangeBarFormatter { value ->
+            "$value Min"
+        })
+        binding.seekBarRuntime.setPinRadius(60.0f)
         binding.seekBarRuntime.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {
+                rangeBar?.let { range ->
+                    discoverMoviesViewModel.filterRuntime(range.leftIndex, range.rightIndex)
+                }
             }
 
             override fun onRangeChangeListener(
@@ -163,7 +167,7 @@ class DiscoverMoviesFragment : Fragment(R.layout.discover_movies_fragment), HasA
             discoverMoviesViewModel.resetFilter()
         }
 
-        movieTabViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+        movieTabViewModel.uiModel.observe(viewLifecycleOwner, Observer { uiModel ->
             when (uiModel.expandFilterState) {
                 ExpandFilterState.EXPANDED -> {
                     sessionSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -175,7 +179,7 @@ class DiscoverMoviesFragment : Fragment(R.layout.discover_movies_fragment), HasA
                 }
                 ExpandFilterState.CHANGING -> Unit
             }
-        }
+        })
 
         discoverMoviesViewModel.uiModel.observe(viewLifecycleOwner, Observer { uiModel ->
             uiModel.error?.let {
@@ -241,6 +245,7 @@ class DiscoverMoviesFragment : Fragment(R.layout.discover_movies_fragment), HasA
                     resources.getDimension(R.dimen.bottom_sheet_corner_radius)
                 )
                 .build()
+
         /**
          * FrontLayer elevation is 1dp
          * https://material.io/components/backdrop/#anatomy

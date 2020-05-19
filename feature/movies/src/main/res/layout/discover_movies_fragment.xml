@@ -114,7 +114,7 @@
                         app:mrb_thumbColor="?attr/colorSecondary"
                         app:mrb_thumbSize="12dp"
                         app:mrb_tickDefaultColor="?attr/colorSecondary"
-                        app:mrb_tickEnd="360" />
+                        app:mrb_tickEnd="400" />
 
 
                     <TextView
