@@ -36,6 +36,8 @@ import javax.inject.Provider
 
 class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable {
 
+    private var mBundleRecyclerViewState: Bundle? = null
+
     @Inject
     lateinit var systemViewModelFactory: Provider<SystemViewModel>
     private val systemViewModel by assistedActivityViewModels {
