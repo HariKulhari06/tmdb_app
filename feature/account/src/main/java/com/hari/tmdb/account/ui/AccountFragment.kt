@@ -3,6 +3,7 @@ package com.hari.tmdb.account.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.google.android.material.transition.MaterialFadeThrough
 import com.hari.tmdb.account.R
 import com.hari.tmdb.account.databinding.AccountFragmentBinding
 import com.hari.tmdb.account.item.AccountDetailsListItem
@@ -38,6 +39,11 @@ class AccountFragment : Fragment(R.layout.account_fragment), HasAndroidInjector 
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough.create(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

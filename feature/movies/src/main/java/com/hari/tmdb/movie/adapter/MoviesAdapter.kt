@@ -15,7 +15,7 @@ import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MovieItemBinding
 import com.hari.tmdb.movie.ui.MainMovieFragmentDirections.Companion.actionMoviesToMovieDetail
 
-class MoviesAdapter() : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
+class MoviesAdapter : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
     diffCallbacks
 ) {
 
@@ -58,12 +58,11 @@ class MoviesAdapter() : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
                     )
                 }
 
-                imageViewPoster.transitionName =
-                    TRANSITION_NAME_SUFFIX
+                imageViewPoster.transitionName = movie.id.toString()
 
                 Coil.load(
                     imageViewPoster.context,
-                    "https://image.tmdb.org/t/p/w185/${movie.posterPath}"
+                    "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
                 ) {
                     crossfade(true)
                     placeholder(R.drawable.placeholder_72dp)

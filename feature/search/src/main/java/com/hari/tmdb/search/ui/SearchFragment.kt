@@ -19,9 +19,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
@@ -88,13 +87,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), HasAndroidInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        val forward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, true)
-        enterTransition = forward
-
-        val backward = MaterialSharedAxis.create(requireContext(), MaterialSharedAxis.Z, false)
-        returnTransition = backward
-
-        exitTransition = Hold()
+        enterTransition = MaterialFade.create(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
