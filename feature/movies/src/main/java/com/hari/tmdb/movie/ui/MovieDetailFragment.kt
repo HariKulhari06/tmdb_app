@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SimpleItemAnimator
-import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.transition.MaterialContainerTransform
 import com.hari.tmdb.di.Injectable
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
@@ -22,17 +23,14 @@ import com.hari.tmdb.movie.item.*
 import com.hari.tmdb.movie.viewmodel.MovieDetailViewModel
 import com.hari.tmdb.movie.widget.MovieDetailItemDecoration
 import com.hari.tmdb.system.viewmodel.SystemViewModel
-import com.hari.tmdb.ui.animation.MEDIUM_EXPAND_DURATION
 import com.hari.tmdb.ui.item.CarouselGroup
 import com.hari.tmdb.ui.item.HeaderItem
-import com.hari.tmdb.ui.transaction.fadeThrough
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.databinding.GroupieViewHolder
 import dagger.Module
 import dagger.Provides
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -68,17 +66,25 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = fadeThrough().apply {
-            duration = MEDIUM_EXPAND_DURATION
-        }
-        exitTransition = Hold()
+        sharedElementEnterTransition = buildContainerTransform()
+        sharedElementReturnTransition = buildContainerTransform()
     }
 
+    private fun buildContainerTransform() =
+        MaterialContainerTransform(requireContext()).apply {
+            drawingViewId = R.id.coordinator
+            interpolator = FastOutSlowInInterpolator()
+            pathMotion = MaterialArcMotion()
+            fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+            duration = 300
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // postponeEnterTransition()
         val binding = MovieDetailFragmentBinding.bind(view)
+        binding.coordinator.transitionName = navArgs.movieId.toString()
+
+        // postponeEnterTransition()
         val adapter = GroupAdapter<GroupieViewHolder<*>>()
         binding.movieDetailRecycler.adapter = adapter
 
@@ -90,16 +96,6 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
                 )
             )
         }
-
-        val itemAnimator = binding.movieDetailRecycler.itemAnimator
-        if (itemAnimator is SimpleItemAnimator) {
-            itemAnimator.supportsChangeAnimations = false
-        }
-
-        binding.movieDetailRecycler.itemAnimator = SlideInUpAnimator()
-
-        binding.movieDetailRecycler.transitionName = "movie"
-
 
         val carouselDecoration = CarouselItemDecoration(
             ContextCompat.getColor(
@@ -165,6 +161,7 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
                 adapter.add(videoSection)
             }
 
+            //  startPostponedEnterTransition()
         })
     }
 

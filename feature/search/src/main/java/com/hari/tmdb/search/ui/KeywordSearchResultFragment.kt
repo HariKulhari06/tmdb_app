@@ -7,7 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialFade
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
@@ -25,7 +25,7 @@ import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import jp.wasabeef.recyclerview.animators.LandingAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -55,7 +55,8 @@ class KeywordSearchResultFragment : Fragment(R.layout.fragment_keyword_result), 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+        enterTransition = MaterialFade.create(requireContext())
+        exitTransition = MaterialFade.create(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,7 +69,7 @@ class KeywordSearchResultFragment : Fragment(R.layout.fragment_keyword_result), 
 
         val adapter = GroupAdapter<GroupieViewHolder<*>>()
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.itemAnimator = LandingAnimator()
+        binding.recyclerView.itemAnimator = SlideInUpAnimator()
         binding.recyclerView.addItemDecoration(
             ItemDecorationAlbumColumns(
                 resources.getDimensionPixelSize(R.dimen.item_decoration_album), 3

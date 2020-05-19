@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
+import com.google.android.material.transition.MaterialFadeThrough
 import com.hari.tmdb.account.ui.MoviesPageFragmentArgs
 import com.hari.tmdb.di.PageScope
 import com.hari.tmdb.ext.assistedActivityViewModels
@@ -25,6 +26,7 @@ import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import org.jetbrains.annotations.NotNull
 import javax.inject.Inject
 import javax.inject.Provider
@@ -54,6 +56,11 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough.create(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,6 +97,7 @@ class MoviesPageFragment : Fragment(R.layout.movies_page_fragment), HasAndroidIn
         }
 
         binding.moviesRecycler.layoutManager = layoutManager
+        binding.moviesRecycler.itemAnimator = SlideInUpAnimator()
         binding.moviesRecycler.adapter = mergeAdapter
         binding.moviesRecycler.addItemDecoration(
             ItemDecorationAlbumColumns(
