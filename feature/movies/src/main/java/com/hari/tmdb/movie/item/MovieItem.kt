@@ -23,10 +23,6 @@ class MovieItem @AssistedInject constructor(
 
     private val imageRequestDisposables = mutableListOf<RequestDisposable>()
 
-    companion object {
-        const val TRANSITION_NAME_SUFFIX = "movie"
-    }
-
     override fun getLayout(): Int = R.layout.movie_item
 
     override fun bind(viewBinding: MovieItemBinding, position: Int) {
@@ -41,12 +37,13 @@ class MovieItem @AssistedInject constructor(
                 )
             }
 
-            imageViewPoster.transitionName = TRANSITION_NAME_SUFFIX
+            imageViewPoster.transitionName = movie.id.toString()
             imageRequestDisposables.clear()
 
+            imageViewPoster.setImageDrawable(null)
             imageRequestDisposables += Coil.load(
                 imageViewPoster.context,
-                "https://image.tmdb.org/t/p/w185/${movie.posterPath}"
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
             ) {
                 crossfade(true)
                 placeholder(R.drawable.placeholder_72dp)

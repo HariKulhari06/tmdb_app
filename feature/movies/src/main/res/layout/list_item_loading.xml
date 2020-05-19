@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="state"
+            type="com.hari.tmdb.model.LoadingState" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +19,7 @@
             android:id="@+id/progress_bar"
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
+            isVisible="@{state.Loading}"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            isVisible="@{state.errorIfExists !=null}"
             android:text="@string/error_network"
             android:textAlignment="center"
             android:textAppearance="?textAppearanceBody2"
@@ -37,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/retry"
+            isVisible="@{state.errorIfExists !=null}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_error_message" />

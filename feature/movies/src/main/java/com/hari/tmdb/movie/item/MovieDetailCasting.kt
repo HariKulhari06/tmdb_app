@@ -53,6 +53,7 @@ class MovieDetailCasting @AssistedInject constructor(
 
             imageRequestDisposables.clear()
 
+            profileImage.setImageDrawable(null)
             imageRequestDisposables += Coil.load(
                 profileImage.context,
                 "https://image.tmdb.org/t/p/w500/${cast.profilePath}"

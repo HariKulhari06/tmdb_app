@@ -2,11 +2,8 @@ package com.hari.tmdb.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.hari.tmdb.ext.stringRes
-import com.hari.tmdb.ext.toAppError
 import com.hari.tmdb.model.LoadingState
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.ListItemLoadingBinding
@@ -42,18 +39,8 @@ class LoadingStateAdapter(val retry: () -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(loadingState: LoadingState, retry: () -> Unit) {
             with(binding) {
-                progressBar.isVisible = loadingState.isLoading
-
-                textErrorMessage.isVisible = loadingState.getErrorIfExists() != null
-                retryButton.isVisible = loadingState.getErrorIfExists() != null
-
-                loadingState.getErrorIfExists().toAppError()?.let { error ->
-                    textErrorMessage.text = textErrorMessage.context.getString(error.stringRes())
-                }
-
+                state = loadingState
                 retryButton.setOnClickListener { retry.invoke() }
-
-
             }
         }
     }
