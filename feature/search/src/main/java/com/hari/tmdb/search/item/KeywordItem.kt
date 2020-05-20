@@ -13,9 +13,6 @@ import com.xwray.groupie.databinding.BindableItem
 class KeywordItem @AssistedInject constructor(
     @Assisted private val keyword: Keyword
 ) : BindableItem<ItemKeywordBinding>(keyword.id.hashCode().toLong()) {
-    companion object {
-        private const val TRANSITION_NAME_SUFFIX = "keyword"
-    }
 
     override fun getLayout(): Int = R.layout.item_keyword
 
@@ -29,7 +26,6 @@ class KeywordItem @AssistedInject constructor(
                 actionSearchToKeywordResult(keyword.name),
                 extra
             )
-            //  viewBinding.root.transitionName = "${keyword.name}-$TRANSITION_NAME_SUFFIX"
         }
     }
 

@@ -2,7 +2,6 @@ package com.hari.tmdb.di
 
 import com.hari.tmdb.appinitializer.AppInitializer
 import com.hari.tmdb.initializer.AppInjector
-import com.hari.tmdb.initializer.CoilInitializer
 import com.hari.tmdb.initializer.ThemeInitializer
 import dagger.Binds
 import dagger.Module
@@ -14,9 +13,6 @@ abstract class AppModuleBinds {
     @IntoSet
     abstract fun provideAppInjector(bind: AppInjector): AppInitializer
 
-    @Binds
-    @IntoSet
-    abstract fun provideCoilInitializer(bind: CoilInitializer): AppInitializer
 
     @Binds
     @IntoSet

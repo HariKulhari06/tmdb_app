@@ -28,7 +28,6 @@ class MovieDetailRelated @AssistedInject constructor(
 
     override fun bind(viewBinding: ItemMovieRelatedBinding, position: Int) {
         with(viewBinding) {
-
             imageRequestDisposables.clear()
         }
     }

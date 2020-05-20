@@ -1,5 +1,13 @@
 package com.hari.tmdb.imageloading
 
-import javax.inject.Inject
+import com.hari.tmdb.appinitializer.AppInitializer
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoSet
 
-class ImageLoadingModule @Inject constructor()
+@Module
+abstract class ImageLoadingModule {
+    @Binds
+    @IntoSet
+    abstract fun provideCoilInitializer(bind: CoilAppInitializer): AppInitializer
+}

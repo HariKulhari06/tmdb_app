@@ -4,6 +4,7 @@ import android.app.Application
 import com.hari.tmdb.App
 import com.hari.tmdb.MainActivityModule
 import com.hari.tmdb.data.api.TmdbApiModule
+import com.hari.tmdb.imageloading.ImageLoadingModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -18,7 +19,8 @@ import javax.inject.Singleton
         MainActivityModule.MainActivityBuilder::class,
         DbComponentModule::class,
         TmdbApiModule::class,
-        RepositoryComponentModule::class
+        RepositoryComponentModule::class,
+        ImageLoadingModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App>, AppComponentInterface {

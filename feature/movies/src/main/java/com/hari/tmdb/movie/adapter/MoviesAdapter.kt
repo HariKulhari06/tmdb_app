@@ -8,8 +8,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
-import coil.api.load
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MovieItemBinding
@@ -44,8 +42,9 @@ class MoviesAdapter : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
     class MoviesViewHolder(private val movieItemBinding: MovieItemBinding) :
         RecyclerView.ViewHolder(movieItemBinding.root) {
         fun bind(movie: Movie) {
-
             with(movieItemBinding) {
+                this.movie = movie
+                imageViewPoster.transitionName = movie.id.toString()
                 imageViewPoster.setOnClickListener {
                     val extra = FragmentNavigatorExtras(
                         imageViewPoster to imageViewPoster.transitionName
@@ -57,21 +56,6 @@ class MoviesAdapter : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
                         ),
                         extra
                     )
-                }
-
-                imageViewPoster.transitionName = movie.id.toString()
-                imageViewPoster.setImageResource(R.drawable.placeholder_72dp)
-                Coil.load(
-                    imageViewPoster.context,
-                    "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
-                ) {
-                    crossfade(true)
-                    placeholder(R.drawable.placeholder_72dp)
-                    error(R.drawable.placeholder_72dp)
-                    fallback(R.drawable.placeholder_72dp)
-                    target {
-                        imageViewPoster.setImageDrawable(it)
-                    }
                 }
             }
         }

@@ -13,8 +13,9 @@ android.dataBinding.enabled = true
 
 dependencies {
     implementation project(':corecomponent:androidcomponets')
+    implementation project(':data:model')
 
-    implementation Dep.Coil.coil
+    api Dep.Coil.coil
 
 
     implementation Dep.Dagger.core

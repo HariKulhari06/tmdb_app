@@ -2,8 +2,6 @@ package com.hari.tmdb.movie.item
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import coil.Coil
-import coil.api.load
 import coil.request.RequestDisposable
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
@@ -23,33 +21,7 @@ class MovieDetailTitleItem @AssistedInject constructor(
     override fun getLayout(): Int = R.layout.item_movie_detail_title
 
     override fun bind(viewBinding: ItemMovieDetailTitleBinding, position: Int) {
-        with(viewBinding) {
-            viewBinding.movie = movieData
-            imageRequestDisposables += Coil.load(
-                posterImage.context,
-                "https://image.tmdb.org/t/p/w500/${movie?.posterPath}"
-            ) {
-                crossfade(true)
-                placeholder(R.drawable.placeholder_72dp)
-                lifecycle(lifecycleOwnerLiveData.value)
-                target {
-                    posterImage.setImageDrawable(it)
-                }
-            }
-
-            imageRequestDisposables += Coil.load(
-                productionImage.context,
-                "https://image.tmdb.org/t/p/w300/${movie?.productionCompanyPath}"
-            ) {
-                crossfade(true)
-                placeholder(R.drawable.placeholder_72dp)
-                lifecycle(lifecycleOwnerLiveData.value)
-                target {
-                    productionImage.setImageDrawable(it)
-                }
-            }
-            imageRequestDisposables.clear()
-        }
+        viewBinding.movie = movieData
     }
 
     override fun unbind(viewHolder: GroupieViewHolder<ItemMovieDetailTitleBinding>) {

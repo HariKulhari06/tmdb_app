@@ -4,8 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import coil.Coil
-import coil.api.load
 import coil.request.RequestDisposable
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
@@ -26,32 +24,16 @@ class MovieItem @AssistedInject constructor(
     override fun getLayout(): Int = R.layout.movie_item
 
     override fun bind(viewBinding: MovieItemBinding, position: Int) {
-        with(viewBinding) {
-            imageViewPoster.setOnClickListener {
-                val extra = FragmentNavigatorExtras(
-                    imageViewPoster to imageViewPoster.transitionName
-                )
-                root.findNavController().navigate(
-                    actionMoviesToMovieDetail(movieId = movie.id, title = movie.title),
-                    extra
-                )
-            }
-
-            imageViewPoster.transitionName = movie.id.toString()
-            imageRequestDisposables.clear()
-
-            imageViewPoster.setImageDrawable(null)
-            imageRequestDisposables += Coil.load(
-                imageViewPoster.context,
-                "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
-            ) {
-                crossfade(true)
-                placeholder(R.drawable.placeholder_72dp)
-                lifecycle(lifecycleOwnerLiveData.value)
-                target {
-                    imageViewPoster.setImageDrawable(it)
-                }
-            }
+        viewBinding.movie = movie
+        viewBinding.imageViewPoster.transitionName = movie.id.toString()
+        viewBinding.imageViewPoster.setOnClickListener {
+            val extra = FragmentNavigatorExtras(
+                viewBinding.imageViewPoster to viewBinding.imageViewPoster.transitionName
+            )
+            viewBinding.imageViewPoster.findNavController().navigate(
+                actionMoviesToMovieDetail(movieId = movie.id, title = movie.title),
+                extra
+            )
         }
     }
 

@@ -6,7 +6,10 @@ import coil.ImageLoader
 import com.hari.tmdb.appinitializer.AppInitializer
 import javax.inject.Inject
 
-class CoilAppInitializer @Inject constructor() : AppInitializer {
+class CoilAppInitializer @Inject constructor(
+    private val tmdbImageEntityMapper: TmdbImageEntityCoilMapper,
+    private val movieCoilMapper: MovieCoilMapper
+) : AppInitializer {
     override fun initialize(application: Application) {
         Coil.setDefaultImageLoader {
             ImageLoader(application) {
@@ -15,11 +18,12 @@ class CoilAppInitializer @Inject constructor() : AppInitializer {
                 // Since we don't use hardware bitmaps, we can pool bitmaps and use a higher
                 // ratio of memory
                 bitmapPoolPercentage(0.5)
-/*
+
                 componentRegistry {
                     add(tmdbImageEntityMapper)
-                    add(episodeEntityMapper)
-                }*/
+                    add(movieCoilMapper)
+                }
+
             }
         }
     }
