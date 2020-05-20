@@ -54,8 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                tools:src="@drawable/poster"
-                tools:ignore="ContentDescription" />
+                tmdbPosterPath="@{movie.posterPath}"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/poster" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -129,11 +130,11 @@
             android:id="@+id/budget_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:currency="@{movie.budget}"
-            tools:text="$120,00000"
             android:textAppearance="?attr/textAppearanceCaption"
+            app:currency="@{movie.budget}"
             app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/budget_title" />
+            app:layout_constraintTop_toBottomOf="@+id/budget_title"
+            tools:text="$120,00000" />
 
         <TextView
             android:id="@+id/revenue_title"
@@ -149,11 +150,11 @@
             android:id="@+id/revenue_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:currency="@{movie.revenue}"
-            tools:text="$120,00000"
             android:textAppearance="?attr/textAppearanceCaption"
+            app:currency="@{movie.revenue}"
             app:layout_constraintStart_toStartOf="@id/revenue_title"
-            app:layout_constraintTop_toBottomOf="@+id/revenue_title" />
+            app:layout_constraintTop_toBottomOf="@+id/revenue_title"
+            tools:text="$120,00000" />
 
         <View
             android:id="@+id/divider_budget"
@@ -180,10 +181,10 @@
             android:id="@+id/length_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:runtime="@{movie.runtime}"
             android:textAppearance="?attr/textAppearanceCaption"
             app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/length_title" />
+            app:layout_constraintTop_toBottomOf="@+id/length_title"
+            app:runtime="@{movie.runtime}" />
 
         <TextView
             android:id="@+id/status_title"
@@ -229,16 +230,18 @@
 
         <ImageView
             android:id="@+id/production_image"
+            imageSaturateOnLoad="@{false}"
+            tmdbPosterPath="@{movie.productionCompanyPath}"
             android:layout_width="60dp"
-            android:tint="@color/color_on_surface_87"
             android:layout_height="30dp"
             android:layout_marginStart="@dimen/screen_between_view"
             android:padding="1dp"
-            tools:src="@drawable/logo"
+            android:tint="@color/color_on_surface_87"
             app:layout_constraintBottom_toBottomOf="@+id/production_title"
             app:layout_constraintStart_toEndOf="@id/production_title"
             app:layout_constraintTop_toTopOf="@+id/production_title"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

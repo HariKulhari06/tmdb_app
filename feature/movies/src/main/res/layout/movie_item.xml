@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="movie"
+            type="com.hari.tmdb.model.Movie" />
     </data>
 
 
@@ -13,8 +16,21 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@{movie.title}"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewPoster"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewPoster"
+            app:layout_constraintStart_toStartOf="@+id/imageViewPoster"
+            app:layout_constraintTop_toTopOf="@+id/imageViewPoster"
+            tools:text="Hari singh" />
+
         <ImageView
             android:id="@+id/imageViewPoster"
+            tmdbPosterPath="@{movie.posterPath}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"

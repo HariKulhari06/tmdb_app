@@ -74,6 +74,7 @@ dependencies {
     implementation(project(":data:db"))
     implementation(project(":data:model"))
     implementation(project(":data:repository"))
+    implementation(project(":image-loading"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.AndroidX.appCompat)

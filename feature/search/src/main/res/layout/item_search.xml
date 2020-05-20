@@ -3,17 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="movie"
+            type="com.hari.tmdb.model.Movie" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@{movie.title}"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewPoster"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewPoster"
+            app:layout_constraintStart_toStartOf="@+id/imageViewPoster"
+            app:layout_constraintTop_toTopOf="@+id/imageViewPoster"
+            tools:text="Hari singh" />
+
         <ImageView
             android:id="@+id/imageViewPoster"
+            tmdbPosterPath="@{movie.posterPath}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="?attr/selectableItemBackground"
             android:scaleType="fitXY"
-            android:src="@drawable/placeholder_72dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1:1.5"
             app:layout_constraintEnd_toEndOf="parent"

@@ -14,6 +14,8 @@ android.dataBinding.enabled = true
 dependencies {
     implementation project(':feature:system')
     implementation project(':corecomponent:androidcomponets')
+    implementation(project(":image-loading"))
+
 
     implementation Dep.AndroidX.constraint
     implementation Dep.AndroidX.design
