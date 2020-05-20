@@ -219,7 +219,7 @@ class MoviesRepositoryImp @Inject constructor(
         val pagedList = moviesDataBase
             .moviesDataSource(movieCategory)
             .toLiveData(
-                pageSize = 6,
+                pageSize = 20,
                 boundaryCallback = boundaryCallback
             )
 
