@@ -1,4 +1,4 @@
-package com.hari.tmdb.imageloading
+package com.hari.tmdb.imageloading.internal
 
 import coil.map.MeasuredMapper
 import coil.size.PixelSize
@@ -26,6 +26,7 @@ class TmdbImageEntityCoilMapper @Inject constructor(
             ImageType.BACKDROP -> urlProvider.getBackdropUrl(data.filePath!!, width).toHttpUrl()
             ImageType.POSTER -> urlProvider.getPosterUrl(data.filePath!!, width).toHttpUrl()
             ImageType.LOGO -> urlProvider.getLogoUrl(data.filePath!!, width).toHttpUrl()
+            ImageType.PROFILE -> urlProvider.getProfileUrl(data.filePath!!, width).toHttpUrl()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.hari.tmdb.imageloading
+package com.hari.tmdb.imageloading.internal
 
 import android.app.Application
 import coil.Coil

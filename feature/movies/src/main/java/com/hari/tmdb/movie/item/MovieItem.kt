@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import coil.request.RequestDisposable
 import com.hari.tmdb.model.Movie
 import com.hari.tmdb.movie.R
 import com.hari.tmdb.movie.databinding.MovieItemBinding
@@ -12,14 +11,11 @@ import com.hari.tmdb.movie.ui.MainMovieFragmentDirections.Companion.actionMovies
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.xwray.groupie.databinding.BindableItem
-import com.xwray.groupie.databinding.GroupieViewHolder
 
 class MovieItem @AssistedInject constructor(
     @Assisted private val movie: Movie,
     private val lifecycleOwnerLiveData: LiveData<LifecycleOwner>
 ) : BindableItem<MovieItemBinding>(movie.id.hashCode().toLong()) {
-
-    private val imageRequestDisposables = mutableListOf<RequestDisposable>()
 
     override fun getLayout(): Int = R.layout.movie_item
 
@@ -35,11 +31,6 @@ class MovieItem @AssistedInject constructor(
                 extra
             )
         }
-    }
-
-    override fun unbind(viewHolder: GroupieViewHolder<MovieItemBinding>) {
-        super.unbind(viewHolder)
-        imageRequestDisposables.forEach { it.dispose() }
     }
 
     @AssistedInject.Factory

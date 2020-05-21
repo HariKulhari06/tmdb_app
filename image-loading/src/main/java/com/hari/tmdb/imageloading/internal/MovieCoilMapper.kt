@@ -1,4 +1,4 @@
-package com.hari.tmdb.imageloading
+package com.hari.tmdb.imageloading.internal
 
 import coil.map.MeasuredMapper
 import coil.size.PixelSize
