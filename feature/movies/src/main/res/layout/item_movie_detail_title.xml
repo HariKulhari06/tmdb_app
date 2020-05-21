@@ -14,234 +14,250 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="0dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="0dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".5" />
+            app:layout_constraintGuide_percent=".50" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/poster_card"
+        <ImageView
+            android:id="@+id/poster_image"
+            imageCornerRadius="@{15.0f}"
+            tmdbPosterPath="@{movie.posterPath}"
+            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:layout_height="@dimen/movie_poster_height"
             android:layout_marginTop="@dimen/screen_between_view"
             android:layout_marginEnd="@dimen/screen_space"
-            android:layout_marginBottom="@dimen/screen_between_view"
-            app:cardCornerRadius="@dimen/movie_poster_card_radius"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_center"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toTopOf="parent">
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="H,1:1.7"
+            app:layout_constraintEnd_toEndOf="@id/guideline_center"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/poster" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_between_view"
+            app:constraint_referenced_ids="rating_container,budget_container,revenue_container,runtime_container,status_container,production_container"
+            app:flow_horizontalBias="0"
+            app:flow_horizontalGap="@dimen/screen_space"
+            app:flow_horizontalStyle="spread_inside"
+            app:flow_lastHorizontalBias="0"
+            app:flow_lastHorizontalStyle="spread_inside"
+            app:flow_maxElementsWrap="2"
+            app:flow_verticalAlign="top"
+            app:flow_verticalGap="@dimen/screen_space"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rating_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/rating_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/movie_rating_"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
-                android:id="@+id/poster_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                tmdbPosterPath="@{movie.posterPath}"
+                android:id="@+id/rating_image"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="@dimen/screen_between_view"
+                android:src="@drawable/star_white"
+                android:tint="@color/yellow"
+                app:layout_constraintStart_toStartOf="@id/rating_title"
+                app:layout_constraintTop_toBottomOf="@+id/rating_title"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/rating_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_between_view"
+                android:text='@{movie.voteAverage * 10+ "%"}'
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@+id/vote_count_text"
+                app:layout_constraintStart_toEndOf="@id/rating_image"
+                app:layout_constraintTop_toTopOf="@+id/rating_image"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="92%" />
+
+            <TextView
+                android:id="@+id/vote_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_between_view"
+                android:text='@{movie.voteCount +" " +@string/votes}'
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:layout_constraintBottom_toBottomOf="@id/rating_image"
+                app:layout_constraintStart_toEndOf="@id/rating_image"
+                app:layout_constraintTop_toBottomOf="@+id/rating_text"
+                tools:text="@string/votes" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/budget_container"
+            isVisible="@{movie.budget>0}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/budget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/budget"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/budget_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:currency="@{movie.budget}"
+                app:layout_constraintStart_toStartOf="@+id/budget_title"
+                app:layout_constraintTop_toBottomOf="@+id/budget_title"
+                tools:ignore="MissingConstraints"
+                tools:text="$120,213,2132" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/revenue_container"
+            isVisible="@{movie.revenue>0}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+
+            <TextView
+                android:id="@+id/revenue_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/revenue"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/revenue_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:currency="@{movie.revenue}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/revenue_title"
+                tools:text="$120,00000" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/runtime_container"
+            isVisible="@{movie.runtime>0}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+
+            <TextView
+                android:id="@+id/length_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/length"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/length_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/length_title"
+                app:runtime="@{movie.runtime}"
+                tools:text="90m" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/status_container"
+            isVisible="@{movie.status!=null}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/status_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movie.status}"
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:layout_constraintStart_toStartOf="@id/status_title"
+                app:layout_constraintTop_toBottomOf="@+id/status_title"
+                tools:text="Released" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/production_container"
+            isVisible="@{movie.productionCompanyPath!=null}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/production_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/production"
+                android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/production_image"
+                imageSaturateOnLoad="@{false}"
+                tmdbPosterPath="@{movie.productionCompanyPath}"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/screen_between_view"
+                android:padding="1dp"
+                android:tint="@color/color_on_surface_87"
+                app:layout_constraintStart_toEndOf="@id/production_title"
+                app:layout_constraintTop_toTopOf="@+id/production_title"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/poster" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:id="@+id/rating_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movie_rating_"
-            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toTopOf="@+id/poster_card" />
-
-        <ImageView
-            android:id="@+id/rating_image"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/star_white"
-            android:tint="@color/yellow"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/rating_title"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/rating_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text='@{movie.voteAverage * 10+ "%"}'
-            android:textAppearance="?attr/textAppearanceBody2"
-            app:layout_constraintBottom_toTopOf="@+id/vote_count_text"
-            app:layout_constraintStart_toEndOf="@id/rating_image"
-            app:layout_constraintTop_toTopOf="@+id/rating_image"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="92%" />
-
-        <TextView
-            android:id="@+id/vote_count_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text='@{movie.voteCount +" " +@string/votes}'
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintBottom_toBottomOf="@id/rating_image"
-            app:layout_constraintStart_toEndOf="@id/rating_image"
-            app:layout_constraintTop_toBottomOf="@+id/rating_text"
-            tools:text="@string/votes" />
-
-        <View
-            android:id="@+id/divider_rating"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginTop="@dimen/screen_between_view"
-            android:background="?colorSurface"
-            android:backgroundTint="@color/divider_colors"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/rating_image" />
-
-        <TextView
-            android:id="@+id/budget_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_between_view"
-            android:text="@string/budget"
-            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/divider_rating" />
-
-        <TextView
-            android:id="@+id/budget_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:currency="@{movie.budget}"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/budget_title"
-            tools:text="$120,00000" />
-
-        <TextView
-            android:id="@+id/revenue_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_between_view"
-            android:text="@string/revenue"
-            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
-            app:layout_constraintBaseline_toBaselineOf="@+id/budget_title"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end" />
-
-        <TextView
-            android:id="@+id/revenue_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:currency="@{movie.revenue}"
-            app:layout_constraintStart_toStartOf="@id/revenue_title"
-            app:layout_constraintTop_toBottomOf="@+id/revenue_title"
-            tools:text="$120,00000" />
-
-        <View
-            android:id="@+id/divider_budget"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginTop="@dimen/screen_between_view"
-            android:background="?colorSurface"
-            android:backgroundTint="@color/divider_colors"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/revenue_text" />
-
-        <TextView
-            android:id="@+id/length_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_between_view"
-            android:text="@string/length"
-            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/divider_budget" />
-
-        <TextView
-            android:id="@+id/length_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/length_title"
-            app:runtime="@{movie.runtime}" />
-
-        <TextView
-            android:id="@+id/status_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/screen_between_view"
-            android:text="@string/status"
-            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
-            app:layout_constraintBaseline_toBaselineOf="@+id/length_title"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end" />
-
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{movie.status}"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintStart_toStartOf="@id/status_title"
-            app:layout_constraintTop_toBottomOf="@+id/status_title" />
+                tools:src="@drawable/logo" />
 
 
-        <View
-            android:id="@+id/divider_length"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginTop="@dimen/screen_between_view"
-            android:background="?colorSurface"
-            android:backgroundTint="@color/divider_colors"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/length_text" />
-
-        <TextView
-            android:id="@+id/production_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/screen_between_view"
-            android:text="@string/production"
-            android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
-            app:layout_constraintStart_toStartOf="@id/guideline_center"
-            app:layout_constraintTop_toBottomOf="@+id/divider_length" />
-
-
-        <ImageView
-            android:id="@+id/production_image"
-            imageSaturateOnLoad="@{false}"
-            tmdbPosterPath="@{movie.productionCompanyPath}"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="@dimen/screen_between_view"
-            android:padding="1dp"
-            android:tint="@color/color_on_surface_87"
-            app:layout_constraintBottom_toBottomOf="@+id/production_title"
-            app:layout_constraintStart_toEndOf="@id/production_title"
-            app:layout_constraintTop_toTopOf="@+id/production_title"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/logo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -40,23 +40,21 @@ fun ImageView.loadCircularProfile(
 
 @BindingAdapter(
     "tmdbPosterPath",
-    "imageSaturateOnLoad",
+    "imageCornerRadius",
     requireAll = false
 )
 fun ImageView.loadPoster(
-    oldPath: String?,
-    oldSaturateOnLoad: Boolean?,
     path: String?,
-    saturateOnLoad: Boolean?
+    cornerRadius: Float
 ) {
-    if (oldPath != path || oldSaturateOnLoad != saturateOnLoad) {
+    if (path != null) {
         loadImage(
             null,
-            oldSaturateOnLoad,
+            null,
             0f,
-            path?.let { Image(filePath = path, type = ImageType.POSTER) },
-            saturateOnLoad,
-            0f
+            Image(filePath = path, type = ImageType.POSTER),
+            false,
+            cornerRadius
         )
     }
 }
