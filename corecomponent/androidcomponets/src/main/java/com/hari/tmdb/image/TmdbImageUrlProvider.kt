@@ -6,7 +6,8 @@ data class TmdbImageUrlProvider(
     private val baseImageUrl: String = TmdbImageSizes.baseImageUrl,
     private val posterSizes: List<String> = TmdbImageSizes.posterSizes,
     private val backdropSizes: List<String> = TmdbImageSizes.backdropSizes,
-    private val logoSizes: List<String> = TmdbImageSizes.logoSizes
+    private val logoSizes: List<String> = TmdbImageSizes.logoSizes,
+    private val profileSizes: List<String> = TmdbImageSizes.logoSizes
 ) {
     fun getPosterUrl(path: String, imageWidth: Int): String {
         return "$baseImageUrl${selectSize(posterSizes, imageWidth)}$path"
@@ -18,6 +19,10 @@ data class TmdbImageUrlProvider(
 
     fun getLogoUrl(path: String, imageWidth: Int): String {
         return "$baseImageUrl${selectSize(logoSizes, imageWidth)}$path"
+    }
+
+    fun getProfileUrl(path: String, imageWidth: Int): String {
+        return "$baseImageUrl${selectSize(profileSizes, imageWidth)}$path"
     }
 
     private fun selectSize(sizes: List<String>, imageWidth: Int): String {

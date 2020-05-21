@@ -5,16 +5,18 @@
 
     <data>
 
+        <variable
+            name="casting"
+            type="com.hari.tmdb.model.Cast" />
     </data>
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"
-        android:background="?selectableItemBackground"
-        android:transitionName="casting"
         android:layout_height="@dimen/movie_poster_height"
         android:layout_marginBottom="@dimen/screen_between_view"
+        android:background="?selectableItemBackground"
         android:elevation="5dp"
+        android:transitionName="casting"
         app:cardCornerRadius="@dimen/movie_poster_card_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
+                tmdbProfilePath="@{casting.profilePath}"
                 tools:src="@drawable/poster" />
 
             <TextView
@@ -42,7 +45,7 @@
                 android:layout_marginTop="@dimen/screen_between_view"
                 android:layout_marginEnd="@dimen/screen_between_view"
                 android:singleLine="true"
-                android:text="@string/budget"
+                android:text="@{casting.name}"
                 android:textAppearance="@style/TextAppearance.Tmdb.Movie.Headline6"
                 app:layout_constraintBottom_toTopOf="@+id/cast_character"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +60,7 @@
                 android:layout_marginEnd="@dimen/screen_between_view"
                 android:layout_marginBottom="@dimen/screen_between_view"
                 android:singleLine="true"
+                android:text="@{casting.character}"
                 android:textAppearance="?attr/textAppearanceCaption"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

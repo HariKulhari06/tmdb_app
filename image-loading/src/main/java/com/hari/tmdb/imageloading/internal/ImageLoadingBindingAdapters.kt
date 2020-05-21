@@ -1,12 +1,41 @@
-package com.hari.tmdb.imageloading
+package com.hari.tmdb.imageloading.internal
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import coil.api.load
 import coil.api.loadAny
+import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import coil.transform.Transformation
 import com.hari.tmdb.model.Image
 import com.hari.tmdb.model.ImageType
+
+
+@BindingAdapter(
+    "youtubeThumbnail"
+)
+fun ImageView.loadYoutubeThumbnail(
+    key: String?
+) {
+    load("https://img.youtube.com/vi/${key}/hqdefault.jpg")
+}
+
+@BindingAdapter(
+    "tmdbProfilePath",
+    "circularCrop",
+    requireAll = false
+)
+fun ImageView.loadCircularProfile(
+    path: String?,
+    isCircularCrop: Boolean?
+) {
+    loadAny(Image(filePath = path, type = ImageType.PROFILE)) {
+        isCircularCrop?.let {
+            if (it)
+                transformations(CircleCropTransformation())
+        }
+    }
+}
 
 
 @BindingAdapter(

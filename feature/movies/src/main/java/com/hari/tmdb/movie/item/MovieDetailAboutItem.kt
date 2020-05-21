@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import coil.request.RequestDisposable
 import com.google.android.material.chip.Chip
 import com.hari.tmdb.model.Genre
 import com.hari.tmdb.model.Movie
@@ -19,9 +18,6 @@ class MovieDetailAboutItem @AssistedInject constructor(
     @Assisted private val movie: Movie,
     private val lifecycleOwnerLiveData: LiveData<LifecycleOwner>
 ) : BindableItem<ItemMovieDetailAboutBinding>(movie.id.hashCode().toLong()) {
-
-    private val imageRequestDisposables = mutableListOf<RequestDisposable>()
-
 
     override fun getLayout(): Int = R.layout.item_movie_detail_about
 

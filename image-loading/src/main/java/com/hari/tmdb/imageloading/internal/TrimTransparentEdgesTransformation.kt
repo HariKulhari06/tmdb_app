@@ -1,4 +1,4 @@
-package com.hari.tmdb.imageloading
+package com.hari.tmdb.imageloading.internal
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

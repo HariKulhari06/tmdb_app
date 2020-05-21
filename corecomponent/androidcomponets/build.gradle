@@ -38,9 +38,6 @@ dependencies {
     implementation Dep.Groupie.groupie
     implementation Dep.Groupie.databinding
 
-
-    implementation Dep.Coil.coil
-
     api Dep.Retrofit.retrofit
     api Dep.OkHttp.loggingInterceptor
 }

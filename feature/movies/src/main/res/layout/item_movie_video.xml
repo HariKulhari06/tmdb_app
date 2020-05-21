@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="video"
+            type="com.hari.tmdb.model.Video" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +17,9 @@
 
         <ImageView
             android:id="@+id/video_thumbnail"
+            youtubeThumbnail="@{video.key}"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

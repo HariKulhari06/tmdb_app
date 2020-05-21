@@ -26,7 +26,6 @@ dependencies {
     implementation Dep.Groupie.groupie
     implementation Dep.Groupie.databinding
 
-    implementation Dep.Coil.coil
     implementation Dep.Lottie.lottie
 
     implementation Dep.Dagger.core
