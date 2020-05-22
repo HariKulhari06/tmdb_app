@@ -86,7 +86,7 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
         val binding = MovieDetailFragmentBinding.bind(view)
         binding.coordinator.transitionName = navArgs.movieId.toString()
 
-        // postponeEnterTransition()
+         postponeEnterTransition()
         val adapter = GroupAdapter<GroupieViewHolder<*>>()
         binding.movieDetailRecycler.adapter = adapter
 
@@ -163,7 +163,7 @@ class MovieDetailFragment : Fragment(R.layout.movie_detail_fragment), Injectable
                 adapter.add(videoSection)
             }
 
-            //  startPostponedEnterTransition()
+            startPostponedEnterTransition()
         })
     }
 

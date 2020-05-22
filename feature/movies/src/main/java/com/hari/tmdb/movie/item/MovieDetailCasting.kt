@@ -26,12 +26,12 @@ class MovieDetailCasting @AssistedInject constructor(
     override fun bind(viewBinding: ItemMovieCastingBinding, position: Int) {
         with(viewBinding) {
             casting = cast
-            root.setOnClickListener {
+            rootContainer.setOnClickListener {
                 val extra = FragmentNavigatorExtras(
-                    root to root.transitionName
+                    rootContainer to rootContainer.transitionName
                 )
 
-                root.findNavController().navigate(
+                rootContainer.findNavController().navigate(
                     actionMovieDetailToPeople(
                         title = cast.name,
                         peopleId = cast.id,
@@ -41,7 +41,7 @@ class MovieDetailCasting @AssistedInject constructor(
                 )
             }
 
-            root.transitionName = "${cast.id}-$TRANSITION_NAME_SUFFIX"
+            rootContainer.transitionName = "${cast.id}-$TRANSITION_NAME_SUFFIX"
         }
     }
 

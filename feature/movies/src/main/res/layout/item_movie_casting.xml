@@ -11,10 +11,11 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/root_container"
         android:layout_width="140dp"
         android:layout_height="@dimen/movie_poster_height"
         android:layout_marginBottom="@dimen/screen_between_view"
-        android:background="?selectableItemBackground"
+        android:foreground="?selectableItemBackground"
         android:elevation="5dp"
         android:transitionName="casting"
         app:cardCornerRadius="@dimen/movie_poster_card_radius">

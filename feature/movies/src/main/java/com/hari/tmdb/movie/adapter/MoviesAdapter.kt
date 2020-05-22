@@ -44,7 +44,6 @@ class MoviesAdapter : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
         fun bind(movie: Movie) {
             with(movieItemBinding) {
                 this.movie = movie
-                imageViewPoster.transitionName = movie.id.toString()
                 imageViewPoster.setOnClickListener {
                     val extra = FragmentNavigatorExtras(
                         imageViewPoster to imageViewPoster.transitionName
@@ -57,14 +56,13 @@ class MoviesAdapter : PagedListAdapter<Movie, MoviesAdapter.MoviesViewHolder>(
                         extra
                     )
                 }
+                imageViewPoster.transitionName = movie.id.toString()
             }
         }
     }
 
 
     companion object {
-        private const val TRANSITION_NAME_SUFFIX = "movie"
-
         val diffCallbacks = object : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem.id == newItem.id
