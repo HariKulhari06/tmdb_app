@@ -16,6 +16,10 @@ internal abstract class DbModule {
     @Binds
     abstract fun peoplesDataBase(impl: RoomDatabase): PeoplesDatabase
 
+    @Binds
+    abstract fun showsDataBase(impl: RoomDatabase): ShowsDatabase
+
+
     @Module
     internal object Providers {
         @Singleton
@@ -76,6 +80,16 @@ internal abstract class DbModule {
         @Provides
         fun languageDao(database: CacheDatabase): LanguageDao {
             return database.languageDao()
+        }
+
+        @Provides
+        fun showsDao(database: CacheDatabase): ShowsDao {
+            return database.showsDao()
+        }
+
+        @Provides
+        fun popularShowsDao(database: CacheDatabase): PopularShowDao {
+            return database.popularShowDao()
         }
     }
 }

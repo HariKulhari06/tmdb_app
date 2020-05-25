@@ -40,6 +40,9 @@ class TmdbServiceModule {
     fun provideTmdbMoviesService(tmdb: Tmdb): MoviesService = tmdb.moviesService()
 
     @Provides
+    fun provideTmdbTvService(tmdb: Tmdb): TvService = tmdb.tvService()
+
+    @Provides
     fun provideTmdbMoviesDiscoverService(tmdb: Tmdb): DiscoverService = tmdb.discoverService()
 
     @Provides

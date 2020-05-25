@@ -1,15 +1,15 @@
 package com.hari.tmdb.db.internal.resultentities
 
 import android.annotation.SuppressLint
-import com.hari.tmdb.db.internal.entity.MovieEntityImp
+import com.hari.tmdb.db.internal.entity.ShowEntity
 import com.hari.tmdb.model.TmdbEntity
 import java.util.*
 
-interface EntryWithMovie<ET : TmdbEntity> {
+interface EntryWithShow<ET : TmdbEntity> {
     var entry: ET
-    var relations: List<MovieEntityImp>
+    var relations: List<ShowEntity>
 
-    val movieEntity: MovieEntityImp
+    val showEntity: ShowEntity
         @SuppressLint("Assert")
         get() {
             assert(relations.size == 1)

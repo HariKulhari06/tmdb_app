@@ -1,25 +1,53 @@
 package com.hari.tmdb.shows.internal.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.google.android.material.transition.MaterialFadeThrough
-import com.hari.tmdb.groupie.CarouselItemDecoration
+import com.hari.tmdb.di.PageScope
+import com.hari.tmdb.ext.assistedActivityViewModels
+import com.hari.tmdb.ext.assistedViewModels
 import com.hari.tmdb.groupie.HeaderItemDecoration
 import com.hari.tmdb.shows.R
 import com.hari.tmdb.shows.databinding.MoviesMainFragmentBinding
-import com.hari.tmdb.shows.internal.items.ItemShowPoster
 import com.hari.tmdb.shows.internal.items.ItemTopTrendingBanner
-import com.hari.tmdb.ui.item.CarouselGroup
-import com.hari.tmdb.ui.item.HeaderItem
+import com.hari.tmdb.shows.internal.viewmodel.ShowsViewModel
+import com.hari.tmdb.system.viewmodel.SystemViewModel
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Section
 import com.xwray.groupie.databinding.GroupieViewHolder
+import dagger.Module
+import dagger.Provides
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
+import javax.inject.Provider
 
-class ShowsMainFragment : Fragment(R.layout.movies_main_fragment) {
+class ShowsMainFragment : Fragment(R.layout.movies_main_fragment), HasAndroidInjector {
+
+    @Inject
+    lateinit var showsViewModelProvider: Provider<ShowsViewModel>
+    private val showsViewModel: ShowsViewModel by assistedViewModels {
+        showsViewModelProvider.get()
+    }
+
+    @Inject
+    lateinit var systemViewModelProvider: Provider<SystemViewModel>
+    private val systemViewModel: SystemViewModel by assistedActivityViewModels {
+        systemViewModelProvider.get()
+    }
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,37 +76,53 @@ class ShowsMainFragment : Fragment(R.layout.movies_main_fragment) {
 
         adapter.update(items)
 
-        addItems(adapter)
+        showsViewModel.popularShoePagedList.observe(viewLifecycleOwner, Observer {
+            Log.e("onViewCreated: ", "${it.size}")
+        })
+
     }
 
-    private fun addItems(adapter: GroupAdapter<GroupieViewHolder<*>>) {
-        val section =
-            Section(HeaderItem(titleStringResId = R.string.popular) {})
-        section.setHideWhenEmpty(true)
+    /*  private fun addItems(): Section {
+          val section =
+              Section(HeaderItem(titleStringResId = R.string.popular) {})
+          section.setHideWhenEmpty(true)
 
-        val sectionAdapter = GroupAdapter<GroupieViewHolder<*>>()
-        for (i in 1..20) {
-            sectionAdapter.add(ItemShowPoster())
+          val sectionAdapter = GroupAdapter<GroupieViewHolder<*>>()
+          for (i in 1..20) {
+              sectionAdapter.add(ItemShowPoster())
+          }
+
+          section.add(
+              CarouselGroup(
+                  itemDecoration = CarouselItemDecoration(
+                      ContextCompat.getColor(
+                          requireContext(),
+                          R.color.color_surface
+                      ),
+                      resources.getDimensionPixelSize(R.dimen.item_decoration_album),
+                      firstAndLastItemPadding = resources.getDimensionPixelSize(R.dimen.screen_space)
+                  ),
+                  adapter = sectionAdapter,
+                  layoutManager = LinearLayoutManager(requireContext()).apply {
+                      orientation = LinearLayoutManager.HORIZONTAL
+                  }
+              )
+          )
+         return section
+      }*/
+
+}
+
+@Module
+abstract class ShowsMainFragmentModule {
+
+    companion object {
+        @PageScope
+        @Provides
+        fun providesLifecycleOwnerLiveData(
+            showsMainFragment: ShowsMainFragment
+        ): LiveData<LifecycleOwner> {
+            return showsMainFragment.viewLifecycleOwnerLiveData
         }
-
-        section.add(
-            CarouselGroup(
-                itemDecoration = CarouselItemDecoration(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.color_surface
-                    ),
-                    resources.getDimensionPixelSize(R.dimen.item_decoration_album),
-                    firstAndLastItemPadding = resources.getDimensionPixelSize(R.dimen.screen_space)
-                ),
-                adapter = sectionAdapter,
-                layoutManager = LinearLayoutManager(requireContext()).apply {
-                    orientation = LinearLayoutManager.HORIZONTAL
-                }
-            )
-        )
-        adapter.add(section)
     }
-
-
 }

@@ -3,10 +3,8 @@ package com.hari.tmdb.di
 import android.content.Context
 import com.hari.tmdb.db.internal.MoviesDataBase
 import com.hari.tmdb.db.internal.PeoplesDatabase
-import com.hari.tmdb.model.repository.AccountRepository
-import com.hari.tmdb.model.repository.MoviesRepository
-import com.hari.tmdb.model.repository.PeoplesRepository
-import com.hari.tmdb.model.repository.SearchRepository
+import com.hari.tmdb.db.internal.ShowsDatabase
+import com.hari.tmdb.model.repository.*
 import com.hari.tmdb.repository.RepositoryComponent
 import com.uwetrottmann.tmdb2.services.*
 import dagger.Module
@@ -50,6 +48,14 @@ object RepositoryComponentModule {
 
     @Provides
     @Singleton
+    fun provideShowsRepository(
+        repositoryComponent: RepositoryComponent
+    ): ShowsRepository {
+        return repositoryComponent.showsRepository()
+    }
+
+    @Provides
+    @Singleton
     fun provideRepositoryComponent(
         context: Context,
         moviesDataBase: MoviesDataBase,
@@ -59,7 +65,9 @@ object RepositoryComponentModule {
         discoverService: DiscoverService,
         peopleService: PeopleService,
         authenticationService: AuthenticationService,
-        searchService: SearchService
+        searchService: SearchService,
+        tvService: TvService,
+        showsDatabase: ShowsDatabase
     ): RepositoryComponent {
 
         return RepositoryComponent.factory()
@@ -72,7 +80,9 @@ object RepositoryComponentModule {
                 discoverService = discoverService,
                 personService = peopleService,
                 authenticationService = authenticationService,
-                searchService = searchService
+                searchService = searchService,
+                tvService = tvService,
+                showsDatabase = showsDatabase
             )
 
     }

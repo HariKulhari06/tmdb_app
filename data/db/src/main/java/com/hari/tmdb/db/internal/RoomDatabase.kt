@@ -3,10 +3,7 @@ package com.hari.tmdb.db.internal
 import androidx.paging.DataSource
 import androidx.room.withTransaction
 import com.hari.tmdb.db.internal.daos.*
-import com.hari.tmdb.db.internal.entity.CastingEntityImp
-import com.hari.tmdb.db.internal.entity.MovieEntityImp
-import com.hari.tmdb.db.internal.entity.PeopleEntityImp
-import com.hari.tmdb.db.internal.entity.PopularMovieEntity
+import com.hari.tmdb.db.internal.entity.*
 import com.hari.tmdb.db.internal.mapper.*
 import com.hari.tmdb.model.*
 import com.hari.tmdb.model.mapper.forLists
@@ -31,8 +28,10 @@ internal class RoomDatabase @Inject constructor(
     private val videoDao: VideoDao,
     private val castingDao: CastingDao,
     private val peopleDao: PeopleDao,
-    private val languageDao: LanguageDao
-) : MoviesDataBase, PeoplesDatabase {
+    private val languageDao: LanguageDao,
+    private val showsDao: ShowsDao,
+    private val popularShowDao: PopularShowDao
+) : MoviesDataBase, PeoplesDatabase, ShowsDatabase {
     override suspend fun moviesGenre(): Flow<List<Genre>> {
         return genreDao.movieGenre().map { genreEntities ->
             genreEntityToGenre.forLists().invoke(genreEntities)
@@ -174,6 +173,32 @@ internal class RoomDatabase @Inject constructor(
 
     override suspend fun savePeople(data: Person) {
         peopleDao.insert(personToPeopleEntity.map(data))
+    }
+
+    override suspend fun insertPopularShows(shows: List<Pair<ShowEntity, PopularShowEntity>>) {
+        cacheDatabase.withTransaction {
+            shows.firstOrNull()?.let { pair ->
+                if (pair.second.page == 1) {
+                    popularShowDao.deleteAll()
+                }
+            }
+            shows.map { pair ->
+                showsDao.insert(pair.first)
+                popularShowDao.insert(pair.second)
+            }
+        }
+    }
+
+    override suspend fun getPopularShowLastPage(): Int {
+        return popularShowDao.getLastPage() ?: 1
+    }
+
+    override fun popularShowDataSource(): DataSource.Factory<Int, Show> {
+        return popularShowDao.dataSource().map { popularShoeEntity ->
+            runBlocking {
+                showEntityToShow.map(popularShoeEntity.showEntity)
+            }
+        }
     }
 
 }
