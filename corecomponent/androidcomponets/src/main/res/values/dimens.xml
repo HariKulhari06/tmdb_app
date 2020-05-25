@@ -2,7 +2,7 @@
 <resources>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="space_carousel">5dp</dimen>
-    <dimen name="screen_space">16dp</dimen>
+    <dimen name="screen_space">14dp</dimen>
     <dimen name="screen_between_view">8dp</dimen>
     <dimen name="bottom_sheet_default_peek_height">64dp</dimen>
     <dimen name="gesture_navigation_bottom_space">48dp</dimen>

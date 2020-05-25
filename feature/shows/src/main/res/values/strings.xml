@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="info">Info</string>
+    <string name="popular">Popular</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="on_tv">On TV</string>
+    <string name="top_rated">Top Rated</string>
+</resources>

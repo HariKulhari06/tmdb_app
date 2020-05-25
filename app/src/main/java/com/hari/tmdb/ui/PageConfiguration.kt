@@ -50,6 +50,11 @@ enum class PageConfiguration(
         hasTitle = true,
         hideBottomNavigationMenu = true
     ),
+    TV_SHOWS(
+        R.id.shows,
+        hasTitle = false,
+        hideToolbar = true
+    ),
     OTHER(0);
 
     operator fun component1() = id

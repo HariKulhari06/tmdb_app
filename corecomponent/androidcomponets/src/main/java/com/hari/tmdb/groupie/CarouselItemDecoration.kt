@@ -1,47 +1,35 @@
-package com.hari.tmdb.groupie;
+package com.hari.tmdb.groupie
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.view.View;
+import android.graphics.Rect
+import android.view.View
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.RecyclerView
 
-import androidx.annotation.ColorInt;
-import androidx.recyclerview.widget.RecyclerView;
+class CarouselItemDecoration(
+    @ColorInt val backgroundColor: Int,
+    private val paddingPixelSize: Int,
+    private val firstAndLastItemPadding: Int = 0
 
-import org.jetbrains.annotations.NotNull;
+) : RecyclerView.ItemDecoration() {
 
-public class CarouselItemDecoration extends RecyclerView.ItemDecoration {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position = parent.getChildAdapterPosition(view)
+        val isLast = position == state.itemCount - 1
 
-    private final Paint grayBackgroundPaint;
-    private final int padding;
+        if (position == 0) {
+            outRect.left = firstAndLastItemPadding
+            outRect.right = paddingPixelSize
+        } else {
+            outRect.right = paddingPixelSize
+        }
 
-    public CarouselItemDecoration(@ColorInt int backgroundColor, int paddingPixelSize) {
-        grayBackgroundPaint = new Paint();
-        grayBackgroundPaint.setColor(backgroundColor);
-        padding = paddingPixelSize;
-    }
-
-    @Override
-    public void getItemOffsets(Rect outRect, @NotNull View view, @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
-        outRect.right = padding;
-    }
-
-    @Override
-    public void onDraw(@NotNull Canvas c, RecyclerView parent, @NotNull RecyclerView.State state) {
-        int childCount = parent.getChildCount();
-        RecyclerView.LayoutManager lm = parent.getLayoutManager();
-        for (int i = 0; i < childCount; i++) {
-            View child = parent.getChildAt(i);
-
-            assert lm != null;
-            int right = (int) (lm.getDecoratedRight(child) + child.getTranslationX());
-            if (i == childCount - 1) {
-                // Last item
-                right = Math.max(right, parent.getWidth());
-            }
-
-            // Right border
-            c.drawRect(child.getRight() + child.getTranslationX(), 0, right, parent.getHeight(), grayBackgroundPaint);
+        if (isLast) {
+            outRect.right = firstAndLastItemPadding
         }
     }
 }

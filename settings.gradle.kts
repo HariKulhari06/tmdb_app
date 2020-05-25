@@ -16,5 +16,6 @@ include(
     ":feature:account",
     ":corecomponent:compose",
     ":feature:search",
-    ":feature:settings"
+    ":feature:settings",
+    ":feature:shows"
 )
