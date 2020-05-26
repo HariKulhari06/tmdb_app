@@ -22,7 +22,7 @@ class ShowsBoundaryCallback(
     private val scope: CoroutineScope,
     private val tvShowResultsPageMapper: TvShowResultsPageToShows,
     private val showsCategory: ShowsCategory,
-    private val ioExecutor: Executor = Executors.newSingleThreadExecutor()
+    ioExecutor: Executor = Executors.newSingleThreadExecutor()
 ) : PagedList.BoundaryCallback<Show>() {
 
     val helper = PagingRequestHelper(ioExecutor)
@@ -52,6 +52,15 @@ class ShowsBoundaryCallback(
             ShowsCategory.POPULAR -> {
                 showsDatabase.getPopularShowLastPage()
             }
+            ShowsCategory.TOP_RATED -> {
+                showsDatabase.getTopRatedLastPage()
+            }
+            ShowsCategory.ON_TV -> {
+                showsDatabase.getOnTvLastPage()
+            }
+            ShowsCategory.AIRING_TODAY -> {
+                showsDatabase.getAiringTodayLastPage()
+            }
         }.plus(1)
     }
 
@@ -66,13 +75,35 @@ class ShowsBoundaryCallback(
                         ShowsCategory.POPULAR -> {
                             tvService.popular(page, null)
                         }
+                        ShowsCategory.TOP_RATED -> {
+                            tvService.topRated(page, null)
+                        }
+                        ShowsCategory.ON_TV -> {
+                            tvService.onTheAir(page, null)
+                        }
+                        ShowsCategory.AIRING_TODAY -> {
+                            tvService.airingToday(page, null)
+                        }
                     }
                         .execute()
                         .toResult(tvShowResultsPageMapper.toLambda())
 
                 when (result) {
                     is Success -> {
-                        showsDatabase.insertPopularShows(result.data)
+                        when (showsCategory) {
+                            ShowsCategory.POPULAR -> {
+                                showsDatabase.insertPopularShows(result.data)
+                            }
+                            ShowsCategory.TOP_RATED -> {
+                                showsDatabase.insertTopRatedShows(result.data)
+                            }
+                            ShowsCategory.ON_TV -> {
+                                showsDatabase.insertOnTvShows(result.data)
+                            }
+                            ShowsCategory.AIRING_TODAY -> {
+                                showsDatabase.insertAiringTodayShows(result.data)
+                            }
+                        }
                         callback.recordSuccess()
                     }
                     is ErrorResult -> {
@@ -86,6 +117,9 @@ class ShowsBoundaryCallback(
     }
 
     enum class ShowsCategory {
-        POPULAR
+        POPULAR,
+        TOP_RATED,
+        ON_TV,
+        AIRING_TODAY
     }
 }

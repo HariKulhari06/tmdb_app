@@ -91,5 +91,20 @@ internal abstract class DbModule {
         fun popularShowsDao(database: CacheDatabase): PopularShowDao {
             return database.popularShowDao()
         }
+
+        @Provides
+        fun topRatedShowsDao(database: CacheDatabase): TopRatedShowDao {
+            return database.topRatedShowDao()
+        }
+
+        @Provides
+        fun onTvShowsDao(database: CacheDatabase): OnTvShowDao {
+            return database.onTvShowDao()
+        }
+
+        @Provides
+        fun airingTodayShowsDao(database: CacheDatabase): AiringTodayShowDao {
+            return database.airingTodayShowDao()
+        }
     }
 }

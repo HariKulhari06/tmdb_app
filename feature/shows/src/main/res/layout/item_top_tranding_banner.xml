@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="show"
+            type="com.hari.tmdb.model.Show" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,12 +17,13 @@
 
         <ImageView
             android:id="@+id/show_poster"
+            tmdbPosterPath="@{show.posterPath}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:foreground="@drawable/banner_overlay_effect"
-            android:scaleType="centerCrop"
-            android:src="@drawable/show_poster"
-            app:layout_constraintDimensionRatio="H,1:1.5"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="H,1:1.2"
+            tools:src="@drawable/show_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,13 +41,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/show_poster"
             app:layout_constraintEnd_toStartOf="@+id/materialButton"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/watchlist"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="TV"
             app:layout_constraintBottom_toBottomOf="@+id/materialTextView"
             app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
             app:layout_constraintHorizontal_bias="0.5"

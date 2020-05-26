@@ -26,7 +26,9 @@ val showEntityToShow = object : Mapper<ShowEntity, Show> {
             status = from.status,
             summary = from.summary,
             voteAverage = from.voteAverage,
-            voteCount = from.voteCount
+            voteCount = from.voteCount,
+            posterPath = from.posterPath,
+            backdrop_path = from.backdrop_path
         )
     }
 

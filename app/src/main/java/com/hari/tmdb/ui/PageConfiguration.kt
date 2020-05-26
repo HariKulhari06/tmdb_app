@@ -52,8 +52,8 @@ enum class PageConfiguration(
     ),
     TV_SHOWS(
         R.id.shows,
-        hasTitle = false,
-        hideToolbar = true
+        hasTitle = true,
+        hideToolbar = false
     ),
     OTHER(0);
 

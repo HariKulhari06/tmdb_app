@@ -19,6 +19,8 @@ data class ShowEntity(
     @ColumnInfo(name = "vote_average") val voteAverage: Double? = null,
     @ColumnInfo(name = "vote_count") val voteCount: Int? = null,
     @ColumnInfo(name = "certification") val certification: String? = null,
+    @ColumnInfo(name = "poster_path") val posterPath: String? = null,
+    @ColumnInfo(name = "backdrop_path") val backdrop_path: String? = null,
     @ColumnInfo(name = "first_aired") val firstAired: String? = null,
     @ColumnInfo(name = "last_aired") val lastAired: String? = null,
     @ColumnInfo(name = "next_aired") val nextAir: String? = null,

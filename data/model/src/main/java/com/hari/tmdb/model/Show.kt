@@ -20,5 +20,11 @@ data class Show(
     val runtime: Int? = null,
     val status: ShowStatus,
     val numberOfSeasons: Int? = null,
-    val numberOfEpisodes: Int? = null
-)
+    val numberOfEpisodes: Int? = null,
+    val posterPath: String? = null,
+    val backdrop_path: String? = null
+) {
+    companion object {
+        val EMPTY = Show(tmdbId = 0, status = ShowStatus.ENDED)
+    }
+}

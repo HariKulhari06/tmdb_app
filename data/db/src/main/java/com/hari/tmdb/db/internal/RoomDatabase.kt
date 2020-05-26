@@ -10,9 +10,7 @@ import com.hari.tmdb.model.mapper.forLists
 import com.uwetrottmann.tmdb2.entities.GenreResults
 import com.uwetrottmann.tmdb2.entities.MovieResultsPage
 import com.uwetrottmann.tmdb2.entities.Person
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import com.uwetrottmann.tmdb2.entities.Movie as TmdbMovie
@@ -30,7 +28,10 @@ internal class RoomDatabase @Inject constructor(
     private val peopleDao: PeopleDao,
     private val languageDao: LanguageDao,
     private val showsDao: ShowsDao,
-    private val popularShowDao: PopularShowDao
+    private val popularShowDao: PopularShowDao,
+    private val topRatedShowDao: TopRatedShowDao,
+    private val onTvShowDao: OnTvShowDao,
+    private val airingTodayShowDao: AiringTodayShowDao
 ) : MoviesDataBase, PeoplesDatabase, ShowsDatabase {
     override suspend fun moviesGenre(): Flow<List<Genre>> {
         return genreDao.movieGenre().map { genreEntities ->
@@ -175,6 +176,16 @@ internal class RoomDatabase @Inject constructor(
         peopleDao.insert(personToPeopleEntity.map(data))
     }
 
+    override fun getLatestAiredShow(): Flow<Show> {
+        return flow {
+            airingTodayShowDao.getLatestAiredShow().collect {
+                if (it != null) {
+                    emit(showEntityToShow.map(it.showEntity))
+                }
+            }
+        }
+    }
+
     override suspend fun insertPopularShows(shows: List<Pair<ShowEntity, PopularShowEntity>>) {
         cacheDatabase.withTransaction {
             shows.firstOrNull()?.let { pair ->
@@ -197,6 +208,102 @@ internal class RoomDatabase @Inject constructor(
         return popularShowDao.dataSource().map { popularShoeEntity ->
             runBlocking {
                 showEntityToShow.map(popularShoeEntity.showEntity)
+            }
+        }
+    }
+
+    override suspend fun insertTopRatedShows(shows: List<Pair<ShowEntity, PopularShowEntity>>) {
+        cacheDatabase.withTransaction {
+            shows.firstOrNull()?.let { pair ->
+                if (pair.second.page == 1) {
+                    topRatedShowDao.deleteAll()
+                }
+            }
+            shows.map { pair ->
+                showsDao.insert(pair.first)
+                topRatedShowDao.insert(
+                    TopRatedShowEntity(
+                        movieId = pair.second.movieId,
+                        pageOrder = pair.second.pageOrder,
+                        page = pair.second.page
+                    )
+                )
+            }
+        }
+    }
+
+    override suspend fun getTopRatedLastPage(): Int {
+        return topRatedShowDao.getLastPage() ?: 1
+    }
+
+    override fun topRatedShowDataSource(): DataSource.Factory<Int, Show> {
+        return topRatedShowDao.dataSource().map { topRatedShoeEntity ->
+            runBlocking {
+                showEntityToShow.map(topRatedShoeEntity.showEntity)
+            }
+        }
+    }
+
+    override suspend fun insertOnTvShows(shows: List<Pair<ShowEntity, PopularShowEntity>>) {
+        cacheDatabase.withTransaction {
+            shows.firstOrNull()?.let { pair ->
+                if (pair.second.page == 1) {
+                    onTvShowDao.deleteAll()
+                }
+            }
+            shows.map { pair ->
+                showsDao.insert(pair.first)
+                onTvShowDao.insert(
+                    OnTvShowEntity(
+                        movieId = pair.second.movieId,
+                        pageOrder = pair.second.pageOrder,
+                        page = pair.second.page
+                    )
+                )
+            }
+        }
+    }
+
+    override suspend fun getOnTvLastPage(): Int {
+        return onTvShowDao.getLastPage() ?: 1
+    }
+
+    override fun onTvShowDataSource(): DataSource.Factory<Int, Show> {
+        return onTvShowDao.dataSource().map { onTvShoeEntity ->
+            runBlocking {
+                showEntityToShow.map(onTvShoeEntity.showEntity)
+            }
+        }
+    }
+
+    override suspend fun insertAiringTodayShows(shows: List<Pair<ShowEntity, PopularShowEntity>>) {
+        cacheDatabase.withTransaction {
+            shows.firstOrNull()?.let { pair ->
+                if (pair.second.page == 1) {
+                    airingTodayShowDao.deleteAll()
+                }
+            }
+            shows.map { pair ->
+                showsDao.insert(pair.first)
+                airingTodayShowDao.insert(
+                    AiringTodayShowEntity(
+                        movieId = pair.second.movieId,
+                        pageOrder = pair.second.pageOrder,
+                        page = pair.second.page
+                    )
+                )
+            }
+        }
+    }
+
+    override suspend fun getAiringTodayLastPage(): Int {
+        return airingTodayShowDao.getLastPage() ?: 1
+    }
+
+    override fun airingTodayShowDataSource(): DataSource.Factory<Int, Show> {
+        return airingTodayShowDao.dataSource().map { onTvShoeEntity ->
+            runBlocking {
+                showEntityToShow.map(onTvShoeEntity.showEntity)
             }
         }
     }

@@ -38,6 +38,8 @@ dependencies {
     implementation Dep.Groupie.groupie
     implementation Dep.Groupie.databinding
 
+    implementation Dep.Paging.ktx
+
     api Dep.Retrofit.retrofit
     api Dep.OkHttp.loggingInterceptor
 }

@@ -15,7 +15,9 @@ class TvShowResultsPageToShows @Inject constructor() :
             val showEntity = ShowEntity(
                 tmdbId = baseTvShow.id,
                 title = baseTvShow.name,
-                summary = baseTvShow.overview
+                summary = baseTvShow.overview,
+                posterPath = baseTvShow.poster_path,
+                backdrop_path = baseTvShow.backdrop_path
             )
 
             val popularShowEntity = PopularShowEntity(
