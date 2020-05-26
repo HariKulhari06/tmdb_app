@@ -12,6 +12,12 @@ interface PaginatedEntry : Entry {
     val page: Int
 }
 
+interface ShowPaginatedEntry : Entry {
+    val page: Int
+    val pageOrder: Int
+    val showId: Int
+}
+
 interface MultipleEntry : Entry {
     val otherMovieId: Int
 }

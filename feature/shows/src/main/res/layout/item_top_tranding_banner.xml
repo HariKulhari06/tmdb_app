@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="show"
+            type="com.hari.tmdb.model.Show" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/show_poster"
+            tmdbPosterPath="@{show.posterPath}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:foreground="@drawable/banner_overlay_effect"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="H,1:1.2"
+            tools:src="@drawable/show_poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/screen_space"
+            android:drawableTop="@drawable/ic_bookmark_border_24"
+            android:text="@string/watchlist"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:drawableTint="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/show_poster"
+            app:layout_constraintEnd_toStartOf="@+id/materialButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="TV"
+            app:layout_constraintBottom_toBottomOf="@+id/materialTextView"
+            app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialTextView"
+            app:layout_constraintTop_toTopOf="@+id/materialTextView" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_outline_info_24"
+            android:text="@string/info"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:drawableTint="?attr/colorOnSurface"
+            app:layout_constraintBaseline_toBaselineOf="@+id/materialTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

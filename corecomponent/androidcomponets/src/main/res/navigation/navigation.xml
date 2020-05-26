@@ -155,4 +155,10 @@
         android:name="com.hari.tmdb.settings.SettingsFragment"
         android:label="@string/setting_label" />
 
+
+    <fragment
+        android:label="@string/tv_show"
+        android:id="@+id/shows"
+        android:name="com.hari.tmdb.shows.internal.ui.ShowsMainFragment" />
+
 </navigation>

@@ -1,5 +1,6 @@
 package com.hari.tmdb.db.internal.resultentities
 
+import android.annotation.SuppressLint
 import com.hari.tmdb.db.internal.entity.MovieEntityImp
 import com.hari.tmdb.model.TmdbEntity
 import java.util.*
@@ -9,6 +10,7 @@ interface EntryWithMovie<ET : TmdbEntity> {
     var relations: List<MovieEntityImp>
 
     val movieEntity: MovieEntityImp
+        @SuppressLint("Assert")
         get() {
             assert(relations.size == 1)
             return relations[0]

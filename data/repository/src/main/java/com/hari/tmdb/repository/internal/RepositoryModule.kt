@@ -1,9 +1,6 @@
 package com.hari.tmdb.repository.internal
 
-import com.hari.tmdb.model.repository.AccountRepository
-import com.hari.tmdb.model.repository.MoviesRepository
-import com.hari.tmdb.model.repository.PeoplesRepository
-import com.hari.tmdb.model.repository.SearchRepository
+import com.hari.tmdb.model.repository.*
 import dagger.Binds
 import dagger.Module
 
@@ -21,6 +18,9 @@ internal abstract class RepositoryModule {
 
     @Binds
     abstract fun searchRepository(impl: SearchRepositoryImp): SearchRepository
+
+    @Binds
+    abstract fun showsRepository(impl: ShowsRepositoryImp): ShowsRepository
 
     @Module
     internal object Providers

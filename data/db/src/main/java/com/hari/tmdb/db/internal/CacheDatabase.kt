@@ -17,7 +17,12 @@ import com.hari.tmdb.db.internal.entity.*
         VideoEntity::class,
         CastingEntityImp::class,
         PeopleEntityImp::class,
-        LanguageEntity::class
+        LanguageEntity::class,
+        ShowEntity::class,
+        PopularShowEntity::class,
+        TopRatedShowEntity::class,
+        OnTvShowEntity::class,
+        AiringTodayShowEntity::class
     ],
     version = 1
 )
@@ -32,6 +37,11 @@ internal abstract class CacheDatabase : RoomDatabase() {
     abstract fun castingDao(): CastingDao
     abstract fun peopleDao(): PeopleDao
     abstract fun languageDao(): LanguageDao
+    abstract fun showsDao(): ShowsDao
+    abstract fun popularShowDao(): PopularShowDao
+    abstract fun topRatedShowDao(): TopRatedShowDao
+    abstract fun onTvShowDao(): OnTvShowDao
+    abstract fun airingTodayShowDao(): AiringTodayShowDao
     fun sqlite(): SupportSQLiteDatabase {
         return mDatabase
     }
