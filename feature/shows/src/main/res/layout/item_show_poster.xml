@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageViewPoster" />
 
         <ImageView
+            android:foreground="?selectableItemBackground"
             android:id="@+id/imageViewPoster"
             imageCornerRadius="@{10.0f}"
             tmdbPosterPath="@{show.posterPath}"

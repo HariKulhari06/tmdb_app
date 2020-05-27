@@ -52,8 +52,12 @@ enum class PageConfiguration(
     ),
     TV_SHOWS(
         R.id.shows,
-        hasTitle = true,
-        hideToolbar = false
+        hasTitle = true
+    ),
+    TV_SHOWS_DETAIL(
+        R.id.shows_detail,
+        hasTitle = false,
+        hideBottomNavigationMenu = true
     ),
     OTHER(0);
 

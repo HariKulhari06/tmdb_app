@@ -26,12 +26,13 @@
             android:id="@+id/poster_image"
             imageCornerRadius="@{15.0f}"
             tmdbPosterPath="@{movie.posterPath}"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/screen_between_view"
             android:layout_marginEnd="@dimen/screen_space"
+            android:elevation="10dp"
             android:scaleType="fitXY"
-            app:layout_constraintDimensionRatio="H,1:1.7"
+            app:layout_constraintDimensionRatio="H,1:1.5"
             app:layout_constraintEnd_toEndOf="@id/guideline_center"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +42,9 @@
 
         <androidx.constraintlayout.helper.widget.Flow
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/screen_between_view"
-            app:constraint_referenced_ids="rating_container,budget_container,revenue_container,runtime_container,status_container,production_container"
+            app:constraint_referenced_ids="rating_container,budget_container,revenue_container,runtime_container,status_container"
             app:flow_horizontalBias="0"
             app:flow_horizontalGap="@dimen/screen_space"
             app:flow_horizontalStyle="spread_inside"
@@ -53,6 +54,7 @@
             app:flow_verticalAlign="top"
             app:flow_verticalGap="@dimen/screen_space"
             app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="@+id/poster_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline_center"
             app:layout_constraintTop_toTopOf="parent" />
@@ -228,7 +230,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/production_container"
-            isVisible="@{movie.productionCompanyPath!=null}"
+            isVisible="@{false}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints">

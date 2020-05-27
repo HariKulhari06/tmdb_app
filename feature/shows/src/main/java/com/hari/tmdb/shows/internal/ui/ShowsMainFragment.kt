@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
 import com.hari.tmdb.di.PageScope
@@ -16,11 +16,13 @@ import com.hari.tmdb.ext.assistedActivityViewModels
 import com.hari.tmdb.ext.assistedViewModels
 import com.hari.tmdb.groupie.CarouselItemDecoration
 import com.hari.tmdb.groupie.HeaderItemDecoration
+import com.hari.tmdb.groupie.InsetItemDecoration
 import com.hari.tmdb.model.Show
 import com.hari.tmdb.shows.R
 import com.hari.tmdb.shows.databinding.MoviesMainFragmentBinding
 import com.hari.tmdb.shows.internal.adapter.ShowAdapter
 import com.hari.tmdb.shows.internal.items.CarouselGroup
+import com.hari.tmdb.shows.internal.items.ItemGenreCard
 import com.hari.tmdb.shows.internal.items.ItemTopTrendingBanner
 import com.hari.tmdb.shows.internal.viewmodel.ShowsViewModel
 import com.hari.tmdb.system.viewmodel.SystemViewModel
@@ -33,7 +35,6 @@ import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -69,18 +70,25 @@ class ShowsMainFragment : Fragment(R.layout.movies_main_fragment), HasAndroidInj
         super.onViewCreated(view, savedInstanceState)
         val binding = MoviesMainFragmentBinding.bind(view)
 
-        binding.recyclerViewShows.addItemDecoration(headerItemDecoration())
         val adapter = GroupAdapter<GroupieViewHolder<*>>()
-        binding.recyclerViewShows.adapter = adapter
 
-        showsViewModel.latestAiredShow.observe(viewLifecycleOwner, Observer { show: Show ->
-            /* if(adapter.getItem(0) is ItemTopTrendingBanner){
-                 adapter.removeGroupAtAdapterPosition(0)
-                 adapter.add(0,createBanner(show))
-             }else{
-                 adapter.add(0,createBanner(show))
-             }*/
-        })
+        val layoutManager = GridLayoutManager(requireContext(), adapter.spanCount)
+        layoutManager.spanSizeLookup = adapter.spanSizeLookup
+
+        binding.recyclerViewShows.layoutManager = layoutManager
+        binding.recyclerViewShows.addItemDecoration(headerItemDecoration())
+        binding.recyclerViewShows.addItemDecoration(
+            InsetItemDecoration(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_surface
+                ),
+                resources.getDimensionPixelSize(R.dimen.item_decoration_album),
+                ItemGenreCard.INSET_TYPE_KEY,
+                ItemGenreCard.INSET
+            )
+
+        )
 
         val popularShowSection = Section(HeaderItem(titleStringResId = R.string.popular) {}).apply {
             setHideWhenEmpty(true)
@@ -111,11 +119,7 @@ class ShowsMainFragment : Fragment(R.layout.movies_main_fragment), HasAndroidInj
         topTreadingShowSection.add(createCarousal(showsViewModel.topRatedShoePagedList))
         adapter.add(topTreadingShowSection)
 
-
-        lifecycleScope.launchWhenResumed {
-            delay(1000)
-            showsViewModel.refresh()
-        }
+        binding.recyclerViewShows.adapter = adapter
     }
 
     private fun createCarousal(showsPagedList: LiveData<PagedList<Show>>): CarouselGroup {

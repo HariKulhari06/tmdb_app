@@ -3,6 +3,7 @@ package com.hari.tmdb.shows.internal.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +37,9 @@ class ShowAdapter : PagedListAdapter<Show, ShowAdapter.ShowViewHolder>(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(show: Show) {
             binding.show = show
+            binding.imageViewPoster.setOnClickListener {
+                it.findNavController().navigate(R.id.shows_detail)
+            }
         }
     }
 
