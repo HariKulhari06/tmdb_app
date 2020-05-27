@@ -157,8 +157,16 @@
 
 
     <fragment
-        android:label="@string/tv_show"
         android:id="@+id/shows"
-        android:name="com.hari.tmdb.shows.internal.ui.ShowsMainFragment" />
+        android:name="com.hari.tmdb.shows.internal.ui.ShowsMainFragment"
+        android:label="@string/tv_show" />
 
+
+    <fragment
+        android:id="@+id/shows_detail"
+        android:name="com.hari.tmdb.shows.internal.ui.ShowDetailFragment">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

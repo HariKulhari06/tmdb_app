@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="show"
+            type="com.hari.tmdb.model.Show" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/screen_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".45" />
+
+
+        <ImageView
+            android:id="@+id/poster_image"
+            imageCornerRadius="@{15.0f}"
+            tmdbPosterPath="@{show.posterPath}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/screen_between_view"
+            android:layout_marginEnd="@dimen/screen_space"
+            android:elevation="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/show_poster"
+            app:layout_constraintDimensionRatio="H,1:1.5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_center"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="The Killing of Secred Dear"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintBottom_toTopOf="@+id/director_text"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toTopOf="@+id/poster_image"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/director_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Directed by Hari SIngh Kulhari "
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@+id/ratings"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+        <RatingBar
+            android:id="@+id/ratings"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/yellow"
+            android:rating="3"
+            app:layout_constraintBottom_toTopOf="@+id/genre_text"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@+id/director_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/genre_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Comedy / Romance / Action"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintBottom_toTopOf="@+id/runtime_text"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@+id/ratings" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/runtime_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/screen_space"
+            android:text="1 hr 44 mins, ENG"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintBottom_toBottomOf="@+id/poster_image"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@+id/genre_text" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/summary_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="New York in the 90s was amazing. So when the people of the sitcom making business wanted to make another comedy show, they wanted to have the setting in that city. And thus, Friends was born! Another US sitcom that spanned a whole decade, and one of the top 10 best comedy series."
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/poster_image" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
