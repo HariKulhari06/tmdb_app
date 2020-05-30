@@ -9,7 +9,7 @@ import com.hari.tmdb.model.TmdbEntity
 
 @Entity(tableName = "shows", indices = [Index("tmdb_id", unique = true)])
 data class ShowEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") override val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") override var id: Int = 0,
     @ColumnInfo(name = "title") val title: String? = null,
     @ColumnInfo(name = "original_title") val originalTitle: String? = null,
     @ColumnInfo(name = "tmdb_id") val tmdbId: Int? = null,
@@ -33,5 +33,6 @@ data class ShowEntity(
     @ColumnInfo(name = "genres") val _genres: String? = null,
     @ColumnInfo(name = "status") val status: ShowStatus = ShowStatus.ENDED,
     @ColumnInfo(name = "number_of_seasons") val numberOfSeasons: Int? = null,
-    @ColumnInfo(name = "number_of_episodes") val numberOfEpisodes: Int? = null
+    @ColumnInfo(name = "number_of_episodes") val numberOfEpisodes: Int? = null,
+    @ColumnInfo(name = "created_by") val createdBy: String? = null
 ) : TmdbEntity

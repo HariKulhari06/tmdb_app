@@ -20,12 +20,19 @@
     <style name="ShapeAppearance.Tmdb.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <!--Your custom shape here-->
         <item name="cornerFamily">rounded</item>
+
     </style>
 
     <!--Shape Appearance for medium components like cards, alert dialogs-->
     <style name="ShapeAppearance.Tmdb.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <!--Your custom shape here-->
         <item name="cornerFamily">rounded</item>
+
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+
     </style>
 
     <!--Shape Appearance for large components like side and bottom navigation drawers-->

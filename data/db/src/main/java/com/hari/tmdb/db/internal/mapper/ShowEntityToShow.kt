@@ -7,6 +7,7 @@ import com.hari.tmdb.model.mapper.Mapper
 val showEntityToShow = object : Mapper<ShowEntity, Show> {
     override suspend fun map(from: ShowEntity): Show {
         return Show(
+            id = from.id,
             tmdbId = from.tmdbId!!,
             title = from.title,
             runtime = from.runtime,
@@ -28,7 +29,9 @@ val showEntityToShow = object : Mapper<ShowEntity, Show> {
             voteAverage = from.voteAverage,
             voteCount = from.voteCount,
             posterPath = from.posterPath,
-            backdrop_path = from.backdrop_path
+            backdrop_path = from.backdrop_path,
+            genre = from._genres,
+            createdBy = from.createdBy
         )
     }
 

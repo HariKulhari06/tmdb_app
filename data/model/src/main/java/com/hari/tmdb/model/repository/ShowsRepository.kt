@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.Flow
 interface ShowsRepository {
     fun getLatestAiredShow(): Flow<Show>
 
+    fun getShow(id: Int): Flow<Show>
+
+    fun refreshShow(id: Int): Flow<LoadingState>
+
     suspend fun refreshPopularShows(): LiveData<LoadingState>
     fun popularShowsListing(scope: CoroutineScope): Listing<Show>
 

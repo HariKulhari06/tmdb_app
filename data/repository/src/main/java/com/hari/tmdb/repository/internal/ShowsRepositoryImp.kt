@@ -15,21 +15,64 @@ import com.hari.tmdb.model.*
 import com.hari.tmdb.model.mapper.toLambda
 import com.hari.tmdb.model.repository.ShowsRepository
 import com.hari.tmdb.repository.mapper.TvShowResultsPageToShows
+import com.hari.tmdb.repository.mapper.TvShowToShowEntity
 import com.hari.tmdb.repository.paging.ShowsBoundaryCallback
+import com.uwetrottmann.tmdb2.entities.AppendToResponse
+import com.uwetrottmann.tmdb2.enumerations.AppendToResponseItem
 import com.uwetrottmann.tmdb2.services.TvService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
 class ShowsRepositoryImp @Inject constructor(
     private val tvShowResultsPageMapper: TvShowResultsPageToShows,
+    private val tvShowMapper: TvShowToShowEntity,
     private val showsDatabase: ShowsDatabase,
     private val tvService: TvService
 ) : ShowsRepository {
     override fun getLatestAiredShow(): Flow<Show> {
         return showsDatabase.getLatestAiredShow()
+    }
+
+    override fun getShow(id: Int): Flow<Show> {
+        return showsDatabase.getShow(id)
+    }
+
+    override fun refreshShow(id: Int): Flow<LoadingState> {
+        return flow {
+            emit(LoadingState.Loading)
+
+            try {
+                when (val result: Result<ShowEntity> =
+                    tvService.tv(
+                        id,
+                        null,
+                        AppendToResponse(
+                            AppendToResponseItem.SIMILAR,
+                            AppendToResponseItem.CREDITS,
+                            AppendToResponseItem.VIDEOS
+                        )
+                    )
+                        .executeWithRetry()
+                        .toResult(tvShowMapper.toLambda())) {
+                    is Success -> {
+                        val show = result.data
+                        show.id = showsDatabase.getShowId(id)
+                        showsDatabase.insertShow(show)
+                        emit(LoadingState.Loaded)
+                    }
+                    is ErrorResult -> {
+                        Timber.error(result.throwable)
+                        emit(LoadingState.Error(result.throwable))
+                    }
+                }
+            } catch (e: Exception) {
+                emit(LoadingState.Error(e))
+            }
+        }
     }
 
     override suspend fun refreshPopularShows(): LiveData<LoadingState> {

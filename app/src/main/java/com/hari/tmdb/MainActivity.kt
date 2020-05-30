@@ -41,6 +41,8 @@ import com.hari.tmdb.settings.SettingsFragment
 import com.hari.tmdb.settings.SettingsModule
 import com.hari.tmdb.settings.di.SettingsAssistedInjectModule
 import com.hari.tmdb.shows.internal.di.ShowAssistedInjectModule
+import com.hari.tmdb.shows.internal.ui.ShowDetailFragment
+import com.hari.tmdb.shows.internal.ui.ShowDetailFragmentModule
 import com.hari.tmdb.shows.internal.ui.ShowsMainFragment
 import com.hari.tmdb.shows.internal.ui.ShowsMainFragmentModule
 import com.hari.tmdb.system.viewmodel.SystemViewModel
@@ -195,7 +197,6 @@ abstract class MainActivityModule {
     @Binds
     abstract fun providesActivity(mainActivity: MainActivity): FragmentActivity
 
-
     @PageScope
     @ContributesAndroidInjector(
         modules = [MainMovieFragmentModule::class, MovieAssistedInjectModule::class]
@@ -244,7 +245,13 @@ abstract class MainActivityModule {
     @ContributesAndroidInjector(
         modules = [ShowsMainFragmentModule::class, ShowAssistedInjectModule::class]
     )
-    abstract fun contributeShoesFragment(): ShowsMainFragment
+    abstract fun contributeShowFragment(): ShowsMainFragment
+
+    @PageScope
+    @ContributesAndroidInjector(
+        modules = [ShowDetailFragmentModule::class, ShowAssistedInjectModule::class]
+    )
+    abstract fun contributeShowDetailFragment(): ShowDetailFragment
 
     @Module
     abstract class MainActivityBuilder {

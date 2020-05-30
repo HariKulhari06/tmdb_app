@@ -1,6 +1,7 @@
 package com.hari.tmdb.model
 
 data class Show(
+    val id: Int = 0,
     val tmdbId: Int,
     val title: String? = null,
     val originalTitle: String? = null,
@@ -22,7 +23,9 @@ data class Show(
     val numberOfSeasons: Int? = null,
     val numberOfEpisodes: Int? = null,
     val posterPath: String? = null,
-    val backdrop_path: String? = null
+    val backdrop_path: String? = null,
+    val genre: String? = null,
+    val createdBy: String? = null
 ) {
     companion object {
         val EMPTY = Show(tmdbId = 0, status = ShowStatus.ENDED)

@@ -1,8 +1,16 @@
 package com.hari.tmdb.model
 
 enum class ShowStatus(val storageKey: String) {
-    ENDED("ended"),
-    RETURNING("returning"),
-    CANCELED("canceled"),
-    IN_PRODUCTION("inproduction");
+    ENDED("Ended"),
+    RETURNING("Returning Series"),
+    CANCELED("Canceled"),
+    IN_PRODUCTION("Inproduction"),
+    UNKNOWN("");
+
+    companion object {
+        fun status(storageKey: String): ShowStatus {
+            return values()
+                .firstOrNull { it.storageKey == storageKey } ?: UNKNOWN
+        }
+    }
 }

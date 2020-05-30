@@ -186,6 +186,19 @@ internal class RoomDatabase @Inject constructor(
         }
     }
 
+    override fun getShow(id: Int): Flow<Show> {
+        return showsDao.show(id).map { showEntity -> showEntityToShow.map(showEntity) }
+            .distinctUntilChanged()
+    }
+
+    override suspend fun getShowId(tmdb: Int): Int {
+        return showsDao.getShowId(tmdb)
+    }
+
+    override suspend fun insertShow(data: ShowEntity) {
+        showsDao.insertOrUpdate(data)
+    }
+
     override suspend fun insertPopularShows(shows: List<Pair<ShowEntity, PopularShowEntity>>) {
         cacheDatabase.withTransaction {
             shows.firstOrNull()?.let { pair ->

@@ -247,7 +247,7 @@
             <ImageView
                 android:id="@+id/production_image"
                 imageSaturateOnLoad="@{false}"
-                tmdbPosterPath="@{movie.productionCompanyPath}"
+                tmdbLogoPath="@{movie.productionCompanyPath}"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="@dimen/screen_between_view"

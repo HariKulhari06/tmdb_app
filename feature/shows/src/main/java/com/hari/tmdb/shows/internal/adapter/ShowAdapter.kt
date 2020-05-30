@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hari.tmdb.model.Show
 import com.hari.tmdb.shows.R
 import com.hari.tmdb.shows.databinding.ItemShowPosterBinding
+import com.hari.tmdb.shows.internal.ui.ShowsMainFragmentDirections.Companion.showsToShowDetail
 
 class ShowAdapter : PagedListAdapter<Show, ShowAdapter.ShowViewHolder>(
     diffCallbacks
@@ -38,8 +40,12 @@ class ShowAdapter : PagedListAdapter<Show, ShowAdapter.ShowViewHolder>(
         fun bind(show: Show) {
             binding.show = show
             binding.imageViewPoster.setOnClickListener {
-                it.findNavController().navigate(R.id.shows_detail)
+                val extra = FragmentNavigatorExtras(
+                    binding.imageViewPoster to binding.imageViewPoster.transitionName
+                )
+                it.findNavController().navigate(showsToShowDetail(show.tmdbId), extra)
             }
+            binding.imageViewPoster.transitionName = show.tmdbId.toString()
         }
     }
 

@@ -9,6 +9,12 @@ import kotlinx.coroutines.flow.Flow
 interface ShowsDatabase {
     fun getLatestAiredShow(): Flow<Show>
 
+    fun getShow(id: Int): Flow<Show>
+
+    suspend fun getShowId(tmdb: Int): Int
+
+    suspend fun insertShow(data: ShowEntity)
+
     suspend fun insertPopularShows(shows: List<Pair<ShowEntity, PopularShowEntity>>)
     suspend fun getPopularShowLastPage(): Int
     fun popularShowDataSource(): DataSource.Factory<Int, Show>

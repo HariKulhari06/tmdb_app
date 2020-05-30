@@ -3,7 +3,7 @@ package dependencies
 @Suppress("unused", "MayBeConstant")
 object Dep {
     object GradlePlugin {
-        val android = "com.android.tools.build:gradle:4.1.0-alpha10"
+        val android = "com.android.tools.build:gradle:4.0.0"
         val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
         val playServices = "com.google.gms:google-services:4.3.3"
@@ -69,7 +69,7 @@ object Dep {
         }
 
         object Navigation {
-            val version = "2.2.1"
+            val version = "2.3.0-beta01"
             val runtimeKtx = "androidx.navigation:navigation-runtime-ktx:$version"
             val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
             val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"

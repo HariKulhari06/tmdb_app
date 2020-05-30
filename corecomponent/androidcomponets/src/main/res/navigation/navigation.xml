@@ -159,7 +159,14 @@
     <fragment
         android:id="@+id/shows"
         android:name="com.hari.tmdb.shows.internal.ui.ShowsMainFragment"
-        android:label="@string/tv_show" />
+        android:label="@string/tv_show">
+
+
+        <action
+            android:id="@+id/showsToShowDetail"
+            app:destination="@+id/shows_detail" />
+
+    </fragment>
 
 
     <fragment
@@ -167,6 +174,6 @@
         android:name="com.hari.tmdb.shows.internal.ui.ShowDetailFragment">
         <argument
             android:name="id"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
 </navigation>
